@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "@/styles/globals.css";
 import Header from "@/components/header";
+import AuthObserver from "@/components/auth/AuthObserver";
+import Providers from "../providers";
 
 export const inter = Inter({ subsets: ["latin"] });
 
@@ -18,8 +20,11 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body className={`${inter.className} antialiased`}>
-        <Header />
-        {children}
+        <Providers>
+          <AuthObserver />
+          <Header />
+          {children}
+        </Providers>
       </body>
     </html>
   );

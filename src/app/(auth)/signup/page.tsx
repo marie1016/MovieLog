@@ -4,14 +4,17 @@ import Button from "@/components/ui/button";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import auth from "@/firebase";
 import { useRouter } from "next/navigation";
-
 import { SignupSchemaType, signupSchema } from "@/lib/constants/signupSchema";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Input from "@/components/ui/input";
+import { saveUser } from "@/lib/firebase/saveUser";
+import { useSelector } from "react-redux";
+import { RootState } from "@/lib/store";
 
 export default function SignupPage() {
   const router = useRouter();
+  const isLoggedIn = useSelector((state: RootState) => state.user.isLoggedIn);
 
   const {
     register,
@@ -29,17 +32,30 @@ export default function SignupPage() {
 
   const onSubmit: SubmitHandler<SignupSchemaType> = async (values) => {
     try {
-      await createUserWithEmailAndPassword(auth, values.email, values.password);
-      if (auth.currentUser) {
-        await updateProfile(auth.currentUser, {
-          displayName: values.nickname,
-        });
-      }
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        values.email,
+        values.password,
+      );
+      const { user } = userCredential;
+
+      // 닉네임 업데이트
+      await updateProfile(user, {
+        displayName: values.nickname,
+      });
+
+      // firestore에 유저 정보 저장
+      await saveUser(user);
+
       router.push("/");
     } catch (error) {
       console.error(error);
     }
   };
+
+  if (isLoggedIn) {
+    router.push("/");
+  }
 
   return (
     <div className="mx-auto my-[100px] max-w-[460px]">

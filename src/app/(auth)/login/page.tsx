@@ -10,9 +10,12 @@ import { loginSchema, LoginSchemaType } from "@/lib/constants/loginSchema";
 import Input from "@/components/ui/input";
 import { loginErrorMessage } from "@/lib/constants/loginErrorMessages";
 import { FirebaseError } from "firebase/app";
+import { useSelector } from "react-redux";
+import { RootState } from "@/lib/store";
 
 export default function LoginPage() {
   const router = useRouter();
+  const isLoggedIn = useSelector((state: RootState) => state.user.isLoggedIn);
 
   const {
     register,
@@ -39,7 +42,11 @@ export default function LoginPage() {
       }
     }
   };
-  console.log(errors.root?.message);
+
+  if (isLoggedIn) {
+    router.push("/");
+  }
+
   return (
     <div className="mx-auto my-[100px] max-w-[460px]">
       <h1 className="mb-10 text-center text-[40px] font-medium">로그인</h1>
