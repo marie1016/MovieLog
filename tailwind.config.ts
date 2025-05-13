@@ -14,6 +14,7 @@ const config: Config = {
           darkGray: "#494949",
         },
         text: {
+          darkGray: "#818181",
           gray: "#ABABAB",
         },
         border: "#ABABAB",
@@ -28,6 +29,9 @@ const config: Config = {
         borderRadius: {
           sm: "8px",
         },
+      },
+      fontFamily: {
+        jetBrainsMono: ["var(--font-jetBrainsMono)"],
       },
     },
     plugins: [],

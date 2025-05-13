@@ -1,21 +1,18 @@
 "use client";
 
 import Button from "@/components/ui/button";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { getIdToken, signInWithEmailAndPassword } from "firebase/auth";
 import { useRouter } from "next/navigation";
-import auth from "@/firebase";
+import auth from "@/lib/firebase/firebase";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { loginSchema, LoginSchemaType } from "@/lib/constants/loginSchema";
 import Input from "@/components/ui/input";
 import { loginErrorMessage } from "@/lib/constants/loginErrorMessages";
 import { FirebaseError } from "firebase/app";
-import { useSelector } from "react-redux";
-import { RootState } from "@/lib/store";
 
 export default function LoginPage() {
   const router = useRouter();
-  const isLoggedIn = useSelector((state: RootState) => state.user.isLoggedIn);
 
   const {
     register,
@@ -32,8 +29,26 @@ export default function LoginPage() {
 
   const onSubmit: SubmitHandler<LoginSchemaType> = async (values) => {
     try {
-      await signInWithEmailAndPassword(auth, values.email, values.password);
-      router.push("/");
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        values.email,
+        values.password,
+      );
+
+      // 서버로 idToken 토큰 전달
+      const idToken = await getIdToken(userCredential.user);
+
+      const response = await fetch("/api/login", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${idToken}`,
+          "Content-type": "application/json",
+        },
+      });
+
+      if (response.status === 200) {
+        router.push("/");
+      }
     } catch (error: unknown) {
       if (error instanceof FirebaseError) {
         const message =
@@ -42,10 +57,6 @@ export default function LoginPage() {
       }
     }
   };
-
-  if (isLoggedIn) {
-    router.push("/");
-  }
 
   return (
     <div className="mx-auto my-[100px] max-w-[460px]">
@@ -60,7 +71,6 @@ export default function LoginPage() {
         />
         <Input
           {...register("password")}
-          name="password"
           type="password"
           placeholder="비밀번호"
           error={errors.password}

@@ -1,4 +1,4 @@
-import { db } from "@/firebase";
+import { db } from "@/lib/firebase/firebase";
 import { User } from "firebase/auth";
 import { doc, serverTimestamp, setDoc } from "firebase/firestore";
 
