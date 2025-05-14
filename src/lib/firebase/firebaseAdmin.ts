@@ -1,5 +1,4 @@
 import { cert, getApps, initializeApp } from "firebase-admin/app";
-import { getAuth } from "firebase-admin/auth";
 
 const adminConfig = {
   projectId: process.env.FIREBASE_PROJECT_ID,
@@ -12,5 +11,3 @@ if (!getApps().length) {
     credential: cert(adminConfig),
   });
 }
-
-export const adminAuth = getAuth();

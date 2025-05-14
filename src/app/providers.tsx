@@ -1,9 +1,23 @@
 "use client";
 
-import { Provider } from "react-redux";
+import { Provider, useDispatch } from "react-redux";
 import store from "@/lib/store";
-import { login, User } from "@/lib/store/user";
+import { login, logout, User } from "@/lib/store/user";
 import { useEffect } from "react";
+
+function DispatchUser({ initialUser }: { initialUser: User | null }) {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (initialUser) {
+      dispatch(login(initialUser));
+    } else {
+      dispatch(logout());
+    }
+  }, [initialUser, dispatch]);
+
+  return null;
+}
 
 export default function Providers({
   children,
@@ -12,11 +26,10 @@ export default function Providers({
   children: React.ReactNode;
   initialUser: User | null;
 }) {
-  useEffect(() => {
-    if (initialUser) {
-      store.dispatch(login(initialUser));
-    }
-  }, [initialUser]);
-
-  return <Provider store={store}>{children}</Provider>;
+  return (
+    <Provider store={store}>
+      <DispatchUser initialUser={initialUser} />
+      {children}
+    </Provider>
+  );
 }
