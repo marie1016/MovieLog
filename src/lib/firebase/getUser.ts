@@ -1,5 +1,5 @@
 import { cookies } from "next/headers";
-import { getAuth } from "firebase-admin/auth";
+import { adminAuth } from "./firebaseAdmin";
 
 export async function getUser() {
   const sessionCookie = cookies().get("session")?.value;
@@ -7,8 +7,8 @@ export async function getUser() {
   if (!sessionCookie) return null;
 
   try {
-    const decoded = await getAuth().verifySessionCookie(sessionCookie);
-    const user = await getAuth().getUser(decoded.uid);
+    const decoded = await adminAuth.verifySessionCookie(sessionCookie);
+    const user = await adminAuth.getUser(decoded.uid);
     return {
       uid: user.uid,
       email: user.email ?? null,

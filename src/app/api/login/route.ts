@@ -1,9 +1,8 @@
-import { getAuth } from "firebase-admin/auth";
-import { cookies } from "next/headers";
+import { adminAuth } from "@/lib/firebase/firebaseAdmin";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
-  const authorization = request.headers.get("authorization");
+  const authorization = request.headers.get("Authorization");
 
   if (!authorization?.startsWith("Bearer ")) {
     return NextResponse.json(
@@ -15,14 +14,16 @@ export async function POST(request: NextRequest) {
   const idToken = authorization.split("Bearer")[1].trim();
 
   try {
-    await getAuth().verifyIdToken(idToken);
+    await adminAuth.verifyIdToken(idToken);
 
     const expiresIn = 60 * 60 * 24 * 7 * 1000;
-    const sessionCookie = await getAuth().createSessionCookie(idToken, {
+    const sessionCookie = await adminAuth.createSessionCookie(idToken, {
       expiresIn,
     });
 
-    cookies().set("session", sessionCookie, {
+    const response = NextResponse.json({ message: "로그인 성공" });
+
+    response.cookies.set("session", sessionCookie, {
       httpOnly: true,
       secure: true,
       sameSite: "strict",
@@ -30,7 +31,7 @@ export async function POST(request: NextRequest) {
       maxAge: expiresIn / 1000,
     });
 
-    return NextResponse.json({ message: "로그인 성공" });
+    return response;
   } catch (error) {
     return NextResponse.json("서버 내부 오류 발생", {
       status: 500,

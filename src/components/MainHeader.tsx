@@ -3,18 +3,18 @@
 import auth from "@/lib/firebase/firebase";
 import { RootState } from "@/lib/store";
 import { signOut } from "firebase/auth";
-import { useRouter } from "next/navigation";
 import { useSelector } from "react-redux";
 import Link from "next/link";
 
 export default function MainHeader() {
-  const router = useRouter();
   const { user, isLoading } = useSelector((state: RootState) => state.user);
 
   const handleLogout = async () => {
     try {
       await signOut(auth);
-      router.push("/login");
+      await fetch("/api/logout", { method: "POST" });
+
+      window.location.reload();
     } catch (error) {
       console.error(error);
     }
