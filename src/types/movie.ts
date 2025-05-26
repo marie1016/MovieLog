@@ -13,6 +13,7 @@ export type Movie = {
   release_date: string;
   genre_ids: number[];
   vote_average: number;
+  poster_path: string;
 };
 
 export type MovieResponse = {
