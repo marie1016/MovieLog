@@ -26,7 +26,7 @@ export default function MainHeader() {
     content = (
       <>
         <span>{user.displayName}</span>
-        <button className="text-text-darkGray" onClick={handleLogout}>
+        <button className="text-text-gray600" onClick={handleLogout}>
           로그아웃
         </button>
       </>
@@ -41,8 +41,8 @@ export default function MainHeader() {
   }
 
   return (
-    <div className="h-[60px] bg-white">
-      <div className="flex h-full w-full items-center justify-between px-[320px]">
+    <header className="h-[60px] w-full bg-white shadow-xl">
+      <div className="mx-auto flex h-full max-w-7xl items-center justify-between px-16">
         <Link href="/" className="font-jetBrainsMono text-2xl">
           MovieLog
         </Link>
@@ -53,6 +53,6 @@ export default function MainHeader() {
           </nav>
         )}
       </div>
-    </div>
+    </header>
   );
 }

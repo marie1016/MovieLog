@@ -21,8 +21,12 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({
   children,
+  movies,
+  reviews,
 }: Readonly<{
   children: React.ReactNode;
+  movies: React.ReactNode;
+  reviews: React.ReactNode;
 }>) {
   const user = await getUser();
 
@@ -31,7 +35,9 @@ export default async function RootLayout({
       <body className={`${jetBrainsMono.variable} antialiased`}>
         <Providers initialUser={user}>
           <MainHeader />
-          {children}
+          <div>{children}</div>
+          <div>{movies}</div>
+          <div>{reviews}</div>
         </Providers>
       </body>
     </html>
