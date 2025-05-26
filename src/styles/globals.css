@@ -18,3 +18,26 @@ body {
 .input.error:focus {
   box-shadow: 0 0 3px 4px rgba(255, 70, 70, 0.3);
 }
+
+.carousel {
+  scrollbar-width: none;
+  &::scroll-button(*) {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 27px;
+    height: 77px;
+    border-radius: 10px;
+    border: 1px solid #efefef;
+  }
+
+  &::scroll-button(left) {
+    content: "⬅" / "Scroll Left";
+    left: 6px;
+  }
+
+  &::scroll-button(right) {
+    content: "⮕" / "Scroll Right";
+    right: 6px;
+  }
+}

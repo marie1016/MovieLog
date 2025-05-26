@@ -33,8 +33,11 @@ export async function POST(request: NextRequest) {
 
     return response;
   } catch (error) {
-    return NextResponse.json("서버 내부 오류 발생", {
-      status: 500,
-    });
+    return NextResponse.json(
+      { error: "에러 발생" },
+      {
+        status: 500,
+      },
+    );
   }
 }

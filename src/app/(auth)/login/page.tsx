@@ -42,8 +42,8 @@ export default function LoginPage() {
         method: "POST",
         headers: {
           Authorization: `Bearer ${idToken}`,
-          "Content-type": "application/json",
         },
+        credentials: "include",
       });
 
       if (response.status === 200) {

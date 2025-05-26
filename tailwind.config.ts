@@ -10,14 +10,13 @@ const config: Config = {
     extend: {
       colors: {
         background: {
-          blue: "#5088FF",
           darkGray: "#494949",
         },
         text: {
-          darkGray: "#818181",
-          gray: "#ABABAB",
+          gray500: "#909090",
+          gray600: "#818181",
         },
-        border: "#ABABAB",
+        gray: "#ABABAB",
         blue: "#5088FF",
         danger: "#FF4646",
         screens: {

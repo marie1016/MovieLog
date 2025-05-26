@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 export async function POST(request: NextRequest) {
   const sessionCookie = request.cookies.get("session")?.value || "";
 
-  const response = NextResponse.json({ message: "Logout" });
+  const response = NextResponse.json({ message: "로그아웃 성공" });
   response.cookies.set("session", "", {
     httpOnly: true,
     secure: true,

@@ -15,7 +15,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     const inputClass = twMerge(
       clsx(
         "input",
-        "w-[460px] h-12 bg-background-white placeholder:text-text-gray border-[1px] border-border text-4 font-medium rounded-lg pl-[28px] focus:outline-none focus:z-10 relative",
+        "w-[460px] h-12 bg-background-white placeholder:text-gray border-[1px] border-gray text-4 font-medium rounded-lg pl-[28px] focus:outline-none focus:z-10 relative",
         error && "border-danger error",
         className,
       ),
