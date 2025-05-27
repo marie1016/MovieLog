@@ -8,7 +8,7 @@ export async function Genres() {
   return (
     <div className="my-4 flex items-center gap-4">
       {genres.map((genre) => (
-        <div key={genre.id} className="text-text-gray600 text-xl font-semibold">
+        <div key={genre.id} className="text-gray600 text-xl font-semibold">
           <Link href={`/${genre.name}`}>{genre.name}</Link>
         </div>
       ))}

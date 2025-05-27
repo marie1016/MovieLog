@@ -36,7 +36,7 @@ export default async function RootLayout({
         <Providers initialUser={user}>
           <MainHeader />
           <div>{children}</div>
-          <div>{movies}</div>
+          <div className="mx-auto mt-16 max-w-7xl px-16">{movies}</div>
           <div>{reviews}</div>
         </Providers>
       </body>

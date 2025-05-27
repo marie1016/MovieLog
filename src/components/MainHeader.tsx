@@ -26,7 +26,7 @@ export default function MainHeader() {
     content = (
       <>
         <span>{user.displayName}</span>
-        <button className="text-text-gray600" onClick={handleLogout}>
+        <button className="text-gray600" onClick={handleLogout}>
           로그아웃
         </button>
       </>
