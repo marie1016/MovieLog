@@ -8,7 +8,7 @@ import DropdownToggle from "../ui/Dropdown/DropdownToggle";
 
 const SORT_OPTIONS: Record<string, string> = {
   now_playing: "현재 상영 중",
-  popular: "인기순",
+  top_rated: "평점순",
 };
 
 type SortKey = keyof typeof SORT_OPTIONS;
@@ -33,8 +33,8 @@ export default function MovieDropdown() {
           {SORT_OPTIONS.now_playing}
         </DropdownItem>
         <hr className="w-32 border-t border-gray600" />
-        <DropdownItem onClick={() => handleClick("popular")}>
-          {SORT_OPTIONS.popular}
+        <DropdownItem onClick={() => handleClick("top_rated")}>
+          {SORT_OPTIONS.top_rated}
         </DropdownItem>
       </DropdownList>
     </Dropdown>

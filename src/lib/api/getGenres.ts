@@ -4,10 +4,11 @@ const genreNames = [
   "코미디",
   "액션",
   "로맨스",
-  "다큐멘터리",
+  "스릴러",
   "애니메이션",
   "판타지",
   "드라마",
+  "SF",
 ];
 
 export default async function getGenres() {

@@ -5,14 +5,14 @@ import MovieCard from "./MovieCard";
 export default async function MovieList({
   searchParams,
 }: {
-  searchParams: { sort: string; genreId: number };
+  searchParams: { sort: string; genreId: string };
 }) {
   const sortBy = searchParams.sort || "now_playing";
   const { genreId } = searchParams;
 
   const data = await getMovies(sortBy);
 
-  let movies = data.results;
+  let movies = data;
 
   if (genreId) {
     movies = movies.filter((movie: Movie) =>

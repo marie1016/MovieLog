@@ -5,7 +5,7 @@ import MovieList from "@/components/mainPage/MovieList";
 export default function MoviesPage({
   searchParams,
 }: {
-  searchParams: { sort: string; genreId: number };
+  searchParams: { sort: string; genreId: string };
 }) {
   return (
     <main>
