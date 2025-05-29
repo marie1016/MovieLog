@@ -1,6 +1,4 @@
-import { Movie } from "@/types/movie";
 import Image from "next/image";
-import MovieDropdown from "./MovieDropdown";
 
 interface CardProps {
   title: string;
@@ -10,7 +8,7 @@ interface CardProps {
 
 const BASE_POSTER_PATH = "https://image.tmdb.org/t/p";
 
-function Card({ title, voteAverage, poster }: CardProps) {
+export default function MovieCard({ title, voteAverage, poster }: CardProps) {
   const roundedVoteAverage = voteAverage.toFixed(1);
   const posterPath = `${BASE_POSTER_PATH}/w500${poster}`;
 
@@ -29,30 +27,5 @@ function Card({ title, voteAverage, poster }: CardProps) {
         </div>
       </div>
     </div>
-  );
-}
-
-export default async function MovieCard() {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/movies`, {
-    cache: "no-store",
-  });
-  const movies = (await res.json()) as Movie[];
-
-  console.log(movies);
-  return (
-    <section className="relative h-96 w-full rounded-xl bg-white">
-      <ul className="carousel scrollbar-hide flex h-full snap-x snap-mandatory space-x-5 overflow-x-auto scroll-smooth px-10">
-        {movies.map((movie) => (
-          <li key={movie.id} className="flex snap-center items-center">
-            <Card
-              title={movie.title}
-              voteAverage={movie.vote_average}
-              poster={movie.poster_path}
-            />
-          </li>
-        ))}
-      </ul>
-      <MovieDropdown />
-    </section>
   );
 }

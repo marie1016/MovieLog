@@ -104,7 +104,7 @@ export default function SignupPage() {
         />
         <Button
           type="submit"
-          className="my-6 rounded-lg bg-background-blue text-white"
+          className="my-6 rounded-lg bg-blue text-white"
           disabled={isSubmitting}
         >
           회원가입
