@@ -20,7 +20,9 @@ export default function MovieDropdown() {
   const router = useRouter();
 
   const handleClick = (sortBy: SortKey) => {
-    router.push(`?sort=${sortBy}`);
+    const params = new URLSearchParams(searchParams);
+    params.set("sort", sortBy.toString());
+    router.push(`?${params.toString()}`);
   };
 
   return (

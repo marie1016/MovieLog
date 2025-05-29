@@ -8,7 +8,7 @@ export default function DropdownItem({
   onClick: () => void;
 }) {
   return (
-    <li onClick={onClick} className="text-base font-semibold">
+    <li onClick={onClick} className="cursor-pointer text-base font-semibold">
       {children}
     </li>
   );
