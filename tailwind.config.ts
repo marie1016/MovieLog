@@ -12,11 +12,12 @@ const config: Config = {
       colors: {
         background: {
           darkGray: "#494949",
+          gray400: "#ECECEC",
         },
         text: {
           gray500: "#909090",
-          gray600: "#818181",
         },
+        gray600: "#818181",
         gray: "#ABABAB",
         blue: "#5088FF",
         danger: "#FF4646",
