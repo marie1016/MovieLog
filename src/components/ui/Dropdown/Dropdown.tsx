@@ -1,6 +1,13 @@
 "use client";
 
-import React, { createContext, useContext, useMemo, useState } from "react";
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 
 type DropdownContextType = {
   open: boolean;
@@ -20,12 +27,29 @@ export function useDropdownContext() {
 
 export default function Dropdown({ children }: { children: React.ReactNode }) {
   const [open, toggle] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(e.target as Node)
+      ) {
+        toggle(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  });
 
   const providerValue = useMemo(() => ({ open, toggle }), [open, toggle]);
 
   return (
     <DropdownContext.Provider value={providerValue}>
-      {children}
+      <div ref={dropdownRef}>{children}</div>
     </DropdownContext.Provider>
   );
 }
