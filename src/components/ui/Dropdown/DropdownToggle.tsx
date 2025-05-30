@@ -11,7 +11,7 @@ export default function DropdownToggle({
 
   return (
     <div
-      className="border-gray600 text-gray600 flex h-10 w-32 items-center justify-center rounded-lg border bg-white text-base font-semibold"
+      className="flex h-10 w-32 cursor-pointer items-center justify-center rounded-lg border border-gray600 bg-white text-base font-semibold text-gray600"
       onClick={() => toggle(!open)}
     >
       {children}
