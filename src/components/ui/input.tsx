@@ -21,7 +21,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       ),
     );
     return (
-      <>
+      <div className="relative">
         {label && (
           <label htmlFor={props.name} className="text-4 my-3 block font-medium">
             {label}
@@ -36,7 +36,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         {error?.message && (
           <p className="my-3 text-[14px] text-danger">{error.message}</p>
         )}
-      </>
+      </div>
     );
   },
 );
