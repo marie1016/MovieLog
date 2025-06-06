@@ -55,7 +55,7 @@ export default function SearchMovieInput() {
         }
         iconClassName="absolute left-4 top-1/2 -translate-y-1/2"
         placeholder="영화 제목"
-        className="pl-16"
+        className="pl-16 focus:z-0"
         onChange={handleInputChange}
         onKeyDown={handleKeyDown}
       />
@@ -69,7 +69,7 @@ export default function SearchMovieInput() {
                 width={30}
                 height={30}
               />
-              <div>{searchResult.title}</div>{" "}
+              <div>{searchResult.title}</div>
             </li>
           ))}
         </ul>

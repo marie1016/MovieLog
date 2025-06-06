@@ -4,6 +4,8 @@ import "@/styles/globals.css";
 import localFont from "next/font/local";
 import MainHeader from "@/components/MainHeader";
 import { getUser } from "@/lib/firebase/getUser";
+import Image from "next/image";
+import Link from "next/link";
 import Providers from "../providers";
 
 export const inter = Inter({ subsets: ["latin"] });
@@ -39,6 +41,14 @@ export default async function RootLayout({
           <div className="mx-auto mt-16 max-w-7xl px-16">{movies}</div>
           <div>{reviews}</div>
         </Providers>
+        <Link href="/addReview" className="fixed bottom-20 right-20">
+          <Image
+            src="/images/plus-circle.svg"
+            alt="addReview"
+            width={60}
+            height={60}
+          />
+        </Link>
       </body>
     </html>
   );
