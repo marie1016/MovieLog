@@ -13,19 +13,22 @@ export default function SearchMovie() {
   const lastChange = useRef<ReturnType<typeof setTimeout> | null>(null);
   const searchParams = useSearchParams();
   const query = searchParams.get("query");
-  const [searchTerm, setSearchTerm] = useState(query || "");
+  const decodedQuery = query ? decodeURIComponent(query) : "";
+  const [value, setValue] = useState(decodedQuery);
+  const [searchTerm, setSearchTerm] = useState(decodedQuery);
   const [searchResults, setSearchResults] = useState<Movie[]>([]);
   const [showSearchResults, setShowSearchResults] = useState(false);
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(e.target.value);
     setShowSearchResults(false);
+    setValue(e.target.value);
 
     if (lastChange.current) {
       clearTimeout(lastChange.current);
     }
 
     lastChange.current = setTimeout(() => {
+      setSearchTerm(e.target.value);
       lastChange.current = null;
     }, 500);
   };
@@ -48,6 +51,7 @@ export default function SearchMovie() {
   };
 
   const handleClick = (title: string) => {
+    setValue(title);
     setSearchTerm(title);
     router.push(`?query=${title}`);
     setShowSearchResults(true);
@@ -57,7 +61,7 @@ export default function SearchMovie() {
     <>
       <Input
         type="text"
-        value={searchTerm}
+        value={value}
         icon={
           <Image
             src="/images/search-icon.svg"

@@ -1,4 +1,5 @@
 import { Movie } from "@/types/movie";
+import Link from "next/link";
 import MovieCard from "../mainPage/MovieCard";
 
 export default function MovieSearchResults({
@@ -13,11 +14,13 @@ export default function MovieSearchResults({
           key={searchResult.id}
           className="flex justify-center py-3 sm:basis-1/2 lg:basis-1/3 xl:basis-1/4"
         >
-          <MovieCard
-            title={searchResult.title}
-            voteAverage={searchResult.vote_average}
-            poster={searchResult.poster_path}
-          />
+          <Link href={`addReview/movie/${searchResult.id}`}>
+            <MovieCard
+              title={searchResult.title}
+              voteAverage={searchResult.vote_average}
+              poster={searchResult.poster_path}
+            />
+          </Link>
         </li>
       ))}
     </ul>
