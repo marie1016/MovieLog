@@ -2,25 +2,34 @@
 
 import { ChangeEvent, KeyboardEvent, useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { saveSearchTerm } from "@/lib/firebase/saveSearchTerm";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Movie } from "@/types/movie";
 import Input from "../ui/input";
+import MovieSearchSuggestions from "./MovieSearchSuggestions";
+import MovieSearchResults from "./MovieSearchResults";
 
-export default function SearchMovieInput() {
+export default function SearchMovie() {
   const router = useRouter();
   const lastChange = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const [searchTerm, setSearchTerm] = useState("");
+  const searchParams = useSearchParams();
+  const query = searchParams.get("query");
+  const decodedQuery = query ? decodeURIComponent(query) : "";
+  const [value, setValue] = useState(decodedQuery);
+  const [searchTerm, setSearchTerm] = useState(decodedQuery);
   const [searchResults, setSearchResults] = useState<Movie[]>([]);
+  const [showSearchResults, setShowSearchResults] = useState(false);
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setShowSearchResults(false);
+    setValue(e.target.value);
+
     if (lastChange.current) {
       clearTimeout(lastChange.current);
     }
 
     lastChange.current = setTimeout(() => {
-      lastChange.current = null;
       setSearchTerm(e.target.value);
+      lastChange.current = null;
     }, 500);
   };
 
@@ -34,17 +43,25 @@ export default function SearchMovieInput() {
     fetchResults();
   }, [searchTerm]);
 
-  const handleKeyDown = async (e: KeyboardEvent<HTMLInputElement>) => {
+  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       router.push(`?query=${searchTerm}`);
-      await saveSearchTerm(searchTerm);
+      setShowSearchResults(true);
     }
+  };
+
+  const handleClick = (title: string) => {
+    setValue(title);
+    setSearchTerm(title);
+    router.push(`?query=${title}`);
+    setShowSearchResults(true);
   };
 
   return (
     <>
       <Input
         type="text"
+        value={value}
         icon={
           <Image
             src="/images/search-icon.svg"
@@ -55,24 +72,20 @@ export default function SearchMovieInput() {
         }
         iconClassName="absolute left-4 top-1/2 -translate-y-1/2"
         placeholder="영화 제목"
-        className="pl-16"
+        className="pl-16 focus:z-0"
         onChange={handleInputChange}
         onKeyDown={handleKeyDown}
       />
-      {searchResults.length > 0 && (
-        <ul className="mt-4 flex h-auto w-[460px] flex-col gap-3 rounded-lg border border-gray bg-white px-7 py-4">
-          {searchResults.map((searchResult: Movie) => (
-            <li key={searchResult.id} className="flex items-center gap-3">
-              <Image
-                src="/images/search-icon.svg"
-                alt="검색 아이콘"
-                width={30}
-                height={30}
-              />
-              <div>{searchResult.title}</div>{" "}
-            </li>
-          ))}
-        </ul>
+
+      {searchResults.length > 0 && !showSearchResults && (
+        <MovieSearchSuggestions
+          searchResults={searchResults}
+          onClick={handleClick}
+        />
+      )}
+
+      {showSearchResults && (
+        <MovieSearchResults searchResults={searchResults} />
       )}
     </>
   );

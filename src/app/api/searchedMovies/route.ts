@@ -18,7 +18,7 @@ export async function GET(request: Request) {
 
     if (!res.ok) {
       return NextResponse.json(
-        { error: ".검색한 영화를 불러오는 데 실패했습니다" },
+        { error: "검색한 영화를 불러오는 데 실패했습니다." },
         {
           status: res.status,
         },
