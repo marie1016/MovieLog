@@ -1,4 +1,4 @@
-import SearchMovie from "@/components/myPage/SearchMovie";
+import SearchMovie from "@/components/addReview/SearchMovie";
 
 export default function AddReviewPage() {
   return (

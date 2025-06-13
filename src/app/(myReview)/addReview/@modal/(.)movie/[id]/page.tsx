@@ -1,4 +1,4 @@
-import ReviewCard from "@/components/myPage/ReviewCard";
+import ReviewCard from "@/components/addReview/ReviewCard";
 import getMovieDetails from "@/lib/api/getMovieDetails";
 
 export default async function ModalPage({
