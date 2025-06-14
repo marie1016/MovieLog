@@ -15,24 +15,29 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     const inputClass = twMerge(
       clsx(
         "input",
-        "w-[460px] h-12 bg-background-white placeholder:text-gray border-[1px] border-gray text-4 font-medium rounded-lg pl-[28px] focus:outline-none focus:z-10 relative",
+        "w-[460px] h-12 bg-background-white placeholder:text-gray border-[1px] border-gray text-4 font-medium rounded-lg pl-7 focus:outline-none focus:z-10 relative",
         error && "border-danger error",
         className,
       ),
     );
+
     return (
-      <div className="relative">
+      <div>
         {label && (
           <label htmlFor={props.name} className="text-4 my-3 block font-medium">
             {label}
           </label>
         )}
-        <input ref={ref} {...props} className={inputClass} />
-        {icon && (
-          <button type="button" className={iconClassName}>
-            {icon}
-          </button>
-        )}
+
+        <div className="relative">
+          <input ref={ref} {...props} className={inputClass} />
+          {icon && (
+            <button type="button" className={iconClassName}>
+              {icon}
+            </button>
+          )}
+        </div>
+
         {error?.message && (
           <p className="my-3 text-[14px] text-danger">{error.message}</p>
         )}
