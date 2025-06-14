@@ -14,6 +14,8 @@ export type Movie = {
   genre_ids: number[];
   vote_average: number;
   poster_path: string;
+  genres: Genre[];
+  runtime: number;
 };
 
 export type MovieResponse = {
