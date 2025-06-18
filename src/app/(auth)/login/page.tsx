@@ -68,6 +68,7 @@ export default function LoginPage() {
           type="email"
           error={errors.email}
           className="rounded-b-none"
+          authStyle
         />
         <Input
           {...register("password")}
@@ -75,6 +76,7 @@ export default function LoginPage() {
           placeholder="비밀번호"
           error={errors.password}
           className="rounded-t-none border-t-0"
+          authStyle
         />
         {errors.root?.message && (
           <p className="mt-3 text-[14px] text-danger">{errors.root.message}</p>

@@ -8,7 +8,7 @@ export default function AddReviewLayout({
   return (
     <>
       {modal}
-      <div className="mx-auto mt-16 max-w-7xl px-16">{children}</div>
+      <div className="mx-auto my-16 max-w-7xl px-16">{children}</div>
     </>
   );
 }

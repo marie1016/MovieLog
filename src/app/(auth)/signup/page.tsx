@@ -78,6 +78,7 @@ export default function SignupPage() {
           placeholder="닉네임"
           type="text"
           error={errors.nickname}
+          authStyle
         />
         <Input
           {...register("email")}
@@ -85,6 +86,7 @@ export default function SignupPage() {
           id="email"
           placeholder="이메일"
           error={errors.email}
+          authStyle
         />
         <Input
           {...register("password")}
@@ -93,6 +95,7 @@ export default function SignupPage() {
           type="password"
           placeholder="영문, 숫자를 포함한 8자 이상의 비밀번호"
           error={errors.password}
+          authStyle
         />
         <Input
           {...register("confirmPassword")}
@@ -101,6 +104,7 @@ export default function SignupPage() {
           type="password"
           placeholder="비밀번호를 다시 입력해 주세요"
           error={errors.confirmPassword}
+          authStyle
         />
         <Button
           type="submit"
