@@ -54,7 +54,7 @@ export default function ReviewForm() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <div className="flex justify-between">
+      <div className="mb-4 flex gap-4">
         <Input
           {...register("voteAverage", { required: true })}
           label="평점"
@@ -82,31 +82,26 @@ export default function ReviewForm() {
           className="h-9 w-32 p-4"
         />
       </div>
-      <div className="absolute left-0 top-48">
-        <textarea
-          {...register("review", {
-            required: true,
-            validate: (value) => value.trim() !== "",
-          })}
-          placeholder="리뷰를 작성하세요"
-          className="text-4 min-h-64 w-full resize-none rounded-lg border border-gray p-4 font-medium focus:z-10 focus:outline-none"
-        />
 
-        <Button
-          type="submit"
-          disabled={!isValid}
-          className={`mb-3 mt-10 w-full ${!isValid ? "bg-gray600" : "bg-blue"}`}
-        >
-          등록하기
-        </Button>
-        <Button
-          type="button"
-          onClick={handleReset}
-          className="w-full bg-danger"
-        >
-          작성 취소하기
-        </Button>
-      </div>
+      <textarea
+        {...register("review", {
+          required: true,
+          validate: (value) => value.trim() !== "",
+        })}
+        placeholder="리뷰를 작성하세요"
+        className="text-4 min-h-64 w-full resize-none rounded-lg border border-gray p-4 font-medium focus:z-10 focus:outline-none"
+      />
+
+      <Button
+        type="submit"
+        disabled={!isValid}
+        className={`mb-3 mt-4 w-full ${!isValid ? "bg-gray600" : "bg-blue"}`}
+      >
+        등록하기
+      </Button>
+      <Button type="button" onClick={handleReset} className="w-full bg-danger">
+        작성 취소하기
+      </Button>
     </form>
   );
 }

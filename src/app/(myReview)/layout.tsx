@@ -31,7 +31,7 @@ export default async function MyReviewLayout({
       <body className={`${jetBrainsMono.variable} antialiased`}>
         <Providers initialUser={user}>
           <MainHeader />
-          <div className="h-auto">{children}</div>
+          {children}
         </Providers>
       </body>
     </html>
