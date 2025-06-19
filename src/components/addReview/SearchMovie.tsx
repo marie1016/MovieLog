@@ -72,7 +72,7 @@ export default function SearchMovie() {
         }
         iconClassName="absolute left-4 top-1/2 -translate-y-1/2"
         placeholder="영화 제목"
-        className="pl-16 focus:z-0"
+        className="w-72 pl-16 focus:z-0 sm:w-[460px]"
         onChange={handleInputChange}
         onKeyDown={handleKeyDown}
       />

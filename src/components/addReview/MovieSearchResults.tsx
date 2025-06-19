@@ -8,7 +8,7 @@ export default function MovieSearchResults({
   searchResults: Movie[];
 }) {
   return (
-    <ul className="my-6 flex flex-wrap rounded-xl bg-white p-6">
+    <ul className="my-6 flex flex-wrap justify-center rounded-xl bg-white p-6 sm:justify-start">
       {searchResults.map((searchResult: Movie) => (
         <li
           key={searchResult.id}

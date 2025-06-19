@@ -8,13 +8,17 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   iconClassName?: string;
   label?: string;
   error?: FieldError;
+  authStyle?: boolean;
 }
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ icon, iconClassName, className, label, error, ...props }, ref) => {
+  (
+    { icon, iconClassName, className, label, error, authStyle, ...props },
+    ref,
+  ) => {
     const inputClass = twMerge(
       clsx(
-        "input",
+        authStyle && "input",
         "w-[460px] h-12 bg-background-white placeholder:text-gray border-[1px] border-gray text-4 font-medium rounded-lg pl-7 focus:outline-none focus:z-10 relative",
         error && "border-danger error",
         className,
