@@ -11,8 +11,14 @@ import { FormStateType } from "@/types/addReview";
 import { SubmitHandler, useForm } from "react-hook-form";
 import Input from "../ui/input";
 import Button from "../ui/button";
+import { ReviewCardProps } from "./ReviewCard";
 
-export default function ReviewForm() {
+export default function ReviewForm({
+  posterPath,
+  title,
+  genres,
+  runtime,
+}: ReviewCardProps) {
   const today = dayjs().format("YYYY.MM.DD");
   const router = useRouter();
   const { user } = useSelector((state: RootState) => state.user);
@@ -44,7 +50,8 @@ export default function ReviewForm() {
       formData.append(key, value);
     });
 
-    await addReview(formData, user);
+    await addReview(formData, user, posterPath, title, genres, runtime);
+    router.back();
   };
 
   const handleReset = () => {

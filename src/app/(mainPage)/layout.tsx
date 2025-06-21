@@ -39,9 +39,14 @@ export default async function RootLayout({
           <MainHeader />
           <div>{children}</div>
           <div className="mx-auto mt-16 max-w-7xl px-16">{movies}</div>
-          <div>{reviews}</div>
+          <div className="mt-12 bg-white py-9 md:py-12">
+            <div className="mx-auto max-w-7xl px-16">{reviews}</div>
+          </div>
         </Providers>
-        <Link href="/addReview" className="fixed bottom-20 right-20">
+        <Link
+          href="/addReview"
+          className="fixed bottom-14 right-14 lg:bottom-20 lg:right-20"
+        >
           <Image
             src="/images/plus-circle.svg"
             alt="addReview"
