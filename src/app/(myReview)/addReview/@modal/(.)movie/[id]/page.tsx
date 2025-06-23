@@ -9,6 +9,8 @@ export default async function ModalPage({
 }) {
   const { id } = params;
   const movieDetails = await getMovieDetails(parseInt(id, 10));
+  // eslint-disable-next-line @typescript-eslint/naming-convention
+  const { poster_path, title, genres, runtime } = movieDetails;
 
   return (
     <>
@@ -18,9 +20,19 @@ export default async function ModalPage({
         open
       >
         <h2 className="text-center text-2xl font-medium">영화 리뷰 등록</h2>
-        <div className="flex flex-col gap-3">
-          <ReviewCard movieDetails={movieDetails} />
-          <ReviewForm />
+        <div className="mt-10 flex flex-col gap-3">
+          <ReviewCard
+            posterPath={poster_path}
+            title={title}
+            genres={genres}
+            runtime={runtime}
+          />
+          <ReviewForm
+            posterPath={poster_path}
+            title={title}
+            genres={genres}
+            runtime={runtime}
+          />
         </div>
       </dialog>
     </>
