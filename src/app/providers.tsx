@@ -4,6 +4,7 @@ import { Provider, useDispatch } from "react-redux";
 import store from "@/lib/store";
 import { login, logout, User } from "@/lib/store/user";
 import { useEffect } from "react";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 function DispatchUser({ initialUser }: { initialUser: User | null }) {
   const dispatch = useDispatch();
@@ -26,10 +27,14 @@ export default function Providers({
   children: React.ReactNode;
   initialUser: User | null;
 }) {
+  const queryClient = new QueryClient();
+
   return (
-    <Provider store={store}>
-      <DispatchUser initialUser={initialUser} />
-      {children}
-    </Provider>
+    <QueryClientProvider client={queryClient}>
+      <Provider store={store}>
+        <DispatchUser initialUser={initialUser} />
+        {children}
+      </Provider>
+    </QueryClientProvider>
   );
 }

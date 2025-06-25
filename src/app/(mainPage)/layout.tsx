@@ -38,9 +38,13 @@ export default async function RootLayout({
         <Providers initialUser={user}>
           <MainHeader />
           <div>{children}</div>
-          <div className="mx-auto mt-16 max-w-7xl px-16">{movies}</div>
+          <div className="mx-auto mt-16 max-w-7xl px-5 md:px-10 lg:px-16">
+            {movies}
+          </div>
           <div className="mt-12 bg-white py-9 md:py-12">
-            <div className="mx-auto max-w-7xl px-16">{reviews}</div>
+            <div className="mx-auto max-w-7xl px-5 md:px-10 lg:px-16">
+              {reviews}
+            </div>
           </div>
         </Providers>
         <Link

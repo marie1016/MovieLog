@@ -1,25 +1,69 @@
-import { getReviews } from "@/lib/firebase/getReviews";
+"use client";
+
+import { useEffect, useRef } from "react";
+import type { InfiniteData } from "@tanstack/react-query";
+import { useInfiniteQuery } from "@tanstack/react-query";
+import { getReviews, ReviewPage } from "@/lib/firebase/getReviews";
+import { DocumentData, QueryDocumentSnapshot } from "firebase/firestore";
 import ReviewCard from "../addReview/ReviewCard";
 
-export default async function ReviewFeed() {
-  const reviews = await getReviews();
+type PageParam = QueryDocumentSnapshot<DocumentData> | null;
+
+export default function ReviewFeed() {
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, error } =
+    useInfiniteQuery<
+      ReviewPage,
+      Error,
+      InfiniteData<ReviewPage>,
+      [string],
+      PageParam
+    >({
+      queryKey: ["reviews"],
+      queryFn: (ctx) => getReviews(ctx.pageParam),
+      initialPageParam: null,
+      getNextPageParam: (lastPage) => lastPage.nextCursor,
+      staleTime: 1000 * 60 * 1,
+    });
+
+  const ref = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting && hasNextPage && !isFetchingNextPage) {
+        fetchNextPage();
+      }
+    });
+
+    if (ref.current) {
+      observer.observe(ref.current);
+    }
+
+    return () => observer.disconnect();
+  }, [fetchNextPage, hasNextPage, isFetchingNextPage]);
+
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
 
   return (
-    <div className="grid grid-cols-1 justify-between md:grid-cols-[repeat(2,_minmax(280px,_1fr))] md:gap-12">
-      {reviews.map((review) => (
-        <div key={review.id}>
-          <ReviewCard
-            posterPath={review.posterPath}
-            title={review.title}
-            genres={review.genres}
-            runtime={review.runtime}
-            voteAverage={review.voteAverage}
-            date={review.date}
-            review={review.review}
-            feed
-          />
-        </div>
-      ))}
+    <div className="grid grid-cols-1 justify-between gap-12 md:grid-cols-[repeat(2,_minmax(280px,_1fr))] md:gap-14">
+      {data?.pages.map((page) =>
+        page.reviewsData.map((review) => (
+          <div key={review.id}>
+            <ReviewCard
+              posterPath={review.posterPath}
+              title={review.title}
+              genres={review.genres}
+              runtime={review.runtime}
+              voteAverage={review.voteAverage}
+              date={review.date}
+              review={review.review}
+              feed
+            />
+          </div>
+        )),
+      )}
+      <div ref={ref} className="h-10" />
     </div>
   );
 }

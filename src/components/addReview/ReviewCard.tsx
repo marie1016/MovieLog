@@ -55,17 +55,14 @@ export default function ReviewCard({
           </div>
 
           {feed ? (
-            <div className="flex justify-between text-gray600">
-              <div className="flex gap-[2px]">
-                <Image
-                  src="/images/blue-star.svg"
-                  alt="평점 아이콘"
-                  width={20}
-                  height={20}
-                />{" "}
-                <span>{voteAverage}</span>
-              </div>{" "}
-              <span>{date}</span>
+            <div className="flex items-center gap-[2px] text-gray600">
+              <Image
+                src="/images/blue-star.svg"
+                alt="평점 아이콘"
+                width={20}
+                height={20}
+              />
+              <span>{voteAverage}</span>
             </div>
           ) : (
             ""
@@ -73,7 +70,14 @@ export default function ReviewCard({
         </div>
       </div>
 
-      {feed ? <div className="mt-4">{review}</div> : ""}
+      {feed ? (
+        <div className="mt-4">
+          <span className="text-sm text-gray600">{date}</span>
+          <div className="h-20">{review}</div>
+        </div>
+      ) : (
+        ""
+      )}
     </>
   );
 }
