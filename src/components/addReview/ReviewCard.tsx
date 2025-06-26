@@ -1,10 +1,14 @@
 import { Genre } from "@/types/movie";
 import Image from "next/image";
 import dayjs from "dayjs";
+import Link from "next/link";
+import { getElapsedTime } from "@/lib/utils/getElapsedTime";
+import { Timestamp } from "firebase/firestore";
 
 const BASE_POSTER_PATH = "https://image.tmdb.org/t/p";
 
 export interface ReviewCardProps {
+  id?: string;
   userName?: string;
   posterPath: string;
   title: string;
@@ -14,9 +18,11 @@ export interface ReviewCardProps {
   voteAverage?: string;
   date?: string;
   review?: string;
+  createdAt?: Timestamp;
 }
 
 export default function ReviewCard({
+  id,
   userName,
   posterPath,
   title,
@@ -26,15 +32,20 @@ export default function ReviewCard({
   voteAverage,
   date,
   review,
+  createdAt,
 }: ReviewCardProps) {
   const fullPosterPath = `${BASE_POSTER_PATH}/w500${posterPath}`;
   const today = dayjs().format("YYYY.MM.DD");
+
+  const createdAtToDate = createdAt?.toDate();
 
   return (
     <>
       <div className="mb-3 flex justify-between">
         <span>{userName}</span>
-        <span className="text-sm text-gray600">{today}</span>
+        <span className="text-sm text-gray600">
+          {feed && createdAtToDate ? getElapsedTime(createdAtToDate) : today}
+        </span>
       </div>
       <div className="flex items-start gap-4">
         <div className="flex h-[155px] w-[130px] shrink-0 items-center justify-center rounded-xl border border-gray shadow-lg">
@@ -78,7 +89,9 @@ export default function ReviewCard({
       {feed ? (
         <div className="mt-4">
           <span className="text-sm text-gray600">{date}</span>
-          <div className="h-20">{review}</div>
+          <div className="h-20 cursor-pointer hover:underline">
+            <Link href={`/reviewDetail/${id}`}>{review}</Link>
+          </div>
         </div>
       ) : (
         ""

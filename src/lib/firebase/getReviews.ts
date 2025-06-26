@@ -8,6 +8,7 @@ import {
   startAfter,
   DocumentData,
   QueryDocumentSnapshot,
+  Timestamp,
 } from "firebase/firestore";
 import { db } from "./firebase";
 
@@ -16,7 +17,7 @@ interface Review {
   voteAverage: string;
   date: string;
   review: string;
-  createdAt: Date;
+  createdAt: Timestamp;
   userName: string;
   posterPath: string;
   title: string;
