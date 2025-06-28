@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import type { InfiniteData } from "@tanstack/react-query";
+import type { InfiniteData, QueryKey } from "@tanstack/react-query";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { getReviews, ReviewPage } from "@/lib/firebase/getReviews";
 import { DocumentData, QueryDocumentSnapshot } from "firebase/firestore";
@@ -15,14 +15,14 @@ export default function ReviewFeed() {
       ReviewPage,
       Error,
       InfiniteData<ReviewPage>,
-      [string],
+      QueryKey,
       PageParam
     >({
       queryKey: ["reviews"],
       queryFn: (ctx) => getReviews(ctx.pageParam),
       initialPageParam: null,
       getNextPageParam: (lastPage) => lastPage.nextCursor,
-      staleTime: 1000 * 60 * 1,
+      staleTime: 1000 * 60 * 5,
     });
 
   const ref = useRef<HTMLDivElement | null>(null);
@@ -51,6 +51,7 @@ export default function ReviewFeed() {
         page.reviewsData.map((review) => (
           <div key={review.id}>
             <ReviewCard
+              id={review.id}
               userName={review.userName}
               posterPath={review.posterPath}
               title={review.title}
@@ -59,6 +60,7 @@ export default function ReviewFeed() {
               voteAverage={review.voteAverage}
               date={review.date}
               review={review.review}
+              createdAt={review.createdAt}
               feed
             />
           </div>

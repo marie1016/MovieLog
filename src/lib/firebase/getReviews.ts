@@ -16,7 +16,10 @@ interface Review {
   voteAverage: string;
   date: string;
   review: string;
-  createdAt: Date;
+  createdAt: {
+    seconds: number;
+    nanoseconds: number;
+  };
   userName: string;
   posterPath: string;
   title: string;
