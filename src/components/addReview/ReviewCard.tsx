@@ -1,9 +1,10 @@
+"use client";
+
 import { Genre } from "@/types/movie";
 import Image from "next/image";
 import dayjs from "dayjs";
 import Link from "next/link";
 import { getElapsedTime } from "@/lib/utils/getElapsedTime";
-import { Timestamp } from "firebase/firestore";
 
 const BASE_POSTER_PATH = "https://image.tmdb.org/t/p";
 
@@ -18,7 +19,10 @@ export interface ReviewCardProps {
   voteAverage?: string;
   date?: string;
   review?: string;
-  createdAt?: Timestamp;
+  createdAt?: {
+    seconds: number;
+    nanoseconds: number;
+  };
 }
 
 export default function ReviewCard({
@@ -37,7 +41,12 @@ export default function ReviewCard({
   const fullPosterPath = `${BASE_POSTER_PATH}/w500${posterPath}`;
   const today = dayjs().format("YYYY.MM.DD");
 
-  const createdAtToDate = createdAt?.toDate();
+  let createdAtToDate;
+  if (createdAt) {
+    createdAtToDate = new Date(
+      createdAt.seconds * 1000 + createdAt.nanoseconds / 1000000,
+    );
+  }
 
   return (
     <>

@@ -8,7 +8,6 @@ import {
   startAfter,
   DocumentData,
   QueryDocumentSnapshot,
-  Timestamp,
 } from "firebase/firestore";
 import { db } from "./firebase";
 
@@ -17,7 +16,10 @@ interface Review {
   voteAverage: string;
   date: string;
   review: string;
-  createdAt: Timestamp;
+  createdAt: {
+    seconds: number;
+    nanoseconds: number;
+  };
   userName: string;
   posterPath: string;
   title: string;
