@@ -3,8 +3,13 @@
 import { Provider, useDispatch } from "react-redux";
 import store from "@/lib/store";
 import { login, logout, User } from "@/lib/store/user";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { persistQueryClient } from "@tanstack/react-query-persist-client";
+import { createSyncStoragePersister } from "@tanstack/query-sync-storage-persister";
+
+const queryClient = new QueryClient();
 
 function DispatchUser({ initialUser }: { initialUser: User | null }) {
   const dispatch = useDispatch();
@@ -27,10 +32,28 @@ export default function Providers({
   children: React.ReactNode;
   initialUser: User | null;
 }) {
-  const queryClient = new QueryClient();
+  const [isHydrated, setIsHydrated] = useState(false);
+
+  useEffect(() => {
+    const localStoragePersister = createSyncStoragePersister({
+      storage: window.localStorage,
+    });
+
+    const [, persistPromise] = persistQueryClient({
+      queryClient,
+      persister: localStoragePersister,
+    });
+
+    persistPromise.then(() => setIsHydrated(true));
+  }, []);
+
+  if (!isHydrated) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <QueryClientProvider client={queryClient}>
+      <ReactQueryDevtools initialIsOpen />
       <Provider store={store}>
         <DispatchUser initialUser={initialUser} />
         {children}
