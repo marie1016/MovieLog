@@ -1,38 +1,24 @@
-"use client";
-
-import ReviewCard from "@/components/addReview/ReviewCard";
-import { ReviewPage } from "@/lib/firebase/getReviews";
-import { useQueryClient } from "@tanstack/react-query";
-import type { InfiniteData } from "@tanstack/react-query";
+import ReviewDetail from "@/components/reviewDetail/ReviewDetail";
+import ReviewsForSameMovie from "@/components/reviewDetail/ReviewsForSameMovie";
+import SimilarMovies from "@/components/reviewDetail/SimilarMovies";
 
 export default function ReviewDetailPage({
   params,
+  searchParams,
 }: {
   params: { id: string };
+  searchParams: { genreId: string; title: string };
 }) {
   const { id } = params;
-  const queryClient = useQueryClient();
-
-  const reviews: InfiniteData<ReviewPage> | undefined =
-    queryClient.getQueryData(["reviews"]);
-  const allReviews = reviews?.pages.flatMap((p) => p.reviewsData);
-  const review = allReviews?.find((r) => r.id === id);
-
-  if (!review) return null;
+  const { genreId, title } = searchParams;
 
   return (
-    <ReviewCard
-      id={review.id}
-      userName={review.userName}
-      posterPath={review.posterPath}
-      title={review.title}
-      genres={review.genres}
-      runtime={review.runtime}
-      voteAverage={review.voteAverage}
-      date={review.date}
-      review={review.review}
-      createdAt={review.createdAt}
-      feed
-    />
+    <>
+      <ReviewDetail id={id} />
+      <h1 className="mb-6 mt-14 text-4xl font-medium">비슷한 영화</h1>
+      <SimilarMovies genreId={genreId} />
+      <h1 className="mb-6 mt-14 text-4xl font-medium">다른 기록</h1>
+      <ReviewsForSameMovie title={title} />
+    </>
   );
 }

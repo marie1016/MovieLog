@@ -22,7 +22,8 @@ export default function ReviewFeed() {
       queryFn: (ctx) => getReviews(ctx.pageParam),
       initialPageParam: null,
       getNextPageParam: (lastPage) => lastPage.nextCursor,
-      staleTime: 1000 * 60 * 5,
+      staleTime: 0,
+      gcTime: 1000 * 60 * 10,
     });
 
   const ref = useRef<HTMLDivElement | null>(null);

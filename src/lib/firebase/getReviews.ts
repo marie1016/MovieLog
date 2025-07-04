@@ -11,7 +11,7 @@ import {
 } from "firebase/firestore";
 import { db } from "./firebase";
 
-interface Review {
+export interface Review {
   id: string;
   voteAverage: string;
   date: string;
