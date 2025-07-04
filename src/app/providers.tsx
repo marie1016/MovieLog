@@ -3,7 +3,7 @@
 import { Provider, useDispatch } from "react-redux";
 import store from "@/lib/store";
 import { login, logout, User } from "@/lib/store/user";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { persistQueryClient } from "@tanstack/react-query-persist-client";
@@ -32,24 +32,16 @@ export default function Providers({
   children: React.ReactNode;
   initialUser: User | null;
 }) {
-  const [isHydrated, setIsHydrated] = useState(false);
-
   useEffect(() => {
     const localStoragePersister = createSyncStoragePersister({
       storage: window.localStorage,
     });
 
-    const [, persistPromise] = persistQueryClient({
+    persistQueryClient({
       queryClient,
       persister: localStoragePersister,
     });
-
-    persistPromise.then(() => setIsHydrated(true));
   }, []);
-
-  if (!isHydrated) {
-    return <div>Loading...</div>;
-  }
 
   return (
     <QueryClientProvider client={queryClient}>

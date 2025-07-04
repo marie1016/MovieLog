@@ -5,6 +5,7 @@ import Image from "next/image";
 import dayjs from "dayjs";
 import Link from "next/link";
 import { getElapsedTime } from "@/lib/utils/getElapsedTime";
+import { changeCreatedAtToDate } from "@/lib/utils/changeCreatedAtToDate";
 
 const BASE_POSTER_PATH = "https://image.tmdb.org/t/p";
 
@@ -16,6 +17,7 @@ export interface ReviewCardProps {
   genres: Genre[];
   runtime: number;
   feed?: boolean;
+  detail?: boolean;
   voteAverage?: string;
   date?: string;
   review?: string;
@@ -33,6 +35,7 @@ export default function ReviewCard({
   genres,
   runtime,
   feed,
+  detail,
   voteAverage,
   date,
   review,
@@ -40,25 +43,29 @@ export default function ReviewCard({
 }: ReviewCardProps) {
   const fullPosterPath = `${BASE_POSTER_PATH}/w500${posterPath}`;
   const today = dayjs().format("YYYY.MM.DD");
-
-  let createdAtToDate;
-  if (createdAt) {
-    createdAtToDate = new Date(
-      createdAt.seconds * 1000 + createdAt.nanoseconds / 1000000,
-    );
-  }
+  const genreId = genres[0]?.id;
+  const createdAtToDate = createdAt ? changeCreatedAtToDate(createdAt) : "";
 
   return (
     <>
-      <div className="mb-3 flex justify-between">
-        <span>{userName}</span>
-        <span className="text-sm text-gray600">
+      {detail && (
+        <div className="mb-6 text-center text-4xl font-medium">{userName}</div>
+      )}
+      <div
+        className={`mb-3 flex ${detail ? "justify-end" : "justify-between"}`}
+      >
+        <span className={`${detail && "hidden"} `}>{userName}</span>
+        <span className={`${detail ? "text-xl" : "text-sm"} text-gray600`}>
           {feed && createdAtToDate ? getElapsedTime(createdAtToDate) : today}
         </span>
       </div>
-      <div className="flex items-start gap-4">
-        <div className="flex h-[155px] w-[130px] shrink-0 items-center justify-center rounded-xl border border-gray shadow-lg">
-          <div className="relative aspect-[2/3] w-[90px]">
+      <div className="flex h-auto items-start gap-4">
+        <div
+          className={`flex ${detail ? "h-[256px] w-[216px]" : "h-[155px] w-[130px]"} shrink-0 items-center justify-center rounded-xl border border-gray shadow-lg`}
+        >
+          <div
+            className={`relative aspect-[2/3] ${detail ? "w-[150px]" : "w-[90px]"}`}
+          >
             <Image
               src={fullPosterPath}
               alt="영화 포스터"
@@ -68,8 +75,10 @@ export default function ReviewCard({
             />
           </div>
         </div>
-        <div className="flex h-[155px] w-full flex-col justify-between">
-          <div>
+        <div
+          className={`flex h-[155px] w-full flex-col justify-between ${detail && "h-[256px] text-2xl"}`}
+        >
+          <div className={`${detail && "flex flex-col gap-3"}`}>
             <span>{title}</span>
             <div className="flex gap-2 text-gray600">
               {genres.slice(0, 2).map((genre) => (
@@ -84,10 +93,10 @@ export default function ReviewCard({
               <Image
                 src="/images/blue-star.svg"
                 alt="평점 아이콘"
-                width={20}
-                height={20}
+                width={`${detail ? 24 : 20}`}
+                height={`${detail ? 24 : 20}`}
               />
-              <span>{voteAverage}</span>
+              <span className={`${detail && "text-xl"}`}>{voteAverage}</span>
             </div>
           ) : (
             ""
@@ -96,11 +105,21 @@ export default function ReviewCard({
       </div>
 
       {feed ? (
-        <div className="mt-4">
-          <span className="text-sm text-gray600">{date}</span>
-          <div className="h-20 cursor-pointer hover:underline">
-            <Link href={`/reviewDetail/${id}`}>{review}</Link>
-          </div>
+        <div className={`${detail && "text-2xl"} mt-4`}>
+          <span className={`${detail ? "text-xl" : "text-sm"} text-gray600`}>
+            {date}
+          </span>
+          {detail ? (
+            <div className="mt-2 min-h-36">{review}</div>
+          ) : (
+            <div className="min-h-20 cursor-pointer hover:underline">
+              <Link
+                href={`/reviewDetail/${id}?title=${title}&genreId=${genreId}`}
+              >
+                {review}
+              </Link>
+            </div>
+          )}
         </div>
       ) : (
         ""
