@@ -15,20 +15,5 @@ export default function ReviewDetail({ id }: { id: string }) {
 
   if (!review) return null;
 
-  return (
-    <ReviewCard
-      id={review.id}
-      userName={review.userName}
-      posterPath={review.posterPath}
-      title={review.title}
-      genres={review.genres}
-      runtime={review.runtime}
-      voteAverage={review.voteAverage}
-      date={review.date}
-      review={review.review}
-      createdAt={review.createdAt}
-      feed
-      detail
-    />
-  );
+  return <ReviewCard {...review} feed detail />;
 }

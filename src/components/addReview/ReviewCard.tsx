@@ -6,6 +6,7 @@ import dayjs from "dayjs";
 import Link from "next/link";
 import { getElapsedTime } from "@/lib/utils/getElapsedTime";
 import { changeCreatedAtToDate } from "@/lib/utils/changeCreatedAtToDate";
+import clsx from "clsx";
 
 const BASE_POSTER_PATH = "https://image.tmdb.org/t/p";
 
@@ -52,19 +53,30 @@ export default function ReviewCard({
         <div className="mb-6 text-center text-4xl font-medium">{userName}</div>
       )}
       <div
-        className={`mb-3 flex ${detail ? "justify-end" : "justify-between"}`}
+        className={clsx(
+          "mb-3 flex",
+          detail ? "justify-end" : "justify-between",
+        )}
       >
-        <span className={`${detail && "hidden"} `}>{userName}</span>
-        <span className={`${detail ? "text-xl" : "text-sm"} text-gray600`}>
+        {!detail && <span>{userName}</span>}
+        <span className={clsx(detail ? "text-xl" : "text-sm", "text-gray600")}>
           {feed && createdAtToDate ? getElapsedTime(createdAtToDate) : today}
         </span>
       </div>
+
       <div className="flex h-auto items-start gap-4">
+        {/* Poster */}
         <div
-          className={`flex ${detail ? "h-[256px] w-[216px]" : "h-[155px] w-[130px]"} shrink-0 items-center justify-center rounded-xl border border-gray shadow-lg`}
+          className={clsx(
+            detail ? "h-[256px] w-[216px]" : "h-[155px] w-[130px]",
+            "flex shrink-0 items-center justify-center rounded-xl border border-gray shadow-lg",
+          )}
         >
           <div
-            className={`relative aspect-[2/3] ${detail ? "w-[150px]" : "w-[90px]"}`}
+            className={clsx(
+              "relative aspect-[2/3]",
+              detail ? "w-[150px]" : "w-[90px]",
+            )}
           >
             <Image
               src={fullPosterPath}
@@ -75,10 +87,14 @@ export default function ReviewCard({
             />
           </div>
         </div>
+        {/* Info */}
         <div
-          className={`flex h-[155px] w-full flex-col justify-between ${detail && "h-[256px] text-2xl"}`}
+          className={clsx(
+            "flex w-full flex-col justify-between",
+            detail ? "h-[256px] text-2xl" : "h-[155px]",
+          )}
         >
-          <div className={`${detail && "flex flex-col gap-3"}`}>
+          <div className={clsx(detail && "flex flex-col gap-3")}>
             <span>{title}</span>
             <div className="flex gap-2 text-gray600">
               {genres.slice(0, 2).map((genre) => (
@@ -88,27 +104,29 @@ export default function ReviewCard({
             <div className="text-gray600">{runtime}분</div>
           </div>
 
-          {feed ? (
+          {feed && (
             <div className="flex items-center gap-[2px] text-gray600">
               <Image
                 src="/images/blue-star.svg"
                 alt="평점 아이콘"
-                width={`${detail ? 24 : 20}`}
-                height={`${detail ? 24 : 20}`}
+                width={detail ? 24 : 20}
+                height={detail ? 24 : 20}
               />
-              <span className={`${detail && "text-xl"}`}>{voteAverage}</span>
+              <span className={clsx(detail && "text-xl")}>{voteAverage}</span>
             </div>
-          ) : (
-            ""
           )}
         </div>
       </div>
 
-      {feed ? (
-        <div className={`${detail && "text-2xl"} mt-4`}>
-          <span className={`${detail ? "text-xl" : "text-sm"} text-gray600`}>
+      {/* Review */}
+      {feed && (
+        <div className={clsx("mt-4", detail && "text-2xl")}>
+          <span
+            className={clsx(detail ? "text-xl" : "text-sm", "text-gray600")}
+          >
             {date}
           </span>
+
           {detail ? (
             <div className="mt-2 min-h-36">{review}</div>
           ) : (
@@ -121,8 +139,6 @@ export default function ReviewCard({
             </div>
           )}
         </div>
-      ) : (
-        ""
       )}
     </>
   );
