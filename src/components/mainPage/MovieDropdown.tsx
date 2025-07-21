@@ -27,8 +27,10 @@ export default function MovieDropdown() {
 
   return (
     <Dropdown>
-      <DropdownToggle>{SORT_OPTIONS[currentSort]}</DropdownToggle>
-      <DropdownList>
+      <DropdownToggle className="flex h-10 w-32 cursor-pointer items-center justify-center rounded-lg border border-gray600 bg-white text-base font-semibold text-gray600">
+        {SORT_OPTIONS[currentSort]}
+      </DropdownToggle>
+      <DropdownList className="relative top-3">
         <DropdownItem onClick={() => handleClick("now_playing")}>
           {SORT_OPTIONS.now_playing}
         </DropdownItem>

@@ -7,13 +7,13 @@ export default function DropdownItem({
   onClick,
 }: {
   children: React.ReactNode;
-  onClick: () => void;
+  onClick?: () => void;
 }) {
   const { open, toggle } = useDropdownContext();
 
   const handleClick = () => {
     toggle(!open);
-    onClick();
+    onClick?.();
   };
 
   return (
