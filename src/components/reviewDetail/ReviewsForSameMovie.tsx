@@ -6,19 +6,23 @@ import Link from "next/link";
 
 export default async function ReviewsForSameMovie({
   title,
+  id,
 }: {
   title: string;
+  id: string;
 }) {
-  const reviewsForSameMovie = await getReviewsForSameMovie(title);
+  const { reviewsData } = await getReviewsForSameMovie(title);
+
+  const filteredReviewsData = reviewsData.filter((review) => review.id !== id);
 
   return (
     <ul className="grid grid-cols-1 gap-12 md:grid-cols-2 md:gap-14">
-      {reviewsForSameMovie.reviewsData.map((r) => (
-        <li key={r.id}>
+      {filteredReviewsData.map((review) => (
+        <li key={review.id}>
           <div className="mb-3 flex justify-between">
-            <span>{r.userName}</span>
+            <span>{review.userName}</span>
             <span className="text-sm text-gray600">
-              {getElapsedTime(changeCreatedAtToDate(r.createdAt))}
+              {getElapsedTime(changeCreatedAtToDate(review.createdAt))}
             </span>
           </div>
           <div className="flex items-center gap-[2px] text-gray600">
@@ -28,13 +32,13 @@ export default async function ReviewsForSameMovie({
               width={20}
               height={20}
             />
-            <span>{r.voteAverage}</span>
+            <span>{review.voteAverage}</span>
           </div>
           <div className="mt-5 h-20 cursor-pointer hover:underline">
             <Link
-              href={`/reviewDetail/${r.id}?title=${title}&genreId=${r.genres[0]?.id}`}
+              href={`/reviewDetail/${review.id}?title=${title}&genreId=${review.genres[0]?.id}`}
             >
-              {r.review}
+              {review.review}
             </Link>
           </div>
         </li>

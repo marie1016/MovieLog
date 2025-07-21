@@ -18,7 +18,7 @@ export default function ReviewDetailPage({
       <h1 className="mb-6 mt-14 text-4xl font-medium">비슷한 영화</h1>
       <SimilarMovies genreId={genreId} />
       <h1 className="mb-6 mt-14 text-4xl font-medium">다른 기록</h1>
-      <ReviewsForSameMovie title={title} />
+      <ReviewsForSameMovie title={title} id={id} />
     </>
   );
 }

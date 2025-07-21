@@ -51,19 +51,7 @@ export default function ReviewFeed() {
       {data?.pages.map((page) =>
         page.reviewsData.map((review) => (
           <div key={review.id}>
-            <ReviewCard
-              id={review.id}
-              userName={review.userName}
-              posterPath={review.posterPath}
-              title={review.title}
-              genres={review.genres}
-              runtime={review.runtime}
-              voteAverage={review.voteAverage}
-              date={review.date}
-              review={review.review}
-              createdAt={review.createdAt}
-              feed
-            />
+            <ReviewCard {...review} feed />
           </div>
         )),
       )}
