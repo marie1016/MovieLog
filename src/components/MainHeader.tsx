@@ -1,36 +1,17 @@
 "use client";
 
-import auth from "@/lib/firebase/firebase";
 import { RootState } from "@/lib/store";
-import { signOut } from "firebase/auth";
 import { useSelector } from "react-redux";
 import Link from "next/link";
+import UserMenu from "./UserMenu";
 
 export default function MainHeader() {
   const { user, isLoading } = useSelector((state: RootState) => state.user);
 
-  const handleLogout = async () => {
-    try {
-      await signOut(auth);
-      await fetch("/api/logout", { method: "POST" });
-
-      window.location.reload();
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   let content;
 
   if (user) {
-    content = (
-      <>
-        <span>{user.displayName}</span>
-        <button className="text-gray600" onClick={handleLogout}>
-          로그아웃
-        </button>
-      </>
-    );
+    content = <UserMenu user={user} />;
   } else {
     content = (
       <>
