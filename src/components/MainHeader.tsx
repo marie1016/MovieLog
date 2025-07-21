@@ -30,7 +30,7 @@ export default function MainHeader() {
         {isLoading ? null : (
           <nav className="flex items-center gap-[30px] text-base font-semibold">
             <img src="/images/bell.svg" alt="alarm" />
-            <div className="flex gap-[30px] text-blue">{content}</div>
+            <div className="relative flex gap-[30px] text-blue">{content}</div>
           </nav>
         )}
       </div>

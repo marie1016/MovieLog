@@ -25,7 +25,7 @@ export default function UserMenu({ user }: { user: User }) {
       <DropdownToggle className="cursor-pointer text-blue">
         {displayName}
       </DropdownToggle>
-      <DropdownList className="absolute right-16 top-16">
+      <DropdownList className="absolute right-0 top-8">
         <DropdownItem>
           <Link href="/myPage">내 기록</Link>
         </DropdownItem>
