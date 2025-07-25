@@ -1,26 +1,6 @@
-import { Genre } from "@/types/movie";
+import { Review, ReviewPage } from "@/types/addReview";
 import { collection, getDocs, orderBy, query, where } from "firebase/firestore";
 import { db } from "./firebase";
-
-interface Review {
-  id: string;
-  voteAverage: string;
-  date: string;
-  review: string;
-  createdAt: {
-    seconds: number;
-    nanoseconds: number;
-  };
-  userName: string;
-  posterPath: string;
-  title: string;
-  genres: Genre[];
-  runtime: number;
-}
-
-export interface ReviewPage {
-  reviewsData: Review[];
-}
 
 export const getReviewsForSameMovie = async (
   title: string,

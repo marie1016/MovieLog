@@ -1,13 +1,13 @@
-export type Genre = {
+export interface Genre {
   id: number;
   name: string;
-};
+}
 
-export type GenreResponse = {
+export interface GenreResponse {
   genres: Genre[];
-};
+}
 
-export type Movie = {
+export interface Movie {
   id: number;
   title: string;
   release_date: string;
@@ -16,9 +16,9 @@ export type Movie = {
   poster_path: string;
   genres: Genre[];
   runtime: number;
-};
+}
 
-export type MovieResponse = {
+export interface MovieResponse {
   page: number;
   results: Movie[];
-};
+}
