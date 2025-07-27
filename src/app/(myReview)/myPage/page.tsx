@@ -12,7 +12,9 @@ export default async function MyPage() {
       <h1 className="mb-6 text-4xl font-medium">
         {user?.displayName}&apos;s 기록
       </h1>
-      <MyCalendar reviewsData={reviewsData} />
+      <div className="mb-16">
+        <MyCalendar reviewsData={reviewsData} />
+      </div>
     </>
   );
 }
