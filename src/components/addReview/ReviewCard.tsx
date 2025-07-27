@@ -5,10 +5,8 @@ import Image from "next/image";
 import dayjs from "dayjs";
 import Link from "next/link";
 import { getElapsedTime } from "@/lib/utils/getElapsedTime";
-import { changeCreatedAtToDate } from "@/lib/utils/changeCreatedAtToDate";
 import clsx from "clsx";
-
-const BASE_POSTER_PATH = "https://image.tmdb.org/t/p";
+import { BASE_POSTER_PATH } from "@/lib/constants/basePath";
 
 export interface ReviewCardProps {
   id?: string;
@@ -22,10 +20,7 @@ export interface ReviewCardProps {
   voteAverage?: string;
   date?: string;
   review?: string;
-  createdAt?: {
-    seconds: number;
-    nanoseconds: number;
-  };
+  createdAt?: Date;
 }
 
 export default function ReviewCard({
@@ -45,7 +40,6 @@ export default function ReviewCard({
   const fullPosterPath = `${BASE_POSTER_PATH}/w500${posterPath}`;
   const today = dayjs().format("YYYY.MM.DD");
   const genreId = genres[0]?.id;
-  const createdAtToDate = createdAt ? changeCreatedAtToDate(createdAt) : "";
 
   return (
     <>
@@ -60,7 +54,7 @@ export default function ReviewCard({
       >
         {!detail && <span>{userName}</span>}
         <span className={clsx(detail ? "text-xl" : "text-sm", "text-gray600")}>
-          {feed && createdAtToDate ? getElapsedTime(createdAtToDate) : today}
+          {feed && createdAt ? getElapsedTime(createdAt) : today}
         </span>
       </div>
 

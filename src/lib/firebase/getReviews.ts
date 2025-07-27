@@ -1,4 +1,4 @@
-import { Genre } from "@/types/movie";
+import { Review } from "@/types/addReview";
 import {
   collection,
   getDocs,
@@ -10,22 +10,6 @@ import {
   QueryDocumentSnapshot,
 } from "firebase/firestore";
 import { db } from "./firebase";
-
-export interface Review {
-  id: string;
-  voteAverage: string;
-  date: string;
-  review: string;
-  createdAt: {
-    seconds: number;
-    nanoseconds: number;
-  };
-  userName: string;
-  posterPath: string;
-  title: string;
-  genres: Genre[];
-  runtime: number;
-}
 
 export interface ReviewPage {
   reviewsData: Review[];
@@ -55,10 +39,18 @@ export const getReviews = async (
       ? null
       : documentSnapshots.docs[documentSnapshots.docs.length - 1];
 
-  const reviewsData = documentSnapshots.docs.map((doc) => ({
-    id: doc.id,
-    ...doc.data(),
-  })) as Review[];
+  const reviewsData = documentSnapshots.docs.map((doc) => {
+    const data = doc.data();
+    const createdAt = data.createdAt as {
+      seconds: number;
+      nanoseconds: number;
+    };
+    return {
+      ...data,
+      id: doc.id,
+      createdAt: new Date(createdAt.seconds * 1000),
+    };
+  }) as Review[];
 
   return { reviewsData, nextCursor: lastVisible };
 };
