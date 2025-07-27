@@ -22,7 +22,7 @@ export default function TileContent({
     .map((review) => review.posterPath);
 
   return (
-    <div className="relative h-20 w-full">
+    <div className="relative h-16 w-full sm:h-20">
       <ul
         className={clsx(
           posters.length > 0 && "calendar-carousel",
@@ -37,13 +37,15 @@ export default function TileContent({
               key={i}
               className="relative top-1 flex w-full shrink-0 snap-center justify-center"
             >
-              <Image
-                src={posterPath}
-                alt="poster"
-                className="hover:-translate-y-1 hover:scale-110"
-                width={54}
-                height={80}
-              />
+              <div className="relative aspect-[2/3] w-10 sm:w-[54px]">
+                <Image
+                  src={posterPath}
+                  alt="poster"
+                  className="transform object-cover transition hover:-translate-y-1 hover:scale-110"
+                  fill
+                  sizes="54px"
+                />
+              </div>
             </li>
           );
         })}

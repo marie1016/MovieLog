@@ -12,8 +12,14 @@ export default function MyCalendar({ reviewsData }: { reviewsData: Review[] }) {
   );
   return (
     <>
-      <button onClick={() => setStartDate(new Date())}>Today</button>
-
+      <div className="text-right">
+        <button
+          className="text-lg font-medium text-blue"
+          onClick={() => setStartDate(new Date())}
+        >
+          Today
+        </button>
+      </div>
       <Calendar
         activeStartDate={startDate || new Date()}
         onActiveStartDateChange={({ activeStartDate }) =>

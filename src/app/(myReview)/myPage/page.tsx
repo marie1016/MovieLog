@@ -7,5 +7,12 @@ export default async function MyPage() {
 
   const { reviewsData } = await getMyReviews(user?.displayName);
 
-  return <MyCalendar reviewsData={reviewsData} />;
+  return (
+    <>
+      <h1 className="mb-6 text-4xl font-medium">
+        {user?.displayName}&apos;s 기록
+      </h1>
+      <MyCalendar reviewsData={reviewsData} />
+    </>
+  );
 }
