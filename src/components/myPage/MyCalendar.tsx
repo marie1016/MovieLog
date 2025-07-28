@@ -3,6 +3,7 @@
 import { Review } from "@/types/addReview";
 import Calendar, { TileArgs } from "react-calendar";
 import { useState } from "react";
+import clsx from "clsx";
 import TileContent from "./TileContent";
 
 export default function MyCalendar({ reviewsData }: { reviewsData: Review[] }) {
@@ -29,13 +30,17 @@ export default function MyCalendar({ reviewsData }: { reviewsData: Review[] }) {
         tileClassName={({ date, view }) => {
           if (view !== "month") return "";
           const isCurrentMonth = startDate?.getMonth() === date.getMonth();
-
-          return isCurrentMonth ? "bg-white" : "text-text-gray500";
+          const isWeekend = date.getDay() === 0 || date.getDay() === 6;
+          return clsx(
+            isCurrentMonth ? "bg-white" : "text-text-gray500",
+            isWeekend && "text-blue",
+          );
         }}
         defaultView="month"
         locale="ko-KR"
         formatDay={(locale, date) => String(date.getDate())}
         view="month"
+        calendarType="hebrew"
       />
     </>
   );

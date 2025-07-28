@@ -47,7 +47,7 @@ export default function ReviewForm({
 
     const formData = new FormData();
     Object.entries(values).forEach(([key, value]) => {
-      formData.append(key, value);
+      formData.append(key, String(value));
     });
 
     await addReview(formData, user, posterPath, title, genres, runtime);
