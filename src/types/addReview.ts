@@ -18,7 +18,3 @@ export interface Review {
   genres: Genre[];
   runtime: number;
 }
-
-export interface ReviewPage {
-  reviewsData: Review[];
-}

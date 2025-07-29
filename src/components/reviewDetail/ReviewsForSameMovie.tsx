@@ -10,7 +10,7 @@ export default async function ReviewsForSameMovie({
   title: string;
   id: string;
 }) {
-  const { reviewsData } = await getReviewsForSameMovie(title);
+  const reviewsData = await getReviewsForSameMovie(title);
 
   const filteredReviewsData = reviewsData.filter((review) => review.id !== id);
 

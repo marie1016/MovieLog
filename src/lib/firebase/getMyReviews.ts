@@ -1,10 +1,10 @@
-import { Review, ReviewPage } from "@/types/addReview";
+import { Review } from "@/types/addReview";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "./firebase";
 
 export const getMyReviews = async (
   userName: string | null | undefined,
-): Promise<ReviewPage> => {
+): Promise<Review[]> => {
   const q = query(collection(db, "reviews"), where("userName", "==", userName));
 
   const documentSnapshots = await getDocs(q);
@@ -21,5 +21,5 @@ export const getMyReviews = async (
     };
   }) as Review[];
 
-  return { reviewsData };
+  return reviewsData;
 };
