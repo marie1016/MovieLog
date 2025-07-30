@@ -40,14 +40,14 @@ export default function MyReviewModal({
         onClick={clickBackdrop}
       />
       <dialog
-        className="fixed inset-0 z-20 mt-20 h-full w-screen overflow-y-auto rounded-xl bg-white p-7 sm:mb-20 sm:max-h-[calc(100vh-10rem)] sm:w-[480px] sm:px-14 sm:py-10"
+        className="modal-scrollbar fixed inset-0 z-20 mt-20 h-full w-screen overflow-y-auto rounded-xl bg-white p-7 sm:mb-20 sm:max-h-[calc(100vh-10rem)] sm:w-[480px] sm:px-14 sm:py-10"
         ref={dialogRef}
         open
       >
         <h2 className="text-center text-2xl font-medium">{formattedDate}</h2>
         <ul className="mt-10 flex flex-col gap-8">
           {myReviewsForDate?.map((review) => (
-            <li key={review.title}>
+            <li key={review.id}>
               <ReviewCard {...review} feed />
             </li>
           ))}
