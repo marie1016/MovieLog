@@ -3,13 +3,31 @@
 import { Review } from "@/types/addReview";
 import Calendar, { TileArgs } from "react-calendar";
 import { useState } from "react";
+import clsx from "clsx";
+import { useQuery } from "@tanstack/react-query";
+import { getMyReviews } from "@/lib/firebase/getMyReviews";
 import TileContent from "./TileContent";
 
-export default function MyCalendar({ reviewsData }: { reviewsData: Review[] }) {
+export default function MyCalendar({
+  initialMyReviews,
+  displayName,
+}: {
+  initialMyReviews: Review[];
+  displayName: string;
+}) {
   const [startDate, setStartDate] = useState<Date | null>(new Date());
+
+  const { data } = useQuery<Review[]>({
+    queryKey: ["myReviews"],
+    queryFn: async () => getMyReviews(displayName),
+    initialData: initialMyReviews,
+    staleTime: 1000 * 60 * 30,
+  });
+
   const renderTileContent = (props: TileArgs) => (
-    <TileContent date={props.date} reviewsData={reviewsData} />
+    <TileContent date={props.date} reviewsData={data} />
   );
+
   return (
     <>
       <div className="text-right">
@@ -29,13 +47,17 @@ export default function MyCalendar({ reviewsData }: { reviewsData: Review[] }) {
         tileClassName={({ date, view }) => {
           if (view !== "month") return "";
           const isCurrentMonth = startDate?.getMonth() === date.getMonth();
-
-          return isCurrentMonth ? "bg-white" : "text-text-gray500";
+          const isWeekend = date.getDay() === 0 || date.getDay() === 6;
+          return clsx(
+            isCurrentMonth ? "bg-white" : "text-text-gray500",
+            isWeekend && "text-blue",
+          );
         }}
         defaultView="month"
         locale="ko-KR"
         formatDay={(locale, date) => String(date.getDate())}
         view="month"
+        calendarType="hebrew"
       />
     </>
   );

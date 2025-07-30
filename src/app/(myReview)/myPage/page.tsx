@@ -4,8 +4,9 @@ import { getUser } from "@/lib/firebase/getUser";
 
 export default async function MyPage() {
   const user = await getUser();
+  const displayName = user?.displayName || "";
 
-  const { reviewsData } = await getMyReviews(user?.displayName);
+  const reviewsData = await getMyReviews(displayName);
 
   return (
     <>
@@ -13,7 +14,7 @@ export default async function MyPage() {
         {user?.displayName}&apos;s 기록
       </h1>
       <div className="mb-16">
-        <MyCalendar reviewsData={reviewsData} />
+        <MyCalendar initialMyReviews={reviewsData} displayName={displayName} />
       </div>
     </>
   );

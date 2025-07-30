@@ -84,18 +84,18 @@ export default function ReviewCard({
         {/* Info */}
         <div
           className={clsx(
-            "flex w-full flex-col justify-between",
+            "flex w-full flex-col items-start justify-between",
             detail ? "h-[256px] text-2xl" : "h-[155px]",
           )}
         >
-          <div className={clsx(detail && "flex flex-col gap-3")}>
+          <div className={clsx(detail && "flex flex-col gap-3", "text-left")}>
             <span>{title}</span>
             <div className="flex gap-2 text-gray600">
               {genres.slice(0, 2).map((genre) => (
                 <div key={genre.id}>{genre.name}</div>
               ))}
             </div>
-            <div className="text-gray600">{runtime}분</div>
+            <div className="text-left text-gray600">{runtime}분</div>
           </div>
 
           {feed && (
@@ -114,7 +114,7 @@ export default function ReviewCard({
 
       {/* Review */}
       {feed && (
-        <div className={clsx("mt-4", detail && "text-2xl")}>
+        <div className={clsx("mt-4 text-left", detail && "text-2xl")}>
           <span
             className={clsx(detail ? "text-xl" : "text-sm", "text-gray600")}
           >

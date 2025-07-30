@@ -1,10 +1,10 @@
-import { Review, ReviewPage } from "@/types/addReview";
+import { Review } from "@/types/addReview";
 import { collection, getDocs, orderBy, query, where } from "firebase/firestore";
 import { db } from "./firebase";
 
 export const getReviewsForSameMovie = async (
   title: string,
-): Promise<ReviewPage> => {
+): Promise<Review[]> => {
   const q = query(
     collection(db, "reviews"),
     orderBy("createdAt", "desc"),
@@ -18,5 +18,5 @@ export const getReviewsForSameMovie = async (
     ...doc.data(),
   })) as Review[];
 
-  return { reviewsData };
+  return reviewsData;
 };
