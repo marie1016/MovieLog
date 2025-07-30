@@ -3,7 +3,7 @@
 import { BASE_POSTER_PATH } from "@/lib/constants/basePath";
 import { Review } from "@/types/addReview";
 import Image from "next/image";
-import { useRef } from "react";
+import { useState } from "react";
 import MyReviewModal from "./MyReviewModal";
 
 export default function TileContent({
@@ -13,11 +13,15 @@ export default function TileContent({
   date: Date;
   reviewsData: Review[];
 }) {
-  const dialogRef = useRef<HTMLDialogElement>(null);
   const dateStr = date.toISOString().split("T")[0];
+  const [isOpenModal, setIsOpenModal] = useState(false);
 
   const openModal = () => {
-    dialogRef.current?.showModal();
+    setIsOpenModal(true);
+  };
+
+  const closeModal = () => {
+    setIsOpenModal(false);
   };
 
   const posters = reviewsData
@@ -33,7 +37,7 @@ export default function TileContent({
         {posters.slice(0, 1).map((url, i) => {
           const posterPath = `${BASE_POSTER_PATH}/w500${url}`;
           return (
-            <button
+            <div
               // eslint-disable-next-line react/no-array-index-key
               key={i}
               onClick={openModal}
@@ -46,7 +50,7 @@ export default function TileContent({
                 fill
                 sizes="54px"
               />
-            </button>
+            </div>
           );
         })}
         {posters.length > 1 && (
@@ -55,7 +59,9 @@ export default function TileContent({
           </div>
         )}
       </div>
-      <MyReviewModal dateStr={dateStr} dialogRef={dialogRef} />
+      {isOpenModal && (
+        <MyReviewModal dateStr={dateStr} closeModal={closeModal} />
+      )}
     </>
   );
 }
