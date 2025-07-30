@@ -8,11 +8,11 @@ export default function MovieSearchResults({
   searchResults: Movie[];
 }) {
   return (
-    <ul className="my-6 flex flex-wrap justify-center rounded-xl bg-white p-6 sm:justify-start">
+    <ul className="my-6 flex max-w-[490px] flex-wrap justify-center rounded-xl bg-white p-6 sm:max-w-7xl sm:justify-start">
       {searchResults.map((searchResult: Movie) => (
         <li
           key={searchResult.id}
-          className="flex justify-center py-3 sm:basis-1/2 lg:basis-1/3 xl:basis-1/4"
+          className="flex justify-center py-3 sm:basis-1/2 lg:basis-1/3"
         >
           <Link href={`addReview/movie/${searchResult.id}`}>
             <MovieCard

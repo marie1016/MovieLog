@@ -8,7 +8,7 @@ export default function MyPageLayout({
   return (
     <>
       {modal}
-      {children}
+      <div className="mx-auto max-w-4xl">{children}</div>
     </>
   );
 }
