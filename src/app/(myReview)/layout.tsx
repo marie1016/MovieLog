@@ -8,9 +8,7 @@ export default function MyReviewLayout({
   return (
     <>
       <MainHeader />
-      <div className="mx-auto mt-16 max-w-7xl px-5 md:w-[650px] md:px-0 lg:w-[800px]">
-        {children}
-      </div>
+      <div className="mx-auto mt-16 px-5 md:px-16 lg:max-w-7xl">{children}</div>
     </>
   );
 }

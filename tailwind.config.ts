@@ -34,6 +34,18 @@ const config: Config = {
       fontFamily: {
         jetBrainsMono: ["var(--font-jetBrainsMono)"],
       },
+      keyframes: {
+        slideUp: {
+          "0%": { transform: "translateY(0%)" },
+          "25%": { transform: "translateY(-25%)" },
+          "50%": { transform: "translateY(-50%)" },
+          "75%": { transform: "translateY(-75%)" },
+          "100%": { transform: "translateY(-100%)" },
+        },
+      },
+      animation: {
+        "slide-up": "slideUp 10s steps(5) infinite",
+      },
     },
     plugins: [lineClamp],
   },
