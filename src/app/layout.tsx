@@ -5,7 +5,7 @@ import localFont from "next/font/local";
 import { getUser } from "@/lib/firebase/getUser";
 import Providers from "./providers";
 
-export const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ["latin"] });
 
 const jetBrainsMono = localFont({
   src: "../../public/fonts/JetBrainsMono-Medium.woff2",
