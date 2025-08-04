@@ -1,29 +1,16 @@
 "use client";
 
-import { Provider, useDispatch } from "react-redux";
-import store from "@/lib/store";
-import { login, logout, User } from "@/lib/store/user";
-import { useEffect } from "react";
+import { Provider } from "react-redux";
+import { User } from "@/lib/store/user";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { makeStore } from "@/lib/store";
+import UserDispatch from "@/components/auth/UserDispatch";
 import { persistQueryClient } from "@tanstack/react-query-persist-client";
 import { createSyncStoragePersister } from "@tanstack/query-sync-storage-persister";
+import { useEffect } from "react";
 
 const queryClient = new QueryClient();
-
-function DispatchUser({ initialUser }: { initialUser: User | null }) {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    if (initialUser) {
-      dispatch(login(initialUser));
-    } else {
-      dispatch(logout());
-    }
-  }, [initialUser, dispatch]);
-
-  return null;
-}
 
 export default function Providers({
   children,
@@ -43,11 +30,13 @@ export default function Providers({
     });
   }, []);
 
+  const store = makeStore(initialUser);
+
   return (
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools initialIsOpen />
       <Provider store={store}>
-        <DispatchUser initialUser={initialUser} />
+        <UserDispatch />
         {children}
       </Provider>
     </QueryClientProvider>
