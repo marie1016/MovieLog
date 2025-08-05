@@ -7,6 +7,7 @@ import Link from "next/link";
 import { getElapsedTime } from "@/lib/utils/getElapsedTime";
 import clsx from "clsx";
 import { BASE_POSTER_PATH } from "@/lib/constants/basePath";
+import ReviewDropdown from "../ui/ReviewDropdown";
 
 export interface ReviewCardProps {
   id?: string;
@@ -88,8 +89,16 @@ export default function ReviewCard({
             detail ? "h-[256px] text-2xl" : "h-[155px]",
           )}
         >
-          <div className={clsx(detail && "flex flex-col gap-3", "text-left")}>
-            <span>{title}</span>
+          <div
+            className={clsx(
+              detail && "flex flex-col gap-3",
+              "w-full text-left",
+            )}
+          >
+            <div className="flex items-center justify-between">
+              <span>{title}</span>
+              <ReviewDropdown />
+            </div>
             <div className="flex gap-2 text-gray600">
               {genres.slice(0, 2).map((genre) => (
                 <div key={genre.id}>{genre.name}</div>
