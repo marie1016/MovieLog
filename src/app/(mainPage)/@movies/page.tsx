@@ -10,13 +10,13 @@ export default function MoviesPage({
   return (
     <main>
       <h1 className="text-4xl font-medium">영화</h1>
-      <Genres />
-      <div className="relative">
+      <section className="flex items-center gap-5 md:justify-between">
+        <Genres />
+        <MovieDropdown />
+      </section>
+      <section>
         <MovieList searchParams={searchParams} />
-        <div className="absolute -top-14 right-0">
-          <MovieDropdown />
-        </div>
-      </div>
+      </section>
     </main>
   );
 }

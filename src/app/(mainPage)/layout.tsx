@@ -22,7 +22,7 @@ export default function MainPageLayout({
       </div>
       <Link
         href="/addReview"
-        className="fixed bottom-14 right-14 lg:bottom-20 lg:right-20"
+        className="fixed bottom-4 right-4 sm:bottom-8 sm:right-8 lg:bottom-12 lg:right-12"
       >
         <Image
           src="/images/plus-circle.svg"

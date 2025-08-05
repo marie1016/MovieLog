@@ -26,19 +26,21 @@ export default function MovieDropdown() {
   };
 
   return (
-    <Dropdown>
-      <DropdownToggle className="flex h-10 w-32 cursor-pointer items-center justify-center rounded-lg border border-gray600 bg-white text-base font-semibold text-gray600">
-        {SORT_OPTIONS[currentSort]}
-      </DropdownToggle>
-      <DropdownList className="relative top-3">
-        <DropdownItem onClick={() => handleClick("now_playing")}>
-          {SORT_OPTIONS.now_playing}
-        </DropdownItem>
-        <hr className="w-32 border-t border-gray600" />
-        <DropdownItem onClick={() => handleClick("top_rated")}>
-          {SORT_OPTIONS.top_rated}
-        </DropdownItem>
-      </DropdownList>
-    </Dropdown>
+    <div className="relative">
+      <Dropdown>
+        <DropdownToggle className="flex h-10 w-32 cursor-pointer items-center justify-center rounded-lg border border-gray600 bg-white text-base font-semibold text-gray600">
+          {SORT_OPTIONS[currentSort]}
+        </DropdownToggle>
+        <DropdownList className="absolute top-12 z-20">
+          <DropdownItem onClick={() => handleClick("now_playing")}>
+            {SORT_OPTIONS.now_playing}
+          </DropdownItem>
+          <hr className="w-32 border-t border-gray600" />
+          <DropdownItem onClick={() => handleClick("top_rated")}>
+            {SORT_OPTIONS.top_rated}
+          </DropdownItem>
+        </DropdownList>
+      </Dropdown>
+    </div>
   );
 }
