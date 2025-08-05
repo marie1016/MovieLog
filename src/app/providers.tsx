@@ -1,29 +1,25 @@
 "use client";
 
-import { Provider, useDispatch } from "react-redux";
-import store from "@/lib/store";
-import { login, logout, User } from "@/lib/store/user";
-import { useEffect } from "react";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { Provider } from "react-redux";
+import { User } from "@/lib/store/user";
+import { QueryClient } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { persistQueryClient } from "@tanstack/react-query-persist-client";
+import { makeStore } from "@/lib/store";
+import UserDispatch from "@/components/auth/UserDispatch";
+import { PersistQueryClientProvider } from "@tanstack/react-query-persist-client";
 import { createSyncStoragePersister } from "@tanstack/query-sync-storage-persister";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      gcTime: 1000 * 60 * 60 * 24,
+    },
+  },
+});
 
-function DispatchUser({ initialUser }: { initialUser: User | null }) {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    if (initialUser) {
-      dispatch(login(initialUser));
-    } else {
-      dispatch(logout());
-    }
-  }, [initialUser, dispatch]);
-
-  return null;
-}
+const persister = createSyncStoragePersister({
+  storage: typeof window !== "undefined" ? window.localStorage : undefined,
+});
 
 export default function Providers({
   children,
@@ -32,24 +28,18 @@ export default function Providers({
   children: React.ReactNode;
   initialUser: User | null;
 }) {
-  useEffect(() => {
-    const localStoragePersister = createSyncStoragePersister({
-      storage: window.localStorage,
-    });
-
-    persistQueryClient({
-      queryClient,
-      persister: localStoragePersister,
-    });
-  }, []);
+  const store = makeStore(initialUser);
 
   return (
-    <QueryClientProvider client={queryClient}>
+    <PersistQueryClientProvider
+      client={queryClient}
+      persistOptions={{ persister }}
+    >
       <ReactQueryDevtools initialIsOpen />
       <Provider store={store}>
-        <DispatchUser initialUser={initialUser} />
+        <UserDispatch />
         {children}
       </Provider>
-    </QueryClientProvider>
+    </PersistQueryClientProvider>
   );
 }

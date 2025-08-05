@@ -9,13 +9,13 @@ export default async function MyPage() {
   const reviewsData = await getMyReviews(displayName);
 
   return (
-    <>
+    <div className="mx-auto max-w-4xl">
       <h1 className="mb-6 text-4xl font-medium">
         {user?.displayName}&apos;s 기록
       </h1>
       <div className="mb-16">
         <MyCalendar initialMyReviews={reviewsData} displayName={displayName} />
       </div>
-    </>
+    </div>
   );
 }

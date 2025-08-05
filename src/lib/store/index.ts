@@ -1,13 +1,21 @@
 import { configureStore } from "@reduxjs/toolkit";
-import userReducer from "./user";
+import userReducer, { User } from "./user";
 
-const store = configureStore({
-  reducer: {
-    user: userReducer,
-  },
-});
+export function makeStore(initialUser: User | null) {
+  return configureStore({
+    reducer: {
+      user: userReducer,
+    },
+    preloadedState: {
+      user: {
+        user: initialUser,
+        isLoggedIn: !!initialUser,
+        isLoading: false,
+      },
+    },
+  });
+}
 
-export default store;
-
-export type AppDispatch = typeof store.dispatch;
-export type RootState = ReturnType<typeof store.getState>;
+export type AppStore = ReturnType<typeof makeStore>;
+export type AppDispatch = AppStore["dispatch"];
+export type RootState = ReturnType<AppStore["getState"]>;
