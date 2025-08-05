@@ -23,14 +23,14 @@ export default function MainHeader() {
 
   return (
     <header className="h-[60px] w-full bg-white shadow-xl">
-      <div className="mx-auto flex h-full max-w-7xl items-center justify-between px-16">
+      <div className="mx-auto flex h-full max-w-7xl items-center justify-between px-5 md:px-10 lg:px-16">
         <Link href="/" className="font-jetBrainsMono text-2xl">
           MovieLog
         </Link>
         {isLoading ? null : (
-          <nav className="flex items-center gap-[30px] text-base font-semibold">
+          <nav className="flex items-center gap-2 text-base font-semibold sm:gap-7">
             <img src="/images/bell.svg" alt="alarm" />
-            <div className="relative flex gap-[30px] text-blue">{content}</div>
+            <div className="relative flex gap-7 text-blue">{content}</div>
           </nav>
         )}
       </div>
