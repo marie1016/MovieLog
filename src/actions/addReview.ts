@@ -3,6 +3,7 @@
 import { User } from "@/lib/store/user";
 import { Genre } from "@/types/movie";
 import { getFirestore } from "firebase-admin/firestore";
+import { redirect } from "next/navigation";
 
 export async function addReview(
   formData: FormData,
@@ -28,4 +29,5 @@ export async function addReview(
     createdAt: new Date(),
     userName: user.displayName,
   });
+  redirect("/");
 }

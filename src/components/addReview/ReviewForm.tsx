@@ -1,5 +1,6 @@
 "use client";
 
+import { ChangeEvent } from "react";
 import Image from "next/image";
 import { addReview } from "@/actions/addReview";
 import dayjs from "dayjs";
@@ -7,8 +8,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/lib/store";
 import { useRouter } from "next/navigation";
 import { handleVoteAverageChange } from "@/lib/utils/handleVoteAverageChange";
-import { FormStateType } from "@/types/addReview";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import Input from "../ui/input";
 import Button from "../ui/button";
 import { ReviewCardProps } from "./ReviewCard";
@@ -25,7 +25,6 @@ export default function ReviewForm({
 
   const {
     register,
-    handleSubmit,
     reset,
     setValue,
     formState: { isValid },
@@ -42,33 +41,30 @@ export default function ReviewForm({
     return null;
   }
 
-  const onSubmit: SubmitHandler<FormStateType> = async (values) => {
-    if (!isValid) return;
-
-    const formData = new FormData();
-    Object.entries(values).forEach(([key, value]) => {
-      formData.append(key, String(value));
-    });
-
-    await addReview(formData, user, posterPath, title, genres, runtime);
-    router.back();
-  };
-
   const handleReset = () => {
     reset();
     router.back();
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form
+      action={(formData: FormData) =>
+        addReview(formData, user, posterPath, title, genres, runtime)
+      }
+    >
       <div className="mb-4 flex gap-4">
         <Input
-          {...register("voteAverage", { required: true })}
+          {...register("voteAverage", {
+            required: true,
+            onChange: (e: ChangeEvent<HTMLInputElement>) => {
+              handleVoteAverageChange(e, setValue);
+            },
+          })}
           label="평점"
           type="text"
           inputMode="numeric"
           placeholder="0.0"
-          onChange={(e) => handleVoteAverageChange(e, setValue)}
+          pattern="/^(?:[0-9](?:\.[0-9])?|10(?:\.0)?)$/"
           className="h-9 w-20 pl-8"
           icon={
             <Image

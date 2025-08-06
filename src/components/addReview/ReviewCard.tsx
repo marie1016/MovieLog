@@ -97,7 +97,7 @@ export default function ReviewCard({
           >
             <div className="flex items-center justify-between">
               <span>{title}</span>
-              <ReviewDropdown />
+              {(feed || detail) && <ReviewDropdown />}
             </div>
             <div className="flex gap-2 text-gray600">
               {genres.slice(0, 2).map((genre) => (

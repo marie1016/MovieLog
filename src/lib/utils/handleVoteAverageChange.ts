@@ -6,18 +6,16 @@ export const handleVoteAverageChange = (
   e: ChangeEvent<HTMLInputElement>,
   setValue: UseFormSetValue<FormStateType>,
 ) => {
-  // 숫자만 추출
   const raw = e.target.value.replace(/\D/g, "");
 
-  if (raw === "") {
+  const number = parseInt(raw, 10);
+
+  if (Number.isNaN(number) || number < 0 || number > 100) {
     setValue("voteAverage", "");
     return;
   }
 
-  const number = parseInt(raw, 10);
+  const rating = (number / 10).toFixed(1);
 
-  if (number >= 0 && number <= 100) {
-    const rating = (number / 10).toFixed(1);
-    setValue("voteAverage", rating);
-  }
+  setValue("voteAverage", rating);
 };
