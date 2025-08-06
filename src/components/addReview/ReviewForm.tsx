@@ -4,8 +4,6 @@ import { ChangeEvent } from "react";
 import Image from "next/image";
 import { addReview } from "@/actions/addReview";
 import dayjs from "dayjs";
-import { useSelector } from "react-redux";
-import { RootState } from "@/lib/store";
 import { useRouter } from "next/navigation";
 import { handleVoteAverageChange } from "@/lib/utils/handleVoteAverageChange";
 import { useForm } from "react-hook-form";
@@ -21,7 +19,6 @@ export default function ReviewForm({
 }: ReviewCardProps) {
   const today = dayjs().format("YYYY.MM.DD");
   const router = useRouter();
-  const { user } = useSelector((state: RootState) => state.user);
 
   const {
     register,
@@ -37,10 +34,6 @@ export default function ReviewForm({
     },
   });
 
-  if (!user) {
-    return null;
-  }
-
   const handleReset = () => {
     reset();
     router.back();
@@ -49,7 +42,7 @@ export default function ReviewForm({
   return (
     <form
       action={(formData: FormData) =>
-        addReview(formData, user, posterPath, title, genres, runtime)
+        addReview(formData, posterPath, title, genres, runtime)
       }
     >
       <div className="mb-4 flex gap-4">

@@ -1,18 +1,22 @@
 "use server";
 
-import { User } from "@/lib/store/user";
+import { getUser } from "@/lib/firebase/getUser";
 import { Genre } from "@/types/movie";
 import { getFirestore } from "firebase-admin/firestore";
 import { redirect } from "next/navigation";
 
 export async function addReview(
   formData: FormData,
-  user: User,
   posterPath: string,
   title: string,
   genres: Genre[],
   runtime: number,
 ) {
+  const user = await getUser();
+  if (!user) {
+    throw new Error("You must be signed in to perform this action");
+  }
+
   const voteAverage = formData.get("voteAverage");
   const date = formData.get("date");
   const review = formData.get("review");
