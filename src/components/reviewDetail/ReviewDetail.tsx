@@ -1,10 +1,14 @@
 "use client";
 
-import ReviewCard from "@/components/addReview/ReviewCard";
 import { ReviewPage } from "@/lib/firebase/getReviews";
 import { Review } from "@/types/addReview";
 import { useIsRestoring, useQueryClient } from "@tanstack/react-query";
 import type { InfiniteData } from "@tanstack/react-query";
+import PosterImage from "../mainPage/PosterImage";
+import VoteAverage from "../mainPage/VoteAverage";
+import ReviewText from "../addReview/ReviewText";
+import MovieInfo from "../mainPage/MovieInfo";
+import ReviewHeader from "../mainPage/ReviewHeader";
 
 export default function ReviewDetail({ id }: { id: string }) {
   const queryClient = useQueryClient();
@@ -26,5 +30,30 @@ export default function ReviewDetail({ id }: { id: string }) {
 
   if (!review) return null;
 
-  return <ReviewCard {...review} feed detail />;
+  const {
+    userName,
+    createdAt,
+    posterPath,
+    title,
+    genres,
+    runtime,
+    voteAverage,
+  } = review;
+
+  return (
+    <>
+      <ReviewHeader userName={userName} createdAt={createdAt} />
+      <div className="flex h-auto items-start gap-4">
+        <PosterImage posterPath={posterPath} size="lg" />
+        {/* Info */}
+        <div className="flex h-[155px] h-[256px] w-full flex-col items-start justify-between text-2xl">
+          <div className="flex flex-col gap-3">
+            <MovieInfo title={title} genres={genres} runtime={runtime} />
+          </div>
+          <VoteAverage voteAverage={voteAverage} size="lg" />
+        </div>
+      </div>
+      <ReviewText {...review} variant="detail" />
+    </>
+  );
 }

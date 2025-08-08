@@ -7,16 +7,23 @@ import dayjs from "dayjs";
 import { useRouter } from "next/navigation";
 import { handleVoteAverageChange } from "@/lib/utils/handleVoteAverageChange";
 import { useForm } from "react-hook-form";
+import { Genre } from "@/types/movie";
 import Input from "../ui/input";
 import Button from "../ui/button";
-import { ReviewCardProps } from "./ReviewCard";
+
+interface ReviewFormProps {
+  posterPath: string;
+  title: string;
+  genres: Genre[];
+  runtime: number;
+}
 
 export default function ReviewForm({
   posterPath,
   title,
   genres,
   runtime,
-}: ReviewCardProps) {
+}: ReviewFormProps) {
   const today = dayjs().format("YYYY.MM.DD");
   const router = useRouter();
 

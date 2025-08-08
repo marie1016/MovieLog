@@ -1,5 +1,5 @@
-import ReviewCard from "@/components/addReview/ReviewCard";
 import ReviewForm from "@/components/addReview/ReviewForm";
+import ReviewFeedCard from "@/components/mainPage/ReviewFeedCard";
 import getMovieDetails from "@/lib/api/getMovieDetails";
 
 export default async function ModalPage({
@@ -21,7 +21,7 @@ export default async function ModalPage({
       >
         <h2 className="text-center text-2xl font-medium">영화 리뷰 등록</h2>
         <div className="mt-10 flex flex-col gap-3">
-          <ReviewCard
+          <ReviewFeedCard
             posterPath={poster_path}
             title={title}
             genres={genres}

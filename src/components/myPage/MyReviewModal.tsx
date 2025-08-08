@@ -4,7 +4,7 @@ import { useRef } from "react";
 import dayjs from "dayjs";
 import { Review } from "@/types/addReview";
 import { useQueryClient } from "@tanstack/react-query";
-import ReviewCard from "../addReview/ReviewCard";
+import ReviewCard from "../addReview/ReviewText";
 
 export default function MyReviewModal({
   dateStr,
