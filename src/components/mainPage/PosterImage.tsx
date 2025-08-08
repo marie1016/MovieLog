@@ -4,7 +4,7 @@ import Image from "next/image";
 
 type PosterImageProps = {
   posterPath: string;
-  size: "sm" | "lg";
+  size: string;
 };
 
 export default function PosterImage({ posterPath, size }: PosterImageProps) {
