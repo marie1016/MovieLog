@@ -5,7 +5,9 @@ import type { InfiniteData, QueryKey } from "@tanstack/react-query";
 import { useSuspenseInfiniteQuery } from "@tanstack/react-query";
 import { getReviews, ReviewPage } from "@/lib/firebase/getReviews";
 import { DocumentData, QueryDocumentSnapshot } from "firebase/firestore";
-import ReviewCard from "../addReview/ReviewCard";
+import ReviewText from "../addReview/ReviewText";
+import ReviewHeader from "./ReviewHeader";
+import ReviewInfo from "./ReviewInfo";
 
 type PageParam = QueryDocumentSnapshot<DocumentData> | null;
 
@@ -50,7 +52,9 @@ export default function ReviewFeed() {
       {data?.pages.map((page) =>
         page.reviewsData.map((review) => (
           <div key={review.id}>
-            <ReviewCard {...review} feed />
+            <ReviewHeader {...review} />
+            <ReviewInfo {...review} />
+            <ReviewText {...review} />
           </div>
         )),
       )}

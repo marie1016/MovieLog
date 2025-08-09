@@ -1,10 +1,12 @@
 "use client";
 
-import ReviewCard from "@/components/addReview/ReviewCard";
 import { ReviewPage } from "@/lib/firebase/getReviews";
 import { Review } from "@/types/addReview";
 import { useIsRestoring, useQueryClient } from "@tanstack/react-query";
 import type { InfiniteData } from "@tanstack/react-query";
+import ReviewText from "../addReview/ReviewText";
+import ReviewHeader from "../mainPage/ReviewHeader";
+import ReviewInfo from "../mainPage/ReviewInfo";
 
 export default function ReviewDetail({ id }: { id: string }) {
   const queryClient = useQueryClient();
@@ -26,5 +28,11 @@ export default function ReviewDetail({ id }: { id: string }) {
 
   if (!review) return null;
 
-  return <ReviewCard {...review} feed detail />;
+  return (
+    <>
+      <ReviewHeader {...review} variant="detail" />
+      <ReviewInfo {...review} size="lg" />
+      <ReviewText {...review} variant="detail" />
+    </>
+  );
 }

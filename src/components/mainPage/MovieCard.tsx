@@ -1,4 +1,5 @@
 import Image from "next/image";
+import VoteAverage from "./VoteAverage";
 
 interface CardProps {
   title: string;
@@ -27,12 +28,11 @@ export default function MovieCard({ title, voteAverage, poster }: CardProps) {
         <h2 className="line-clamp-2 overflow-ellipsis break-words text-center text-base">
           {title}
         </h2>
-        <div className="flex items-center justify-center gap-1">
-          <img src="/images/star.svg" alt="star" />
-          <span className="text-sm text-text-gray500">
-            {roundedVoteAverage}
-          </span>
-        </div>
+        <VoteAverage
+          voteAverage={roundedVoteAverage}
+          size="sm"
+          color="yellow"
+        />
       </div>
     </div>
   );
