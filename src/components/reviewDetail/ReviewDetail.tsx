@@ -23,8 +23,7 @@ export default function ReviewDetail({ id }: { id: string }) {
 
   const review =
     myReviews?.find((r) => r.id === id) ||
-    flattenedReviews?.find((r) => r.id === id) ||
-    null;
+    flattenedReviews?.find((r) => r.id === id);
 
   if (!review) return null;
 

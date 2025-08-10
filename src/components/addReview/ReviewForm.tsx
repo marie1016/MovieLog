@@ -1,31 +1,43 @@
 "use client";
 
-import { ChangeEvent } from "react";
+import React, { ChangeEvent, useState } from "react";
 import Image from "next/image";
 import { addReview } from "@/actions/addReview";
 import dayjs from "dayjs";
 import { useRouter } from "next/navigation";
 import { handleVoteAverageChange } from "@/lib/utils/handleVoteAverageChange";
+import { editReview } from "@/actions/editReview";
 import { useForm } from "react-hook-form";
 import { Genre } from "@/types/movie";
 import Input from "../ui/input";
 import Button from "../ui/button";
 
 interface ReviewFormProps {
+  id?: string;
   posterPath: string;
   title: string;
   genres: Genre[];
   runtime: number;
+  voteAverage?: string;
+  date?: string;
+  review?: string;
+  clickBackdrop?: (e: React.MouseEvent) => void;
 }
 
 export default function ReviewForm({
+  id,
   posterPath,
   title,
   genres,
   runtime,
+  voteAverage,
+  date,
+  review,
+  clickBackdrop,
 }: ReviewFormProps) {
   const today = dayjs().format("YYYY.MM.DD");
   const router = useRouter();
+  const [isEditing, setIsEditing] = useState(!!review);
 
   const {
     register,
@@ -35,22 +47,31 @@ export default function ReviewForm({
   } = useForm({
     mode: "onChange",
     defaultValues: {
-      voteAverage: "",
-      date: "",
-      review: "",
+      voteAverage: voteAverage || "",
+      date: date || "",
+      review: review || "",
     },
   });
 
-  const handleReset = () => {
+  const handleReset = (e: React.MouseEvent) => {
     reset();
-    router.back();
+
+    if (isEditing && clickBackdrop) {
+      clickBackdrop(e);
+    } else {
+      router.back();
+    }
+
+    setIsEditing(false);
   };
 
   return (
     <form
-      action={(formData: FormData) =>
-        addReview(formData, posterPath, title, genres, runtime)
-      }
+      action={(formData: FormData) => {
+        isEditing
+          ? editReview(formData, id)
+          : addReview(formData, posterPath, title, genres, runtime);
+      }}
     >
       <div className="mb-4 flex gap-4">
         <Input
@@ -64,7 +85,6 @@ export default function ReviewForm({
           type="text"
           inputMode="numeric"
           placeholder="0.0"
-          pattern="/^(?:[0-9](?:\.[0-9])?|10(?:\.0)?)$/"
           className="h-9 w-20 pl-8"
           icon={
             <Image
@@ -100,7 +120,7 @@ export default function ReviewForm({
         disabled={!isValid}
         className={`mb-3 mt-4 w-full ${!isValid ? "bg-gray600" : "bg-blue"}`}
       >
-        등록하기
+        {isEditing ? "수정하기" : "등록하기"}
       </Button>
       <Button type="button" onClick={handleReset} className="w-full bg-danger">
         작성 취소하기

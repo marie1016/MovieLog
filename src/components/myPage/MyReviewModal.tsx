@@ -4,7 +4,9 @@ import { useRef } from "react";
 import dayjs from "dayjs";
 import { Review } from "@/types/addReview";
 import { useQueryClient } from "@tanstack/react-query";
-import ReviewCard from "../addReview/ReviewText";
+import ReviewHeader from "../mainPage/ReviewHeader";
+import ReviewInfo from "../mainPage/ReviewInfo";
+import ReviewText from "../addReview/ReviewText";
 
 export default function MyReviewModal({
   dateStr,
@@ -48,7 +50,9 @@ export default function MyReviewModal({
         <ul className="mt-10 flex flex-col gap-8">
           {myReviewsForDate?.map((review) => (
             <li key={review.id}>
-              <ReviewCard {...review} feed />
+              <ReviewHeader {...review} />
+              <ReviewInfo {...review} />
+              <ReviewText {...review} />
             </li>
           ))}
         </ul>
