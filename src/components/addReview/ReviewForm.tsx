@@ -1,31 +1,46 @@
 "use client";
 
-import { ChangeEvent } from "react";
+import React, { ChangeEvent, useState } from "react";
 import Image from "next/image";
 import { addReview } from "@/actions/addReview";
 import dayjs from "dayjs";
 import { useRouter } from "next/navigation";
 import { handleVoteAverageChange } from "@/lib/utils/handleVoteAverageChange";
+import { editReview } from "@/actions/editReview";
 import { useForm } from "react-hook-form";
 import { Genre } from "@/types/movie";
+import { useQueryClient } from "@tanstack/react-query";
 import Input from "../ui/input";
 import Button from "../ui/button";
 
 interface ReviewFormProps {
+  id?: string;
   posterPath: string;
   title: string;
   genres: Genre[];
   runtime: number;
+  voteAverage?: string;
+  date?: string;
+  review?: string;
+  closeModal?: () => void;
 }
 
 export default function ReviewForm({
+  id,
   posterPath,
   title,
   genres,
   runtime,
+  voteAverage,
+  date,
+  review,
+  closeModal,
 }: ReviewFormProps) {
   const today = dayjs().format("YYYY.MM.DD");
   const router = useRouter();
+  const queryClient = useQueryClient();
+
+  const [isEditing, setIsEditing] = useState(!!review);
 
   const {
     register,
@@ -35,21 +50,37 @@ export default function ReviewForm({
   } = useForm({
     mode: "onChange",
     defaultValues: {
-      voteAverage: "",
-      date: "",
-      review: "",
+      voteAverage: voteAverage || "",
+      date: date || "",
+      review: review || "",
     },
   });
 
+  const onSubmit = async (formData: FormData) => {
+    try {
+      await editReview(formData, id);
+      queryClient.invalidateQueries({ queryKey: ["reviews"] });
+      closeModal?.();
+      router.back();
+    } catch (error) {
+      alert(`리뷰 수정 중 에러가 발생했습니다.`);
+    }
+  };
+
   const handleReset = () => {
     reset();
+    closeModal?.();
     router.back();
+    setIsEditing(false);
   };
 
   return (
     <form
-      action={(formData: FormData) =>
-        addReview(formData, posterPath, title, genres, runtime)
+      action={
+        isEditing
+          ? onSubmit
+          : (formData: FormData) =>
+              addReview(formData, posterPath, title, genres, runtime)
       }
     >
       <div className="mb-4 flex gap-4">
@@ -64,7 +95,6 @@ export default function ReviewForm({
           type="text"
           inputMode="numeric"
           placeholder="0.0"
-          pattern="/^(?:[0-9](?:\.[0-9])?|10(?:\.0)?)$/"
           className="h-9 w-20 pl-8"
           icon={
             <Image
@@ -100,7 +130,7 @@ export default function ReviewForm({
         disabled={!isValid}
         className={`mb-3 mt-4 w-full ${!isValid ? "bg-gray600" : "bg-blue"}`}
       >
-        등록하기
+        {isEditing ? "수정하기" : "등록하기"}
       </Button>
       <Button type="button" onClick={handleReset} className="w-full bg-danger">
         작성 취소하기
