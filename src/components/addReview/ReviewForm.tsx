@@ -9,6 +9,7 @@ import { handleVoteAverageChange } from "@/lib/utils/handleVoteAverageChange";
 import { editReview } from "@/actions/editReview";
 import { useForm } from "react-hook-form";
 import { Genre } from "@/types/movie";
+import { useQueryClient } from "@tanstack/react-query";
 import Input from "../ui/input";
 import Button from "../ui/button";
 
@@ -21,7 +22,7 @@ interface ReviewFormProps {
   voteAverage?: string;
   date?: string;
   review?: string;
-  clickBackdrop?: (e: React.MouseEvent) => void;
+  closeModal?: () => void;
 }
 
 export default function ReviewForm({
@@ -33,10 +34,12 @@ export default function ReviewForm({
   voteAverage,
   date,
   review,
-  clickBackdrop,
+  closeModal,
 }: ReviewFormProps) {
   const today = dayjs().format("YYYY.MM.DD");
   const router = useRouter();
+  const queryClient = useQueryClient();
+
   const [isEditing, setIsEditing] = useState(!!review);
 
   const {
@@ -53,25 +56,32 @@ export default function ReviewForm({
     },
   });
 
-  const handleReset = (e: React.MouseEvent) => {
-    reset();
-
-    if (isEditing && clickBackdrop) {
-      clickBackdrop(e);
-    } else {
+  const onSubmit = async (formData: FormData) => {
+    try {
+      await editReview(formData, id);
+      queryClient.invalidateQueries({ queryKey: ["reviews"] });
+      closeModal?.();
       router.back();
+    } catch (error) {
+      alert(`리뷰 수정 중 에러가 발생했습니다.`);
     }
+  };
 
+  const handleReset = () => {
+    reset();
+    closeModal?.();
+    router.back();
     setIsEditing(false);
   };
 
   return (
     <form
-      action={(formData: FormData) => {
+      action={
         isEditing
-          ? editReview(formData, id)
-          : addReview(formData, posterPath, title, genres, runtime);
-      }}
+          ? onSubmit
+          : (formData: FormData) =>
+              addReview(formData, posterPath, title, genres, runtime)
+      }
     >
       <div className="mb-4 flex gap-4">
         <Input

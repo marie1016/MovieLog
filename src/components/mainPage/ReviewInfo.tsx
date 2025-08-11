@@ -1,3 +1,5 @@
+"use client";
+
 import { Genre } from "@/types/movie";
 import clsx from "clsx";
 import { useSelector } from "react-redux";
@@ -45,7 +47,7 @@ export default function ReviewInfo({
           "flex w-full flex-col items-start justify-between",
         )}
       >
-        <div className={clsx(gap, text, "flex flex-col")}>
+        <div className={clsx(gap, text, "flex flex-col text-left")}>
           <MovieInfo title={title} genres={genres} runtime={runtime} />
         </div>
         <VoteAverage voteAverage={voteAverage} size={size} variant={variant} />

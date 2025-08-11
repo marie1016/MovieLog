@@ -104,7 +104,11 @@ abbr {
 }
 
 .react-calendar__tile--now.react-calendar__month-view__days__day abbr {
-  @apply rounded-full bg-blue p-1 text-center text-white;
+  @apply inline-block flex h-7 w-7 items-center justify-center rounded-full bg-blue p-1 text-white;
+}
+
+.react-calendar__tile--now.react-calendar__month-view__days__day {
+  @apply flex flex-col items-center;
 }
 
 .react-calendar__navigation {

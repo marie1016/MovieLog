@@ -2,7 +2,6 @@
 
 import { getUser } from "@/lib/firebase/getUser";
 import { getFirestore } from "firebase-admin/firestore";
-import { redirect } from "next/navigation";
 
 export async function editReview(formData: FormData, id?: string) {
   if (!id) {
@@ -26,5 +25,4 @@ export async function editReview(formData: FormData, id?: string) {
     date,
     review,
   });
-  redirect("/");
 }

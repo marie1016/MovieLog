@@ -1,4 +1,7 @@
+"use client";
+
 import { useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import Image from "next/image";
 import Dropdown from "./Dropdown/Dropdown";
 import DropdownToggle from "./Dropdown/DropdownToggle";
@@ -8,9 +11,14 @@ import EditReviewModal from "../mainPage/EditReviewModal";
 
 export default function ReviewDropdown({ id }: { id: string | undefined }) {
   const [isOpenModal, setIsOpenModal] = useState(false);
+  const searchParams = useSearchParams();
+  const router = useRouter();
 
   const openModal = () => {
     setIsOpenModal(true);
+    const params = new URLSearchParams(searchParams);
+    params.set("edit", "true");
+    router.push(`?${params.toString()}`, { scroll: false });
   };
 
   const closeModal = () => {

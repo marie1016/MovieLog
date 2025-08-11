@@ -6,10 +6,11 @@ import ReviewInfo from "@/components/mainPage/ReviewInfo";
 export default async function ModalPage({
   params,
 }: {
-  params: { id: string };
+  params: { id: number };
 }) {
   const { id } = params;
-  const movieDetails = await getMovieDetails(parseInt(id, 10));
+  const movieDetails = await getMovieDetails(id);
+
   // eslint-disable-next-line @typescript-eslint/naming-convention
   const { poster_path, title, genres, runtime } = movieDetails;
 
