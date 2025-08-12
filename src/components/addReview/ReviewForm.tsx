@@ -9,7 +9,9 @@ import { handleVoteAverageChange } from "@/lib/utils/handleVoteAverageChange";
 import { editReview } from "@/actions/editReview";
 import { useForm } from "react-hook-form";
 import { Genre } from "@/types/movie";
-import { useQueryClient } from "@tanstack/react-query";
+import { InfiniteData, useQueryClient } from "@tanstack/react-query";
+import { ReviewPage } from "@/lib/firebase/getReviews";
+import { Review } from "@/types/addReview";
 import Input from "../ui/input";
 import Button from "../ui/button";
 
@@ -58,8 +60,38 @@ export default function ReviewForm({
 
   const onSubmit = async (formData: FormData) => {
     try {
+      const formObj = Object.fromEntries(formData.entries());
+
       await editReview(formData, id);
+
+      queryClient.setQueryData(
+        ["reviews"],
+        (oldData: InfiniteData<ReviewPage>) => {
+          if (!oldData) return oldData;
+          return {
+            ...oldData,
+            pages: oldData.pages.map((page) => ({
+              ...page,
+              reviewsData: page.reviewsData.map((reviewData) =>
+                reviewData.id === id
+                  ? { ...reviewData, ...formObj }
+                  : reviewData,
+              ),
+            })),
+          };
+        },
+      );
+
+      queryClient.setQueryData(["myReviews"], (oldData: Review[]) => {
+        if (!oldData) return oldData;
+        return oldData.map((myReview) =>
+          myReview.id === id ? { ...myReview, ...formObj } : myReview,
+        );
+      });
+
       queryClient.invalidateQueries({ queryKey: ["reviews"] });
+      queryClient.invalidateQueries({ queryKey: ["myReviews"] });
+
       closeModal?.();
       router.back();
     } catch (error) {
