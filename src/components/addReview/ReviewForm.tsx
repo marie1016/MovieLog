@@ -11,7 +11,6 @@ import { useForm } from "react-hook-form";
 import { Genre } from "@/types/movie";
 import { InfiniteData, useQueryClient } from "@tanstack/react-query";
 import { ReviewPage } from "@/lib/firebase/getReviews";
-import { Review } from "@/types/addReview";
 import Input from "../ui/input";
 import Button from "../ui/button";
 
@@ -24,7 +23,7 @@ interface ReviewFormProps {
   voteAverage?: string;
   date?: string;
   review?: string;
-  closeModal?: () => void;
+  closeEditModal?: () => void;
 }
 
 export default function ReviewForm({
@@ -36,7 +35,7 @@ export default function ReviewForm({
   voteAverage,
   date,
   review,
-  closeModal,
+  closeEditModal,
 }: ReviewFormProps) {
   const today = dayjs().format("YYYY.MM.DD");
   const router = useRouter();
@@ -82,17 +81,10 @@ export default function ReviewForm({
         },
       );
 
-      queryClient.setQueryData(["myReviews"], (oldData: Review[]) => {
-        if (!oldData) return oldData;
-        return oldData.map((myReview) =>
-          myReview.id === id ? { ...myReview, ...formObj } : myReview,
-        );
-      });
-
       queryClient.invalidateQueries({ queryKey: ["reviews"] });
       queryClient.invalidateQueries({ queryKey: ["myReviews"] });
 
-      closeModal?.();
+      closeEditModal?.();
       router.back();
     } catch (error) {
       alert(`리뷰 수정 중 에러가 발생했습니다.`);
@@ -101,7 +93,7 @@ export default function ReviewForm({
 
   const handleReset = () => {
     reset();
-    closeModal?.();
+    closeEditModal?.();
     router.back();
     setIsEditing(false);
   };
