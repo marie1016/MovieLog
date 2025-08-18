@@ -8,21 +8,31 @@ import DropdownToggle from "./Dropdown/DropdownToggle";
 import DropdownList from "./Dropdown/DropdownList";
 import DropdownItem from "./Dropdown/DropdownItem";
 import EditReviewModal from "../mainPage/EditReviewModal";
+import DeleteReviewModal from "../mainPage/DeleteReviewModal";
 
 export default function ReviewDropdown({ id }: { id: string | undefined }) {
-  const [isOpenModal, setIsOpenModal] = useState(false);
+  const [isOpenEditModal, setIsOpenEditModal] = useState(false);
+  const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
   const searchParams = useSearchParams();
   const router = useRouter();
 
-  const openModal = () => {
-    setIsOpenModal(true);
+  const openEditModal = () => {
+    setIsOpenEditModal(true);
     const params = new URLSearchParams(searchParams);
     params.set("edit", "true");
     router.push(`?${params.toString()}`, { scroll: false });
   };
 
-  const closeModal = () => {
-    setIsOpenModal(false);
+  const closeEditModal = () => {
+    setIsOpenEditModal(false);
+  };
+
+  const openDeleteModal = () => {
+    setIsOpenDeleteModal(true);
+  };
+
+  const closeDeleteModal = () => {
+    setIsOpenDeleteModal(false);
   };
 
   return (
@@ -34,12 +44,17 @@ export default function ReviewDropdown({ id }: { id: string | undefined }) {
           </div>
         </DropdownToggle>
         <DropdownList className="absolute right-0 top-6 z-20 bg-white">
-          <DropdownItem onClick={openModal}>수정하기</DropdownItem>
+          <DropdownItem onClick={openEditModal}>수정하기</DropdownItem>
           <hr className="w-32 border-t border-gray600" />
-          <DropdownItem>삭제하기</DropdownItem>
+          <DropdownItem onClick={openDeleteModal}>삭제하기</DropdownItem>
         </DropdownList>
       </Dropdown>
-      {isOpenModal && <EditReviewModal id={id} closeModal={closeModal} />}
+      {isOpenEditModal && (
+        <EditReviewModal id={id} closeEditModal={closeEditModal} />
+      )}
+      {isOpenDeleteModal && (
+        <DeleteReviewModal id={id} closeDeleteModal={closeDeleteModal} />
+      )}
     </div>
   );
 }

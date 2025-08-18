@@ -4,7 +4,7 @@ export function middleware(request: NextRequest) {
   const sessionCookie = request.cookies.get("session")?.value;
   const { pathname } = request.nextUrl;
   const authPage = ["/login", "/signup"];
-  const myPage = ["/addReview"];
+  const myPage = ["/addReview", "/myPage"];
 
   // 로그인하지 않은 사용자의 접근 차단
   if (!sessionCookie && myPage.includes(pathname)) {

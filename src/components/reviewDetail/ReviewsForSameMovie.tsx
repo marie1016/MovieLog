@@ -14,6 +14,15 @@ export default async function ReviewsForSameMovie({
 
   const filteredReviewsData = reviewsData.filter((review) => review.id !== id);
 
+  if (!filteredReviewsData.length)
+    return (
+      <div className="py-8 text-center text-xl">
+        이 영화에 대한
+        <br />
+        다른 기록이 아직 없어요.
+      </div>
+    );
+
   return (
     <ul className="grid grid-cols-1 gap-12 md:grid-cols-2 md:gap-14">
       {filteredReviewsData.map((review) => (

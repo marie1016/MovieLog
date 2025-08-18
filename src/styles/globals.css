@@ -29,6 +29,7 @@ body {
     height: 77px;
     border-radius: 10px;
     border: 1px solid #efefef;
+    cursor: pointer;
   }
 
   &::scroll-button(left) {

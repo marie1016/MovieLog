@@ -33,7 +33,7 @@ export default function ReviewInfo({
   size = "sm",
 }: ReviewContentProps) {
   const { user } = useSelector((state: RootState) => state.user);
-  const dimension = size === "lg" ? "h-[256px]" : "h-[155px]";
+  const dimension = size === "lg" ? "sm:h-[256px]" : "h-[155px]";
   const gap = size === "lg" ? "gap-1" : "gap-0";
   const text = size === "lg" && "text-2xl";
 
@@ -44,7 +44,7 @@ export default function ReviewInfo({
       <div
         className={clsx(
           dimension,
-          "flex w-full flex-col items-start justify-between",
+          "flex h-[155px] w-full flex-col items-start justify-between",
         )}
       >
         <div className={clsx(gap, text, "flex flex-col text-left")}>
