@@ -15,7 +15,6 @@ export default function ReviewDropdown({ id }: { id: string | undefined }) {
   const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
   const searchParams = useSearchParams();
   const router = useRouter();
-  console.log(isOpenEditModal);
 
   const openEditModal = () => {
     setIsOpenEditModal(true);
@@ -30,9 +29,6 @@ export default function ReviewDropdown({ id }: { id: string | undefined }) {
 
   const openDeleteModal = () => {
     setIsOpenDeleteModal(true);
-    // const params = new URLSearchParams(searchParams);
-    // params.set("delete", "true");
-    // router.push(`?${params.toString()}`, { scroll: false });
   };
 
   const closeDeleteModal = () => {
