@@ -11,7 +11,7 @@ export default function MovieSearchSuggestions({
   onClick,
 }: SearchSuggestionsProps) {
   return (
-    <div className="relative">
+    <div className="relative z-10">
       <ul className="absolute top-4 flex h-auto w-[460px] flex-col gap-3 rounded-lg border border-gray bg-white px-7 py-4">
         {searchResults.map((searchResult: Movie) => (
           <li key={searchResult.id} className="flex items-center gap-3">
