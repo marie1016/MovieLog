@@ -19,7 +19,7 @@ export default async function getRecommendedMovies(recentMovieIds: number[]) {
         }
 
         const data = (await res.json()) as { results: Movie[] };
-        return data.results.slice(0, 5);
+        return data.results.slice(0, 10);
       }),
     );
 
