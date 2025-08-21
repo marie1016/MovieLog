@@ -7,8 +7,8 @@ export const getReviewsForSameMovie = async (
 ): Promise<Review[]> => {
   const q = query(
     collection(db, "reviews"),
-    orderBy("createdAt", "desc"),
     where("title", "==", title),
+    orderBy("createdAt", "desc"),
   );
 
   const documentSnapshots = await getDocs(q);

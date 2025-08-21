@@ -15,6 +15,7 @@ import Input from "../ui/input";
 import Button from "../ui/button";
 
 interface ReviewFormProps {
+  movieId?: number;
   id?: string;
   posterPath: string;
   title: string;
@@ -27,6 +28,7 @@ interface ReviewFormProps {
 }
 
 export default function ReviewForm({
+  movieId,
   id,
   posterPath,
   title,
@@ -104,7 +106,7 @@ export default function ReviewForm({
         isEditing
           ? onSubmit
           : (formData: FormData) =>
-              addReview(formData, posterPath, title, genres, runtime)
+              addReview(formData, movieId, posterPath, title, genres, runtime)
       }
     >
       <div className="mb-4 flex gap-4">

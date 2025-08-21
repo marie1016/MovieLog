@@ -7,6 +7,7 @@ import { redirect } from "next/navigation";
 
 export async function addReview(
   formData: FormData,
+  movieId: number | undefined,
   posterPath: string,
   title: string,
   genres: Genre[],
@@ -26,6 +27,7 @@ export async function addReview(
     voteAverage,
     date,
     review,
+    movieId,
     posterPath,
     title,
     genres,

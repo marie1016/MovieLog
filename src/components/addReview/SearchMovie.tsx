@@ -6,9 +6,13 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { Movie } from "@/types/movie";
 import Input from "../ui/input";
 import MovieSearchSuggestions from "./MovieSearchSuggestions";
-import MovieSearchResults from "./MovieSearchResults";
+import MovieGrid from "./MovieGrid";
 
-export default function SearchMovie() {
+export default function SearchMovie({
+  recommendedMovies,
+}: {
+  recommendedMovies: Movie[];
+}) {
   const router = useRouter();
   const lastChange = useRef<ReturnType<typeof setTimeout> | null>(null);
   const searchParams = useSearchParams();
@@ -77,6 +81,7 @@ export default function SearchMovie() {
         onKeyDown={handleKeyDown}
       />
 
+      {/* 추천 검색어 */}
       {searchResults.length > 0 && !showSearchResults && (
         <MovieSearchSuggestions
           searchResults={searchResults}
@@ -84,9 +89,16 @@ export default function SearchMovie() {
         />
       )}
 
-      {showSearchResults && (
-        <MovieSearchResults searchResults={searchResults} />
+      {/* 추천 영화 */}
+      {!showSearchResults && (
+        <>
+          <h1 className="mb-6 mt-10 text-4xl font-medium">추천 영화</h1>
+          <MovieGrid movies={recommendedMovies} />
+        </>
       )}
+
+      {/* 검색 결과 */}
+      {showSearchResults && <MovieGrid movies={searchResults} />}
     </>
   );
 }
