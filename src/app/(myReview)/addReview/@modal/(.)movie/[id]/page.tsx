@@ -32,6 +32,7 @@ export default async function ModalPage({
             variant="modal"
           />
           <ReviewForm
+            movieId={id}
             posterPath={poster_path}
             title={title}
             genres={genres}

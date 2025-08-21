@@ -13,6 +13,7 @@ export interface Review {
   review: string;
   createdAt: Date;
   userName: string;
+  movieId: number;
   posterPath: string;
   title: string;
   genres: Genre[];

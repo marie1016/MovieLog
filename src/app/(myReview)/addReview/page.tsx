@@ -1,3 +1,4 @@
+import RecommendedMovies from "@/components/addReview/RecommendedMovies";
 import SearchMovie from "@/components/addReview/SearchMovie";
 
 export default function AddReviewPage() {
@@ -5,6 +6,7 @@ export default function AddReviewPage() {
     <main>
       <h1 className="mb-6 text-4xl font-medium">영화 검색</h1>
       <SearchMovie />
+      <RecommendedMovies />
     </main>
   );
 }
