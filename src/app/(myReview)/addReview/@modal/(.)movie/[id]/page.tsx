@@ -16,9 +16,9 @@ export default async function ModalPage({
 
   return (
     <>
-      <div className="fixed left-0 top-0 z-10 h-full w-full bg-black/60" />
+      <div className="fixed left-0 top-0 z-20 h-full w-full bg-black/60" />
       <dialog
-        className="z-10 mb-14 h-auto w-full rounded-xl p-7 sm:w-[480px] sm:p-14"
+        className="z-30 mb-14 h-auto w-full rounded-xl p-7 sm:w-[480px] sm:p-14"
         open
       >
         <h2 className="text-center text-2xl font-medium">영화 리뷰 등록</h2>
