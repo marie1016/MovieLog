@@ -4,6 +4,7 @@ import { RootState } from "@/lib/store";
 import { useSelector } from "react-redux";
 import Link from "next/link";
 import UserMenu from "./UserMenu";
+import SearchReviews from "./SearchReviews";
 
 export default function MainHeader() {
   const { user, isLoading } = useSelector((state: RootState) => state.user);
@@ -29,7 +30,7 @@ export default function MainHeader() {
         </Link>
         {isLoading ? null : (
           <nav className="flex items-center gap-2 text-base font-semibold sm:gap-7">
-            <img src="/images/bell.svg" alt="alarm" />
+            <SearchReviews />
             <div className="relative flex gap-7 text-blue">{content}</div>
           </nav>
         )}

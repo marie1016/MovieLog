@@ -11,6 +11,9 @@ interface SearchInputProps {
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   onKeyDown: (e: KeyboardEvent<HTMLInputElement>) => void;
   onClick: (title: string) => void;
+  className: string;
+  placeholder: string;
+  size?: "sm" | "lg";
 }
 
 export default function SearchInput({
@@ -20,9 +23,12 @@ export default function SearchInput({
   onChange,
   onKeyDown,
   onClick,
+  className,
+  placeholder,
+  size = "sm",
 }: SearchInputProps) {
   return (
-    <>
+    <div className="relative">
       <Input
         type="text"
         value={value}
@@ -35,8 +41,8 @@ export default function SearchInput({
           />
         }
         iconClassName="absolute left-4 top-1/2 -translate-y-1/2"
-        placeholder="영화 제목"
-        className="w-72 pl-16 focus:z-0 sm:w-[460px]"
+        placeholder={placeholder}
+        className={className}
         onChange={onChange}
         onKeyDown={onKeyDown}
       />
@@ -46,8 +52,9 @@ export default function SearchInput({
         <MovieSearchSuggestions
           searchResults={searchResults}
           onClick={onClick}
+          size={size}
         />
       )}
-    </>
+    </div>
   );
 }

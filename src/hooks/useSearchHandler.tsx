@@ -13,25 +13,21 @@ export default function useSearchHandlers(decodedQuery: string) {
 
   const handleKeyDown = (
     e: KeyboardEvent<HTMLInputElement>,
+    path: string,
     debouncedValue: string,
   ) => {
     if (e.key === "Enter") {
-      router.push(`?query=${debouncedValue}`);
+      router.push(`${path}?query=${debouncedValue}`);
       setShowSearchResults(true);
     }
   };
 
-  const handleClick = (title: string) => {
-    setValue(title);
-    router.push(`?query=${title}`);
-    setShowSearchResults(true);
-  };
-
   return {
     value,
+    setValue,
     showSearchResults,
+    setShowSearchResults,
     handleInputChange,
     handleKeyDown,
-    handleClick,
   };
 }
