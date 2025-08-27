@@ -8,6 +8,7 @@ interface SearchInputProps {
   value: string;
   searchResults: Movie[];
   showSearchResults: boolean;
+  showSearchSuggestions: boolean;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   onKeyDown: (e: KeyboardEvent<HTMLInputElement>) => void;
   onClick: (title: string) => void;
@@ -20,6 +21,7 @@ export default function SearchInput({
   value,
   searchResults,
   showSearchResults,
+  showSearchSuggestions,
   onChange,
   onKeyDown,
   onClick,
@@ -27,6 +29,7 @@ export default function SearchInput({
   placeholder,
   size = "sm",
 }: SearchInputProps) {
+  console.log(showSearchResults);
   return (
     <div className="relative">
       <Input
@@ -48,7 +51,7 @@ export default function SearchInput({
       />
 
       {/* 추천 검색어 */}
-      {searchResults.length > 0 && !showSearchResults && (
+      {searchResults.length > 0 && showSearchSuggestions && (
         <MovieSearchSuggestions
           searchResults={searchResults}
           onClick={onClick}

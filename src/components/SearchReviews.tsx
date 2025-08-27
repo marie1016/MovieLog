@@ -13,19 +13,18 @@ export default function SearchReviews() {
 
   const {
     value,
-    setValue,
     showSearchResults,
-    setShowSearchResults,
+    showSearchSuggestions,
     handleInputChange,
     handleKeyDown,
+    handleClick,
   } = useSearchHandlers(decodedQuery);
 
   const { searchResults, debouncedValue } = useSearchMovies(value, 500);
 
-  const handleClick = (title: string) => {
-    setValue(title);
+  const handleReviewClick = (title: string) => {
+    handleClick(title);
     router.push(`searchReviews?query=${title}`);
-    setShowSearchResults(true);
   };
 
   return (
@@ -33,9 +32,10 @@ export default function SearchReviews() {
       value={value}
       searchResults={searchResults}
       showSearchResults={showSearchResults}
+      showSearchSuggestions={showSearchSuggestions}
       onChange={handleInputChange}
       onKeyDown={(e) => handleKeyDown(e, "searchReviews", debouncedValue)}
-      onClick={handleClick}
+      onClick={handleReviewClick}
       className="w-72 pl-16 focus:z-0"
       placeholder="리뷰검색"
     />

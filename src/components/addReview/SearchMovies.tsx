@@ -19,19 +19,18 @@ export default function SearchMovies({
 
   const {
     value,
-    setValue,
     showSearchResults,
-    setShowSearchResults,
+    showSearchSuggestions,
     handleInputChange,
     handleKeyDown,
+    handleClick,
   } = useSearchHandlers(decodedQuery);
 
   const { searchResults, debouncedValue } = useSearchMovies(value, 500);
 
-  const handleClick = (title: string) => {
-    setValue(title);
+  const handleMovieClick = (title: string) => {
+    handleClick(title);
     router.push(`?query=${title}`);
-    setShowSearchResults(true);
   };
 
   return (
@@ -40,9 +39,10 @@ export default function SearchMovies({
         value={value}
         searchResults={searchResults}
         showSearchResults={showSearchResults}
+        showSearchSuggestions={showSearchSuggestions}
         onChange={handleInputChange}
         onKeyDown={(e) => handleKeyDown(e, "", debouncedValue)}
-        onClick={handleClick}
+        onClick={handleMovieClick}
         className="w-72 pl-16 focus:z-0 sm:w-[460px]"
         placeholder="영화검색"
         size="lg"
