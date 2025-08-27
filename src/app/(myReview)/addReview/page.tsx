@@ -1,4 +1,4 @@
-import SearchMovie from "@/components/addReview/SearchMovie";
+import SearchMovies from "@/components/addReview/SearchMovies";
 import getRecommendedMovies from "@/lib/api/getRecommendedMovies";
 import { getMyReviews } from "@/lib/firebase/getMyReviews";
 import { getUser } from "@/lib/firebase/getUser";
@@ -18,7 +18,7 @@ export default async function AddReviewPage() {
   return (
     <main>
       <h1 className="mb-6 text-4xl font-medium">영화 검색</h1>
-      <SearchMovie recommendedMovies={recommendedMovies} />
+      <SearchMovies recommendedMovies={recommendedMovies} />
     </main>
   );
 }
