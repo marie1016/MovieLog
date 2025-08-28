@@ -109,7 +109,7 @@ export default function ReviewForm({
               addReview(formData, movieId, posterPath, title, genres, runtime)
       }
     >
-      <div className="mb-4 flex gap-4">
+      <div className="mb-4 flex items-center gap-4">
         <Input
           {...register("voteAverage", {
             required: true,

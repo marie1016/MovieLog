@@ -5,7 +5,7 @@ import { Movie } from "@/types/movie";
 import useSearchHandlers from "@/hooks/useSearchHandler";
 import useSearchMovies from "@/hooks/useSearchMovies";
 import MovieGrid from "./MovieGrid";
-import SearchInput from "./SearchInput";
+import SearchInput from "../ui/SearchInput";
 
 export default function SearchMovies({
   recommendedMovies,
@@ -42,7 +42,7 @@ export default function SearchMovies({
         onChange={handleInputChange}
         onKeyDown={(e) => handleKeyDown(e, "", debouncedValue)}
         onClick={handleMovieClick}
-        className="w-72 pl-16 focus:z-0 sm:w-[460px]"
+        width="w-72 sm:w-[460px]"
         placeholder="영화검색"
         size="lg"
       />

@@ -3,12 +3,12 @@
 import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Image from "next/image";
-import Dropdown from "./Dropdown/Dropdown";
-import DropdownToggle from "./Dropdown/DropdownToggle";
-import DropdownList from "./Dropdown/DropdownList";
-import DropdownItem from "./Dropdown/DropdownItem";
-import EditReviewModal from "../mainPage/EditReviewModal";
-import DeleteReviewModal from "../mainPage/DeleteReviewModal";
+import Dropdown from "./dropdown/Dropdown";
+import DropdownToggle from "./dropdown/DropdownToggle";
+import DropdownList from "./dropdown/DropdownList";
+import DropdownItem from "./dropdown/DropdownItem";
+import EditReviewModal from "../modals/EditReviewModal";
+import DeleteReviewModal from "../modals/DeleteReviewModal";
 
 export default function ReviewDropdown({ id }: { id: string | undefined }) {
   const [isOpenEditModal, setIsOpenEditModal] = useState(false);

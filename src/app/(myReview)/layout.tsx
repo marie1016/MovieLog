@@ -1,4 +1,4 @@
-import MainHeader from "@/components/MainHeader";
+import MainHeader from "@/components/header/MainHeader";
 
 export default function MyReviewLayout({
   children,

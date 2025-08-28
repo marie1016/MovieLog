@@ -4,7 +4,7 @@ import { BASE_POSTER_PATH } from "@/lib/constants/basePath";
 import { Review } from "@/types/addReview";
 import Image from "next/image";
 import { useState } from "react";
-import MyReviewModal from "./MyReviewModal";
+import MyReviewModal from "../modals/MyReviewModal";
 
 export default function TileContent({
   date,

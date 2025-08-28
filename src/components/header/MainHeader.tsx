@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { RootState } from "@/lib/store";
 import { useSelector } from "react-redux";
 import Link from "next/link";
@@ -7,25 +8,29 @@ import useMediaQuery from "@/hooks/useMediaQuery";
 import Image from "next/image";
 import UserMenu from "./UserMenu";
 import SearchReviews from "./SearchReviews";
+import SearchReviewsModal from "../modals/SearchReviewsModal";
 
 export default function MainHeader() {
   const { user, isLoading } = useSelector((state: RootState) => state.user);
   const isMobile = useMediaQuery("(max-Width:768px)");
+  const [showSearchModal, setShowSearchModal] = useState(false);
 
   // 리뷰 검색창
   let searchReviews;
 
   if (isMobile) {
     searchReviews = (
-      <Image
-        src="/images/search-icon.svg"
-        alt="검색 아이콘"
-        width={40}
-        height={40}
-      />
+      <button onClick={() => setShowSearchModal(true)}>
+        <Image
+          src="/images/search-icon.svg"
+          alt="검색 아이콘"
+          width={40}
+          height={40}
+        />
+      </button>
     );
   } else {
-    searchReviews = <SearchReviews />;
+    searchReviews = <SearchReviews width="w-72" />;
   }
 
   // user 표시
@@ -41,6 +46,8 @@ export default function MainHeader() {
       </>
     );
   }
+
+  if (showSearchModal) return <SearchReviewsModal />;
 
   return (
     <header className="h-[60px] w-full bg-white shadow-xl">

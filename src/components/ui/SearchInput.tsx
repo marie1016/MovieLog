@@ -1,8 +1,8 @@
 import Image from "next/image";
 import { Movie } from "@/types/movie";
 import { ChangeEvent, KeyboardEvent } from "react";
-import Input from "../ui/input";
-import MovieSearchSuggestions from "./MovieSearchSuggestions";
+import Input from "./input";
+import MovieSearchSuggestions from "../addReview/MovieSearchSuggestions";
 
 interface SearchInputProps {
   value: string;
@@ -11,9 +11,10 @@ interface SearchInputProps {
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   onKeyDown: (e: KeyboardEvent<HTMLInputElement>) => void;
   onClick: (title: string) => void;
-  className: string;
+  width: string;
   placeholder: string;
   size?: "sm" | "lg";
+  border?: boolean;
 }
 
 export default function SearchInput({
@@ -23,9 +24,10 @@ export default function SearchInput({
   onChange,
   onKeyDown,
   onClick,
-  className,
+  width,
   placeholder,
   size = "sm",
+  border = true,
 }: SearchInputProps) {
   return (
     <div className="relative">
@@ -42,7 +44,7 @@ export default function SearchInput({
         }
         iconClassName="absolute left-4 top-1/2 -translate-y-1/2"
         placeholder={placeholder}
-        className={className}
+        className={`${width} pl-16 focus:z-0`}
         onChange={onChange}
         onKeyDown={onKeyDown}
       />
@@ -50,6 +52,7 @@ export default function SearchInput({
       {/* 추천 검색어 */}
       {searchResults.length > 0 && showSearchSuggestions && (
         <MovieSearchSuggestions
+          border={border}
           searchResults={searchResults}
           onClick={onClick}
           size={size}
