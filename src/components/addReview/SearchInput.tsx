@@ -7,7 +7,6 @@ import MovieSearchSuggestions from "./MovieSearchSuggestions";
 interface SearchInputProps {
   value: string;
   searchResults: Movie[];
-  showSearchResults: boolean;
   showSearchSuggestions: boolean;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   onKeyDown: (e: KeyboardEvent<HTMLInputElement>) => void;
@@ -20,7 +19,6 @@ interface SearchInputProps {
 export default function SearchInput({
   value,
   searchResults,
-  showSearchResults,
   showSearchSuggestions,
   onChange,
   onKeyDown,
@@ -29,7 +27,6 @@ export default function SearchInput({
   placeholder,
   size = "sm",
 }: SearchInputProps) {
-  console.log(showSearchResults);
   return (
     <div className="relative">
       <Input

@@ -38,7 +38,6 @@ export default function SearchMovies({
       <SearchInput
         value={value}
         searchResults={searchResults}
-        showSearchResults={showSearchResults}
         showSearchSuggestions={showSearchSuggestions}
         onChange={handleInputChange}
         onKeyDown={(e) => handleKeyDown(e, "", debouncedValue)}

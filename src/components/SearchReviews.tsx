@@ -13,7 +13,6 @@ export default function SearchReviews() {
 
   const {
     value,
-    showSearchResults,
     showSearchSuggestions,
     handleInputChange,
     handleKeyDown,
@@ -31,7 +30,6 @@ export default function SearchReviews() {
     <SearchInput
       value={value}
       searchResults={searchResults}
-      showSearchResults={showSearchResults}
       showSearchSuggestions={showSearchSuggestions}
       onChange={handleInputChange}
       onKeyDown={(e) => handleKeyDown(e, "searchReviews", debouncedValue)}
