@@ -3,9 +3,9 @@
 import { useRouter, useSearchParams } from "next/navigation";
 import useSearchHandlers from "@/hooks/useSearchHandler";
 import useSearchMovies from "@/hooks/useSearchMovies";
-import SearchInput from "./addReview/SearchInput";
+import SearchInput from "../ui/SearchInput";
 
-export default function SearchReviews() {
+export default function SearchReviews({ width }: { width: string }) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const query = searchParams.get("query");
@@ -13,7 +13,6 @@ export default function SearchReviews() {
 
   const {
     value,
-    showSearchResults,
     showSearchSuggestions,
     handleInputChange,
     handleKeyDown,
@@ -31,13 +30,13 @@ export default function SearchReviews() {
     <SearchInput
       value={value}
       searchResults={searchResults}
-      showSearchResults={showSearchResults}
       showSearchSuggestions={showSearchSuggestions}
       onChange={handleInputChange}
       onKeyDown={(e) => handleKeyDown(e, "searchReviews", debouncedValue)}
       onClick={handleReviewClick}
-      className="w-72 pl-16 focus:z-0"
+      width={width}
       placeholder="리뷰검색"
+      border={false}
     />
   );
 }

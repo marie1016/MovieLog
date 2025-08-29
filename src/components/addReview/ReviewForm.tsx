@@ -109,7 +109,7 @@ export default function ReviewForm({
               addReview(formData, movieId, posterPath, title, genres, runtime)
       }
     >
-      <div className="mb-4 flex gap-4">
+      <div className="relative mb-4 flex items-center gap-4">
         <Input
           {...register("voteAverage", {
             required: true,
@@ -130,7 +130,7 @@ export default function ReviewForm({
               height={20}
             />
           }
-          iconClassName="absolute top-1/2 -translate-y-1/2 left-3 z-10"
+          iconClassName="absolute top-1/2 -translate-y-1/2 left-14 z-10"
         />
         <Input
           {...register("date", { required: true })}

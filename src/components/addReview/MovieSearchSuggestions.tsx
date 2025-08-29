@@ -6,20 +6,23 @@ interface SearchSuggestionsProps {
   searchResults: Movie[];
   onClick: (title: string) => void;
   size: string | undefined;
+  border: boolean | undefined;
 }
 
 export default function MovieSearchSuggestions({
+  border,
   searchResults,
   onClick,
   size,
 }: SearchSuggestionsProps) {
   const width = size === "lg" ? "sm:w-[460px]" : "";
-
+  const isBorder = border && "border border-gray";
   return (
     <ul
       className={clsx(
         width,
-        "absolute top-16 z-10 flex h-auto w-72 flex-col gap-3 rounded-lg border border-gray bg-white px-7 py-4",
+        isBorder,
+        "absolute top-16 z-10 flex h-auto w-72 flex-col gap-3 rounded-lg bg-white px-7 py-4",
       )}
     >
       {searchResults.map((searchResult: Movie) => (

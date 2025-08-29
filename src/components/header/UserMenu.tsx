@@ -2,10 +2,10 @@ import { signOut } from "firebase/auth";
 import auth from "@/lib/firebase/firebase";
 import Link from "next/link";
 import { User } from "@/lib/store/user";
-import Dropdown from "./ui/Dropdown/Dropdown";
-import DropdownItem from "./ui/Dropdown/DropdownItem";
-import DropdownList from "./ui/Dropdown/DropdownList";
-import DropdownToggle from "./ui/Dropdown/DropdownToggle";
+import Dropdown from "../ui/dropdown/Dropdown";
+import DropdownItem from "../ui/dropdown/DropdownItem";
+import DropdownList from "../ui/dropdown/DropdownList";
+import DropdownToggle from "../ui/dropdown/DropdownToggle";
 
 export default function UserMenu({ user }: { user: User }) {
   const handleLogout = async () => {
