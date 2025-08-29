@@ -1,8 +1,9 @@
 import Image from "next/image";
 import { Movie } from "@/types/movie";
 import { ChangeEvent, KeyboardEvent } from "react";
-import Input from "./input";
+import useMediaQuery from "@/hooks/useMediaQuery";
 import MovieSearchSuggestions from "../addReview/MovieSearchSuggestions";
+import Input from "./input";
 
 interface SearchInputProps {
   value: string;
@@ -29,25 +30,39 @@ export default function SearchInput({
   size = "sm",
   border = true,
 }: SearchInputProps) {
+  const isMobile = useMediaQuery("(max-Width:768px)");
+
   return (
     <div className="relative">
-      <Input
-        type="text"
-        value={value}
-        icon={
-          <Image
-            src="/images/search-icon.svg"
-            alt="검색 아이콘"
-            width={40}
-            height={40}
-          />
-        }
-        iconClassName="absolute left-4 top-1/2 -translate-y-1/2"
-        placeholder={placeholder}
-        className={`${width} pl-16 focus:z-0`}
-        onChange={onChange}
-        onKeyDown={onKeyDown}
-      />
+      <div className="flex items-center gap-4">
+        <Input
+          type="text"
+          value={value}
+          icon={
+            <Image
+              src="/images/search-icon.svg"
+              alt="검색 아이콘"
+              width={40}
+              height={40}
+            />
+          }
+          iconClassName="absolute left-4 top-1/2 -translate-y-1/2"
+          placeholder={placeholder}
+          className={`${width} pl-16 focus:z-0`}
+          onChange={onChange}
+          onKeyDown={onKeyDown}
+        />
+        {isMobile && (
+          <button>
+            <Image
+              src="/images/close-button.svg"
+              alt="닫기 버튼"
+              width={24}
+              height={24}
+            />
+          </button>
+        )}
+      </div>
 
       {/* 추천 검색어 */}
       {searchResults.length > 0 && showSearchSuggestions && (

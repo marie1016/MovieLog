@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { RootState } from "@/lib/store";
 import { useSelector } from "react-redux";
 import Link from "next/link";
@@ -46,6 +46,14 @@ export default function MainHeader() {
       </>
     );
   }
+
+  useEffect(() => {
+    if (showSearchModal) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+  }, [showSearchModal]);
 
   if (showSearchModal) return <SearchReviewsModal />;
 
