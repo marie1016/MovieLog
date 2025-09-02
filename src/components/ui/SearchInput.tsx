@@ -1,6 +1,8 @@
 import Image from "next/image";
 import { Movie } from "@/types/movie";
 import { ChangeEvent, KeyboardEvent } from "react";
+import { useDispatch } from "react-redux";
+import { closeModal } from "@/lib/store/modal";
 import useMediaQuery from "@/hooks/useMediaQuery";
 import MovieSearchSuggestions from "../addReview/MovieSearchSuggestions";
 import Input from "./input";
@@ -31,6 +33,7 @@ export default function SearchInput({
   border = true,
 }: SearchInputProps) {
   const isMobile = useMediaQuery("(max-Width:768px)");
+  const dispatch = useDispatch();
 
   return (
     <div className="relative">
@@ -53,7 +56,11 @@ export default function SearchInput({
           onKeyDown={onKeyDown}
         />
         {isMobile && (
-          <button>
+          <button
+            onClick={() => {
+              dispatch(closeModal());
+            }}
+          >
             <Image
               src="/images/close-button.svg"
               alt="닫기 버튼"

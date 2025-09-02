@@ -8,6 +8,7 @@ import { makeStore } from "@/lib/store";
 import UserDispatch from "@/components/auth/UserDispatch";
 import { PersistQueryClientProvider } from "@tanstack/react-query-persist-client";
 import { createSyncStoragePersister } from "@tanstack/query-sync-storage-persister";
+import ModalContainer from "@/components/modals/ModalContainer";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -39,6 +40,7 @@ export default function Providers({
       <Provider store={store}>
         <UserDispatch />
         {children}
+        <ModalContainer />
       </Provider>
     </PersistQueryClientProvider>
   );

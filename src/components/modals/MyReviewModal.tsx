@@ -4,17 +4,18 @@ import { useRef } from "react";
 import dayjs from "dayjs";
 import { Review } from "@/types/addReview";
 import { useQueryClient } from "@tanstack/react-query";
+import { useDispatch } from "react-redux";
+import { closeModal } from "@/lib/store/modal";
 import ReviewHeader from "../mainPage/ReviewHeader";
 import ReviewInfo from "../mainPage/ReviewInfo";
 import ReviewText from "../addReview/ReviewText";
 
 export default function MyReviewModal({
   dateStr,
-  closeModal,
 }: {
-  dateStr: string;
-  closeModal: () => void;
+  dateStr: string | undefined;
 }) {
+  const dispatch = useDispatch();
   const dialogRef = useRef<HTMLDialogElement>(null);
 
   const queryClient = useQueryClient();
@@ -31,18 +32,18 @@ export default function MyReviewModal({
 
   const clickBackdrop = (e: React.MouseEvent) => {
     if (e.target !== dialogRef.current) {
-      closeModal();
+      dispatch(closeModal());
     }
   };
 
   return (
     <>
       <div
-        className="fixed inset-0 z-10 h-screen w-screen bg-black/60"
+        className="fixed inset-0 z-10 h-screen w-screen bg-black/0"
         onClick={clickBackdrop}
       />
       <dialog
-        className="modal-scrollbar fixed inset-0 z-20 mt-20 h-full w-screen overflow-y-auto rounded-xl bg-white p-7 sm:mb-20 sm:max-h-[calc(100vh-10rem)] sm:w-[480px] sm:px-14 sm:py-10"
+        className="fixed inset-0 z-20 mt-20 h-full w-screen overflow-y-auto rounded-xl bg-white p-7 sm:mb-20 sm:max-h-[calc(100vh-10rem)] sm:w-[480px] sm:px-14 sm:py-10"
         ref={dialogRef}
         open
       >
