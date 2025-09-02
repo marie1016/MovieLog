@@ -1,26 +1,29 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { RootState } from "@/lib/store";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Link from "next/link";
 import useMediaQuery from "@/hooks/useMediaQuery";
 import Image from "next/image";
+import { openModal } from "@/lib/store/modal";
 import UserMenu from "./UserMenu";
 import SearchReviews from "./SearchReviews";
-import SearchReviewsModal from "../modals/SearchReviewsModal";
 
 export default function MainHeader() {
   const { user, isLoading } = useSelector((state: RootState) => state.user);
   const isMobile = useMediaQuery("(max-Width:768px)");
-  const [showSearchModal, setShowSearchModal] = useState(false);
+  const isOpen = useSelector((state: RootState) => state.modal.isOpen);
+  const dispatch = useDispatch();
 
   // 리뷰 검색창
   let searchReviews;
 
   if (isMobile) {
     searchReviews = (
-      <button onClick={() => setShowSearchModal(true)}>
+      <button
+        onClick={() => dispatch(openModal({ modalType: "searchReviews" }))}
+      >
         <Image
           src="/images/search-icon.svg"
           alt="검색 아이콘"
@@ -48,14 +51,12 @@ export default function MainHeader() {
   }
 
   useEffect(() => {
-    if (showSearchModal) {
+    if (isOpen) {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "";
     }
-  }, [showSearchModal]);
-
-  if (showSearchModal) return <SearchReviewsModal />;
+  }, [isOpen]);
 
   return (
     <header className="h-[60px] w-full bg-white shadow-xl">
