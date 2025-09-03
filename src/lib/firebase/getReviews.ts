@@ -8,6 +8,7 @@ import {
   startAfter,
   DocumentData,
   QueryDocumentSnapshot,
+  Timestamp,
 } from "firebase/firestore";
 import { db } from "./firebase";
 
@@ -41,14 +42,10 @@ export const getReviews = async (
 
   const reviewsData = documentSnapshots.docs.map((doc) => {
     const data = doc.data();
-    const createdAt = data.createdAt as {
-      seconds: number;
-      nanoseconds: number;
-    };
     return {
       ...data,
       id: doc.id,
-      createdAt: new Date(createdAt.seconds * 1000),
+      createdAt: (data.createdAt as Timestamp).toDate(),
     };
   }) as Review[];
 
