@@ -1,9 +1,9 @@
 import Image from "next/image";
 import { Movie } from "@/types/movie";
 import { ChangeEvent, KeyboardEvent } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { closeModal } from "@/lib/store/modal";
-import useMediaQuery from "@/hooks/useMediaQuery";
+import { RootState } from "@/lib/store";
 import MovieSearchSuggestions from "../addReview/MovieSearchSuggestions";
 import Input from "./input";
 
@@ -32,7 +32,7 @@ export default function SearchInput({
   size = "sm",
   border = true,
 }: SearchInputProps) {
-  const isMobile = useMediaQuery("(max-Width:768px)");
+  const { isOpen } = useSelector((state: RootState) => state.modal);
   const dispatch = useDispatch();
 
   return (
@@ -55,7 +55,7 @@ export default function SearchInput({
           onChange={onChange}
           onKeyDown={onKeyDown}
         />
-        {isMobile && (
+        {isOpen && (
           <button
             onClick={() => {
               dispatch(closeModal());
