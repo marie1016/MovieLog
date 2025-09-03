@@ -1,7 +1,7 @@
 import ReviewForm from "@/components/addReview/ReviewForm";
-import ReviewHeader from "@/components/mainPage/ReviewHeader";
+import ReviewHeader from "@/components/ui/review/ReviewHeader";
 import getMovieDetails from "@/lib/api/getMovieDetails";
-import ReviewInfo from "@/components/mainPage/ReviewInfo";
+import ReviewInfo from "@/components/ui/review/ReviewInfo";
 
 export default async function ModalPage({
   params,
@@ -16,9 +16,9 @@ export default async function ModalPage({
 
   return (
     <>
-      <div className="fixed left-0 top-0 z-20 h-full w-full bg-black/60" />
+      <div className="fixed inset-0 z-10 h-screen w-screen bg-black/60" />
       <dialog
-        className="z-30 mb-14 h-auto w-full rounded-xl p-7 sm:w-[480px] sm:p-14"
+        className="fixed inset-0 z-20 mt-20 h-auto w-full overflow-y-scroll rounded-xl p-7 sm:mb-14 sm:w-[480px] sm:p-14"
         open
       >
         <h2 className="text-center text-2xl font-medium">영화 리뷰 등록</h2>

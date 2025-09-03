@@ -68,8 +68,8 @@ export default function SignupPage() {
   };
 
   return (
-    <div className="mx-auto my-[100px] max-w-[460px]">
-      <h1 className="mb-10 text-center text-[40px] font-medium">회원가입</h1>
+    <div className="mx-auto my-16 max-w-[460px] px-5">
+      <h1 className="mb-10 text-center text-4xl font-medium">회원가입</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Input
           {...register("nickname")}
@@ -93,16 +93,19 @@ export default function SignupPage() {
           label="비밀번호"
           id="password"
           type="password"
-          placeholder="영문, 숫자를 포함한 8자 이상의 비밀번호"
+          placeholder="비밀번호"
           error={errors.password}
           authStyle
         />
+        <p className="my-1 text-sm text-gray600">
+          영문, 숫자를 포함한 8자 이상의 비밀번호를 입력해 주세요.
+        </p>
         <Input
           {...register("confirmPassword")}
           label="비밀번호 확인"
           id="confirmPassword"
           type="password"
-          placeholder="비밀번호를 다시 입력해 주세요"
+          placeholder="비밀번호 확인"
           error={errors.confirmPassword}
           authStyle
         />

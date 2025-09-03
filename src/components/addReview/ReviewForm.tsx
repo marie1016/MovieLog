@@ -110,36 +110,40 @@ export default function ReviewForm({
       }
     >
       <div className="relative mb-4 flex items-center gap-4">
-        <Input
-          {...register("voteAverage", {
-            required: true,
-            onChange: (e: ChangeEvent<HTMLInputElement>) => {
-              handleVoteAverageChange(e, setValue);
-            },
-          })}
-          label="평점"
-          type="text"
-          inputMode="numeric"
-          placeholder="0.0"
-          className="h-9 w-20 pl-8"
-          icon={
-            <Image
-              src="/images/blue-star.svg"
-              alt="blue-star"
-              width={20}
-              height={20}
-            />
-          }
-          iconClassName="absolute top-1/2 -translate-y-1/2 left-14 z-10"
-        />
-        <Input
-          {...register("date", { required: true })}
-          label="시청 날짜"
-          type="text"
-          placeholder={today}
-          pattern="\d{4}\.(0[1-9]|1[0-2])\.(0[1-9]|[12]\d|3[01])"
-          className="h-9 w-32 p-4"
-        />
+        <div className="flex flex-col">
+          <Input
+            {...register("voteAverage", {
+              required: true,
+              onChange: (e: ChangeEvent<HTMLInputElement>) => {
+                handleVoteAverageChange(e, setValue);
+              },
+            })}
+            label="평점"
+            type="text"
+            inputMode="numeric"
+            placeholder="0.0"
+            className="h-9 w-20 pl-8"
+            icon={
+              <Image
+                src="/images/blue-star.svg"
+                alt="blue-star"
+                width={20}
+                height={20}
+              />
+            }
+            iconClassName="absolute top-14 left-3 z-10"
+          />
+        </div>
+        <div className="flex flex-col">
+          <Input
+            {...register("date", { required: true })}
+            label="시청 날짜"
+            type="text"
+            placeholder={today}
+            pattern="\d{4}\.(0[1-9]|1[0-2])\.(0[1-9]|[12]\d|3[01])"
+            className="h-9 w-32 p-4"
+          />
+        </div>
       </div>
 
       <textarea

@@ -1,5 +1,5 @@
 import getMovies from "@/lib/api/getMovies";
-import MovieCarousel from "../mainPage/MovieCarousel";
+import MovieCarousel from "../ui/movie/MovieCarousel";
 
 export default async function SimilarMovies({
   genreId,

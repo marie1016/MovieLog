@@ -5,6 +5,7 @@ import { Review } from "@/types/addReview";
 import Image from "next/image";
 import { useDispatch } from "react-redux";
 import { openModal } from "@/lib/store/modal";
+import dayjs from "dayjs";
 
 export default function TileContent({
   date,
@@ -13,12 +14,12 @@ export default function TileContent({
   date: Date;
   reviewsData: Review[];
 }) {
-  const dateStr = date.toISOString().split("T")[0];
+  const dateStr = dayjs(date).format("YYYY-MM-DD");
   const dispatch = useDispatch();
 
   const posters = reviewsData
     .filter((review) => {
-      const reviewDateStr = review.createdAt.toISOString().split("T")[0];
+      const reviewDateStr = dayjs(review.createdAt).format("YYYY-MM-DD");
       return reviewDateStr === dateStr;
     })
     .map((review) => review.posterPath);

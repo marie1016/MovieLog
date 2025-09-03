@@ -11,9 +11,9 @@ import type { InfiniteData } from "@tanstack/react-query";
 import { getMyReviews } from "@/lib/firebase/getMyReviews";
 import { useSelector } from "react-redux";
 import { RootState } from "@/lib/store";
-import ReviewText from "../addReview/ReviewText";
-import ReviewHeader from "../mainPage/ReviewHeader";
-import ReviewInfo from "../mainPage/ReviewInfo";
+import ReviewText from "../ui/review/ReviewText";
+import ReviewHeader from "../ui/review/ReviewHeader";
+import ReviewInfo from "../ui/review/ReviewInfo";
 
 export default function ReviewDetail({ id }: { id: string }) {
   const queryClient = useQueryClient();

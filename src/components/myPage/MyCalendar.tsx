@@ -21,7 +21,7 @@ export default function MyCalendar({
     queryKey: ["myReviews"],
     queryFn: async () => getMyReviews(displayName),
     initialData: initialMyReviews,
-    staleTime: 1000 * 60 * 30,
+    staleTime: 0,
   });
 
   const renderTileContent = (props: TileArgs) => (
