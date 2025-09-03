@@ -5,7 +5,13 @@ import useSearchHandlers from "@/hooks/useSearchHandler";
 import useSearchMovies from "@/hooks/useSearchMovies";
 import SearchInput from "../ui/SearchInput";
 
-export default function SearchReviews({ width }: { width: string }) {
+export default function SearchReviews({
+  width,
+  border,
+}: {
+  width: string;
+  border?: boolean;
+}) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const query = searchParams.get("query");
@@ -36,7 +42,7 @@ export default function SearchReviews({ width }: { width: string }) {
       onClick={handleReviewClick}
       width={width}
       placeholder="리뷰검색"
-      border={false}
+      border={border}
     />
   );
 }
