@@ -1,7 +1,7 @@
 import ReviewForm from "@/components/addReview/ReviewForm";
-import ReviewHeader from "@/components/mainPage/ReviewHeader";
+import ReviewHeader from "@/components/ui/review/ReviewHeader";
 import getMovieDetails from "@/lib/api/getMovieDetails";
-import ReviewInfo from "@/components/mainPage/ReviewInfo";
+import ReviewInfo from "@/components/ui/review/ReviewInfo";
 
 export default async function ModalPage({
   params,

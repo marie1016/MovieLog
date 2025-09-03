@@ -6,8 +6,8 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/lib/store";
 import PosterImage from "./PosterImage";
 import MovieInfo from "./MovieInfo";
-import VoteAverage from "./VoteAverage";
-import ReviewDropdown from "../ui/ReviewDropdown";
+import VoteAverage from "../VoteAverage";
+import ReviewDropdown from "./ReviewDropdown";
 
 export interface ReviewContentProps {
   userName?: string;

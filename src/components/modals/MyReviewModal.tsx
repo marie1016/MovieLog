@@ -6,9 +6,9 @@ import { Review } from "@/types/addReview";
 import { useQueryClient } from "@tanstack/react-query";
 import { useDispatch } from "react-redux";
 import { closeModal } from "@/lib/store/modal";
-import ReviewHeader from "../mainPage/ReviewHeader";
-import ReviewInfo from "../mainPage/ReviewInfo";
-import ReviewText from "../addReview/ReviewText";
+import ReviewHeader from "../ui/review/ReviewHeader";
+import ReviewInfo from "../ui/review/ReviewInfo";
+import ReviewText from "../ui/review/ReviewText";
 
 export default function MyReviewModal({
   dateStr,

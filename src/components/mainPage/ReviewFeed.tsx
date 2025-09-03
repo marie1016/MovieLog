@@ -5,9 +5,9 @@ import type { InfiniteData, QueryKey } from "@tanstack/react-query";
 import { useSuspenseInfiniteQuery } from "@tanstack/react-query";
 import { getReviews, ReviewPage } from "@/lib/firebase/getReviews";
 import { DocumentData, QueryDocumentSnapshot } from "firebase/firestore";
-import ReviewText from "../addReview/ReviewText";
-import ReviewHeader from "./ReviewHeader";
-import ReviewInfo from "./ReviewInfo";
+import ReviewText from "../ui/review/ReviewText";
+import ReviewHeader from "../ui/review/ReviewHeader";
+import ReviewInfo from "../ui/review/ReviewInfo";
 
 type PageParam = QueryDocumentSnapshot<DocumentData> | null;
 

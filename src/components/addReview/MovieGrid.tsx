@@ -1,6 +1,6 @@
 import { Movie } from "@/types/movie";
 import Link from "next/link";
-import MovieCard from "../mainPage/MovieCard";
+import MovieCard from "../ui/movie/MovieCard";
 
 export default function MovieGrid({ movies }: { movies: Movie[] }) {
   return (

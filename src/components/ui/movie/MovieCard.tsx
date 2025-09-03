@@ -1,5 +1,5 @@
 import Image from "next/image";
-import VoteAverage from "./VoteAverage";
+import VoteAverage from "../VoteAverage";
 
 interface CardProps {
   title: string;

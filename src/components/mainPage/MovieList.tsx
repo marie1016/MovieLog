@@ -1,6 +1,6 @@
 import getMovies from "@/lib/api/getMovies";
 import { Movie } from "@/types/movie";
-import MovieCarousel from "./MovieCarousel";
+import MovieCarousel from "../ui/movie/MovieCarousel";
 
 export default async function MovieList({
   searchParams,
