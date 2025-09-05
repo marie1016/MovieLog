@@ -1,10 +1,10 @@
 "use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
-import Dropdown from "../ui/dropdown-ui/Dropdown";
-import DropdownItem from "../ui/dropdown-ui/DropdownItem";
-import DropdownList from "../ui/dropdown-ui/DropdownList";
-import DropdownToggle from "../ui/dropdown-ui/DropdownToggle";
+import Dropdown from "../ui/dropdown/Dropdown";
+import DropdownItem from "../ui/dropdown/DropdownItem";
+import DropdownList from "../ui/dropdown/DropdownList";
+import DropdownToggle from "../ui/dropdown/DropdownToggle";
 
 const SORT_OPTIONS: Record<string, string> = {
   now_playing: "현재 상영 중",

@@ -4,10 +4,10 @@ import { useRouter, useSearchParams } from "next/navigation";
 import Image from "next/image";
 import { useDispatch } from "react-redux";
 import { openModal } from "@/lib/store/modal";
-import Dropdown from "../dropdown-ui/Dropdown";
-import DropdownToggle from "../dropdown-ui/DropdownToggle";
-import DropdownList from "../dropdown-ui/DropdownList";
-import DropdownItem from "../dropdown-ui/DropdownItem";
+import Dropdown from "../dropdown/Dropdown";
+import DropdownToggle from "../dropdown/DropdownToggle";
+import DropdownList from "../dropdown/DropdownList";
+import DropdownItem from "../dropdown/DropdownItem";
 
 export default function ReviewDropdown({ id }: { id: string | undefined }) {
   const searchParams = useSearchParams();
