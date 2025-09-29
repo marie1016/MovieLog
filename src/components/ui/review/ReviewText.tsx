@@ -34,7 +34,7 @@ export default function ReviewText({
       {isDetail ? (
         <div className="mt-2 min-h-36">{review}</div>
       ) : (
-        <div className="min-h-20 cursor-pointer hover:underline">
+        <div className="line-clamp-5 min-h-20 cursor-pointer overflow-ellipsis hover:text-gray600">
           <Link href={`/reviewDetail/${id}?title=${title}&genreId=${genreId}`}>
             {review}
           </Link>

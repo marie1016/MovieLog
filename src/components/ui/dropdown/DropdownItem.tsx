@@ -19,7 +19,7 @@ export default function DropdownItem({
   return (
     <li
       onClick={handleClick}
-      className="cursor-pointer text-base font-semibold"
+      className="cursor-pointer text-base font-semibold hover:text-blue"
     >
       {children}
     </li>

@@ -17,7 +17,7 @@ export function GenresButton({ genres }: { genres: Genre[] }) {
   return genres.map((genre) => (
     <button
       key={genre.id}
-      className={`cursor-pointer text-xl font-semibold ${currentGenre === genre.id.toString() ? "text-blue" : "text-gray600"}`}
+      className={`cursor-pointer text-xl font-semibold hover:text-blue ${currentGenre === genre.id.toString() ? "text-blue" : "text-gray600"}`}
       onClick={() => handleClick(genre.id)}
     >
       {genre.name}

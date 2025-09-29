@@ -17,6 +17,7 @@ const config: Config = {
         text: {
           gray500: "#909090",
         },
+        gray100: "rgba(243, 244, 246)",
         gray600: "#818181",
         gray: "#ABABAB",
         blue: "#5088FF",

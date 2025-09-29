@@ -38,21 +38,26 @@ export default function ReviewInfo({
   const text = size === "lg" && "text-2xl";
 
   return (
-    <div className="relative flex h-auto items-start gap-4">
-      <PosterImage posterPath={posterPath} size={size} />
-      {/* Info */}
-      <div
-        className={clsx(
-          dimension,
-          "flex h-[155px] w-full flex-col items-start justify-between",
-        )}
-      >
-        <div className={clsx(gap, text, "flex flex-col text-left")}>
-          <MovieInfo title={title} genres={genres} runtime={runtime} />
+    <div className="flex w-full justify-between gap-2">
+      <div className="flex h-auto w-full items-start gap-4">
+        <PosterImage posterPath={posterPath} size={size} title={title} />
+        {/* Info */}
+        <div
+          className={clsx(
+            dimension,
+            "flex h-[155px] w-auto flex-col items-start justify-between",
+          )}
+        >
+          <div className={clsx(gap, text, "flex flex-col text-left")}>
+            <MovieInfo title={title} genres={genres} runtime={runtime} />
+          </div>
+          <VoteAverage
+            voteAverage={voteAverage}
+            size={size}
+            variant={variant}
+          />
         </div>
-        <VoteAverage voteAverage={voteAverage} size={size} variant={variant} />
       </div>
-
       {variant !== "modal" && user?.displayName === userName && (
         <ReviewDropdown id={id} />
       )}
