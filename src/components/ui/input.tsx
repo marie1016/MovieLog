@@ -19,7 +19,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     const inputClass = twMerge(
       clsx(
         authStyle && "input w-full",
-        "h-12 bg-background-white placeholder:text-gray border-[1px] border-gray text-4 font-medium rounded-lg pl-7 focus:outline-none focus:z-10 relative",
+        "h-12 bg-background-white placeholder:text-gray border-[1px] border-gray text-4 font-medium rounded-lg pl-5 focus:outline-none focus:z-10 relative",
         error && "border-danger error",
         className,
       ),
@@ -41,7 +41,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         )}
 
         {error?.message && (
-          <p className="my-3 text-[14px] text-danger">{error.message}</p>
+          <p className="my-3 text-sm text-danger">{error.message}</p>
         )}
       </>
     );

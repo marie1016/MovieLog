@@ -47,7 +47,7 @@ export default function MyReviewModal({
         ref={dialogRef}
         open
       >
-        <h2 className="text-center text-2xl font-medium">{formattedDate}</h2>
+        <h2 className="text-center text-xl font-medium">{formattedDate}</h2>
         <ul className="mt-10 flex flex-col gap-8">
           {myReviewsForDate?.map((review) => (
             <li key={review.id}>

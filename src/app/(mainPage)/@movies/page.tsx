@@ -9,7 +9,7 @@ export default function MoviesPage({
 }) {
   return (
     <main>
-      <h1 className="text-4xl font-medium">영화</h1>
+      <h1 className="text-2xl font-medium">영화</h1>
       <section className="flex items-center gap-5 md:justify-between">
         <Genres />
         <MovieDropdown />

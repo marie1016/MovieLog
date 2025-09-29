@@ -26,15 +26,17 @@ export default function ReviewText({
   const isDetail = variant === "detail";
 
   return (
-    <div className={clsx("mt-4 text-left", isDetail && "text-2xl")}>
-      <span className={clsx(isDetail ? "text-xl" : "text-sm", "text-gray600")}>
+    <div className="mt-4 text-left">
+      <span
+        className={clsx(isDetail ? "text-base" : "text-sm", "text-gray600")}
+      >
         {date}
       </span>
 
       {isDetail ? (
-        <div className="mt-2 min-h-36">{review}</div>
+        <div className="mt-2 min-h-36 text-lg">{review}</div>
       ) : (
-        <div className="min-h-20 cursor-pointer hover:underline">
+        <div className="line-clamp-5 min-h-20 cursor-pointer overflow-ellipsis hover:text-gray600">
           <Link href={`/reviewDetail/${id}?title=${title}&genreId=${genreId}`}>
             {review}
           </Link>

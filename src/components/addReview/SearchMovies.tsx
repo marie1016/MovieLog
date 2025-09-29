@@ -50,7 +50,7 @@ export default function SearchMovies({
       {/* 추천 영화 */}
       {!showSearchResults && (
         <>
-          <h1 className="mb-6 mt-10 text-4xl font-medium">추천 영화</h1>
+          <h1 className="mb-6 mt-10 text-2xl font-medium">추천 영화</h1>
           <MovieGrid movies={recommendedMovies} />
         </>
       )}

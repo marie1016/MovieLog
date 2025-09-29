@@ -25,7 +25,7 @@ export default function MovieCard({ title, voteAverage, poster }: CardProps) {
             priority
           />
         </div>
-        <h2 className="line-clamp-2 overflow-ellipsis break-words text-center text-base">
+        <h2 className="line-clamp-2 overflow-ellipsis break-keep text-center text-base">
           {title}
         </h2>
         <VoteAverage

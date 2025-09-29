@@ -32,7 +32,7 @@ export default function MyCalendar({
     <>
       <div className="text-right">
         <button
-          className="text-lg font-medium text-blue"
+          className="font-medium text-blue"
           onClick={() => setStartDate(new Date())}
         >
           Today

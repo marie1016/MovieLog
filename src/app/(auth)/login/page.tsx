@@ -60,7 +60,7 @@ export default function LoginPage() {
 
   return (
     <div className="mx-auto my-16 max-w-[460px] px-5">
-      <h1 className="mb-10 text-center text-4xl font-medium">로그인</h1>
+      <h1 className="mb-10 text-center text-3xl font-medium">로그인</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Input
           {...register("email")}

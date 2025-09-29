@@ -93,7 +93,7 @@ body {
 }
 
 .react-calendar__navigation {
-  @apply mb-4 text-center;
+  @apply mb-4 flex gap-3 text-center text-xl font-medium;
 }
 
 abbr {
@@ -110,10 +110,6 @@ abbr {
 
 .react-calendar__tile--now.react-calendar__month-view__days__day {
   @apply flex flex-col items-center;
-}
-
-.react-calendar__navigation {
-  @apply flex gap-3 text-2xl font-medium;
 }
 
 .react-calendar__navigation__arrow {

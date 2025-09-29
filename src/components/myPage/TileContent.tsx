@@ -37,12 +37,12 @@ export default function TileContent({
                 openModal({ modalType: "myReview", modalProps: { dateStr } }),
               )
             }
-            className="relative top-1 aspect-[2/3] w-10 sm:w-[54px]"
+            className="relative top-1 aspect-[2/3] w-10 overflow-hidden sm:w-[54px]"
           >
             <Image
               src={posterPath}
               alt="poster"
-              className="transform object-cover transition hover:-translate-y-1 hover:scale-110"
+              className="object-cover transition-transform duration-300 ease-in-out hover:-translate-y-1 hover:scale-110"
               fill
               sizes="54px"
             />

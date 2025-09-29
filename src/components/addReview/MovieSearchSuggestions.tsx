@@ -26,14 +26,20 @@ export default function MovieSearchSuggestions({
       )}
     >
       {searchResults.map((searchResult: Movie) => (
-        <li key={searchResult.id} className="flex items-center gap-3">
+        <li
+          key={searchResult.id}
+          className="flex items-center gap-3 hover:bg-gray100"
+        >
           <Image
             src="/images/search-icon.svg"
             alt="검색 아이콘"
             width={30}
             height={30}
           />
-          <button onClick={() => onClick(searchResult.title)}>
+          <button
+            onClick={() => onClick(searchResult.title)}
+            className="truncate font-normal"
+          >
             {searchResult.title}
           </button>
         </li>
