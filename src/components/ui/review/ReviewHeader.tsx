@@ -18,9 +18,9 @@ export default function ReviewHeader({
 
   return isDetail ? (
     <>
-      <div className="mb-6 text-center text-4xl font-medium">{userName}</div>
+      <div className="mb-6 text-center text-2xl font-medium">{userName}</div>
       <div className="mb-3 flex justify-end">
-        <span className="text-xl text-gray600">{reviewDate}</span>
+        <span className="text-base text-gray600">{reviewDate}</span>
       </div>
     </>
   ) : (

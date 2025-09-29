@@ -9,9 +9,7 @@ interface MovieInfoProps {
 export default function MovieInfo({ title, genres, runtime }: MovieInfoProps) {
   return (
     <>
-      <span className="line-clamp-2 overflow-ellipsis break-all lg:w-32">
-        {title}
-      </span>
+      <span className="line-clamp-2 overflow-ellipsis break-keep">{title}</span>
       <div className="flex gap-2 truncate text-gray600">
         {genres.slice(0, 2).map((genre) => (
           <div key={genre.id}>{genre.name}</div>

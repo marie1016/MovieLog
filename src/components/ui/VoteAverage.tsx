@@ -15,7 +15,7 @@ export default function VoteAverage({
 }: VoteAverageProps) {
   const dimensions = size === "lg" ? 24 : 20;
   const src = color === "blue" ? "/images/blue-star.svg" : "/images/star.svg";
-  const text = size === "lg" ? "text-xl" : "text-sm";
+  const text = size === "lg" ? "text-base" : "text-sm";
 
   if (variant === "modal") return null;
 
