@@ -11,7 +11,7 @@ export default function UserMenu({ user }: { user: User }) {
   const handleLogout = async () => {
     try {
       await signOut(auth);
-      await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/logout`, {
+      await fetch("/api/logout", {
         method: "POST",
       });
 

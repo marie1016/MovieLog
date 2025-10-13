@@ -48,16 +48,13 @@ export default function SignupPage() {
       // 서버로 idToken 토큰 전달
       const idToken = await getIdToken(user);
 
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/login`,
-        {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${idToken}`,
-          },
-          credentials: "include",
+      const response = await fetch("/api/login", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${idToken}`,
         },
-      );
+        credentials: "include",
+      });
 
       if (response.status === 200) {
         window.location.href = "/";

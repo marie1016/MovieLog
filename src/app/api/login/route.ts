@@ -26,7 +26,7 @@ export async function POST(request: NextRequest) {
     response.cookies.set("session", sessionCookie, {
       httpOnly: true,
       secure: true,
-      sameSite: "strict",
+      sameSite: "lax",
       path: "/",
       maxAge: expiresIn / 1000,
     });
