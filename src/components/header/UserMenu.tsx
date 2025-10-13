@@ -11,7 +11,9 @@ export default function UserMenu({ user }: { user: User }) {
   const handleLogout = async () => {
     try {
       await signOut(auth);
-      await fetch("/api/logout", { method: "POST" });
+      await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/logout`, {
+        method: "POST",
+      });
 
       window.location.reload();
     } catch (error) {
