@@ -10,7 +10,6 @@ const inter = Inter({ subsets: ["latin"] });
 const jetBrainsMono = localFont({
   src: "../../public/fonts/JetBrainsMono-Medium.woff2",
   display: "swap",
-  preload: true,
   variable: "--font-jetBrainsMono",
 });
 

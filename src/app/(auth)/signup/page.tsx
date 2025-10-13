@@ -7,6 +7,7 @@ import {
   updateProfile,
 } from "firebase/auth";
 import auth from "@/lib/firebase/firebase";
+import { useRouter } from "next/navigation";
 import { SignupSchemaType, signupSchema } from "@/lib/constants/signupSchema";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -14,6 +15,8 @@ import Input from "@/components/ui/input";
 import { saveUser } from "@/lib/firebase/saveUser";
 
 export default function SignupPage() {
+  const router = useRouter();
+
   const {
     register,
     handleSubmit,
@@ -48,19 +51,16 @@ export default function SignupPage() {
       // 서버로 idToken 토큰 전달
       const idToken = await getIdToken(user);
 
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/login`,
-        {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${idToken}`,
-          },
-          credentials: "include",
+      const response = await fetch("/api/login", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${idToken}`,
         },
-      );
+        credentials: "include",
+      });
 
       if (response.status === 200) {
-        window.location.href = "/";
+        router.push("/");
       }
     } catch (error) {
       console.error(error);

@@ -5,6 +5,7 @@ import { User } from "@/lib/store/user";
 import { QueryClient } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { makeStore } from "@/lib/store";
+import UserDispatch from "@/components/auth/UserDispatch";
 import { PersistQueryClientProvider } from "@tanstack/react-query-persist-client";
 import { createSyncStoragePersister } from "@tanstack/query-sync-storage-persister";
 import ModalContainer from "@/components/modals/ModalContainer";
@@ -37,6 +38,7 @@ export default function Providers({
     >
       <ReactQueryDevtools initialIsOpen />
       <Provider store={store}>
+        <UserDispatch />
         {children}
         <ModalContainer />
       </Provider>
