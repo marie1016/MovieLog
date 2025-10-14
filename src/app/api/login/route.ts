@@ -17,6 +17,7 @@ export async function POST(request: NextRequest) {
   }
 
   try {
+    console.log("Firebase Admin:", !!adminAuth);
     await adminAuth.verifyIdToken(idToken);
 
     const expiresIn = 60 * 60 * 24 * 7 * 1000;
@@ -37,6 +38,7 @@ export async function POST(request: NextRequest) {
 
     return response;
   } catch (error) {
+    console.error("에러:", error);
     return NextResponse.json(
       { error: "에러 발생" },
       {
