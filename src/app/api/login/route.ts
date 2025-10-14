@@ -1,14 +1,13 @@
+/* eslint-disable import/first */
 export const runtime = "nodejs";
 
-// eslint-disable-next-line import/first
 import { adminAuth } from "@/lib/firebase/firebaseAdmin";
-// eslint-disable-next-line import/first
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
-  const authorization = request.headers.get("Authorization");
+  const authorization = request.headers.get("Authorization") ?? "";
 
-  const idToken = authorization?.replace(/^Bearer\s+/i, "").trim();
+  const idToken = authorization.replace(/^Bearer\s+/i, "").trim();
 
   if (!idToken) {
     return NextResponse.json(
