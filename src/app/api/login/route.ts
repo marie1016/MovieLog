@@ -1,4 +1,8 @@
+export const runtime = "nodejs";
+
+// eslint-disable-next-line import/first
 import { adminAuth } from "@/lib/firebase/firebaseAdmin";
+// eslint-disable-next-line import/first
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
