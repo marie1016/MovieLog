@@ -8,14 +8,14 @@ import { NextRequest, NextResponse } from "next/server";
 export async function POST(request: NextRequest) {
   const authorization = request.headers.get("Authorization");
 
-  if (!authorization?.startsWith("Bearer ")) {
+  const idToken = authorization?.replace(/^Bearer\s+/i, "").trim();
+
+  if (!idToken) {
     return NextResponse.json(
       { error: "인증 토큰이 없습니다." },
       { status: 401 },
     );
   }
-
-  const idToken = authorization.split("Bearer")[1].trim();
 
   try {
     await adminAuth.verifyIdToken(idToken);
@@ -27,9 +27,10 @@ export async function POST(request: NextRequest) {
 
     const response = NextResponse.json({ message: "로그인 성공" });
 
+    console.log("sessionCookie 생성 완료:", !!sessionCookie);
     response.cookies.set("session", sessionCookie, {
       httpOnly: true,
-      secure: true,
+      secure: process.env.NODE_ENV === "production",
       sameSite: "lax",
       path: "/",
       maxAge: expiresIn / 1000,
