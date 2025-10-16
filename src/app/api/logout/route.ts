@@ -1,3 +1,6 @@
+/* eslint-disable import/first */
+export const runtime = "nodejs";
+
 import { adminAuth } from "@/lib/firebase/firebaseAdmin";
 import { NextRequest, NextResponse } from "next/server";
 
