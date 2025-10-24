@@ -16,7 +16,7 @@ export default async function ReviewsForSameMovie({
 
   if (!filteredReviewsData.length)
     return (
-      <div className="py-8 text-center text-lg">
+      <div className="rounded-xl bg-white py-8 text-center text-lg">
         이 영화에 대한
         <br />
         다른 기록이 아직 없어요.

@@ -25,7 +25,7 @@ export default function MainPageLayout({
         className="fixed bottom-4 right-4 sm:bottom-8 sm:right-8 lg:bottom-12 lg:right-12"
       >
         <Image
-          src="/images/plus-circle.svg"
+          src="/images/plus-circle-gray.svg"
           alt="addReview"
           width={60}
           height={60}
