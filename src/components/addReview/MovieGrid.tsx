@@ -25,7 +25,7 @@ export default function MovieGrid({ movies }: { movies: Movie[] }) {
           key={movie.id}
           className="flex justify-center py-3 sm:basis-1/2 lg:basis-1/3"
         >
-          <Link href={`addReview/movie/${movie.id}`}>
+          <Link href={`/addReview/movie/${movie.id}`}>
             <MovieCard
               title={movie.title}
               voteAverage={movie.vote_average}
