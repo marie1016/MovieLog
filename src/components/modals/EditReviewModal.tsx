@@ -1,8 +1,8 @@
-import { InfiniteData, useQueryClient } from "@tanstack/react-query";
 import { useDispatch } from "react-redux";
 import { closeModal } from "@/lib/store/modal";
-import { ReviewPage } from "@/lib/firebase/getReviews";
+import { useQuery } from "@tanstack/react-query";
 import { Review } from "@/types/addReview";
+import { getReviewById } from "@/lib/firebase/getReviewById";
 import ReviewForm from "../addReview/ReviewForm";
 
 interface UpdateReviewModalProps {
@@ -11,19 +11,11 @@ interface UpdateReviewModalProps {
 
 export default function EditReviewModal({ id }: UpdateReviewModalProps) {
   const dispatch = useDispatch();
-  const queryClient = useQueryClient();
 
-  const reviews = queryClient.getQueryData<InfiniteData<ReviewPage>>([
-    "reviews",
-  ]);
-
-  const myReviews = queryClient.getQueryData<Review[]>(["myReviews"]);
-
-  const flattenedReviews = reviews?.pages.flatMap((p) => p.reviewsData);
-
-  const review =
-    myReviews?.find((r) => r.id === id) ||
-    flattenedReviews?.find((r) => r.id === id);
+  const { data: review } = useQuery<Review | null>({
+    queryKey: ["reviewById"],
+    queryFn: async () => getReviewById(id!),
+  });
 
   if (!review) return null;
 

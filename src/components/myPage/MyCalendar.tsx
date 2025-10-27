@@ -4,7 +4,7 @@ import { Review } from "@/types/addReview";
 import Calendar, { TileArgs } from "react-calendar";
 import { useState } from "react";
 import clsx from "clsx";
-import { useQuery } from "@tanstack/react-query";
+import { useIsRestoring, useQuery } from "@tanstack/react-query";
 import { getMyReviews } from "@/lib/firebase/getMyReviews";
 import TileContent from "./TileContent";
 
@@ -16,18 +16,21 @@ export default function MyCalendar({
   displayName: string;
 }) {
   const [startDate, setStartDate] = useState<Date | null>(new Date());
+  const isRestoring = useIsRestoring();
 
   const { data } = useQuery<Review[]>({
     queryKey: ["myReviews"],
     queryFn: async () => getMyReviews(displayName),
     initialData: initialMyReviews,
-    staleTime: 0,
+    staleTime: 60 * 60 * 1000,
+    meta: { persist: true },
   });
 
   const renderTileContent = (props: TileArgs) => (
     <TileContent date={props.date} reviewsData={data} />
   );
 
+  if (isRestoring) return <p>loading</p>;
   return (
     <>
       <div className="text-right">
