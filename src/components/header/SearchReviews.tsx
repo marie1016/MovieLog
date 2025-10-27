@@ -29,7 +29,7 @@ export default function SearchReviews({
 
   const handleReviewClick = (title: string) => {
     handleClick(title);
-    router.push(`searchReviews?query=${title}`);
+    router.push(`/searchReviews?query=${title}`);
   };
 
   return (

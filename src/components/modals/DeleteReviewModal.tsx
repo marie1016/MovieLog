@@ -1,6 +1,5 @@
 import { deleteReview } from "@/lib/firebase/deleteReview";
-import { InfiniteData, useQueryClient } from "@tanstack/react-query";
-import { ReviewPage } from "@/lib/firebase/getReviews";
+import { useQueryClient } from "@tanstack/react-query";
 import { closeModal } from "@/lib/store/modal";
 import { useDispatch } from "react-redux";
 import Button from "../ui/button";
@@ -11,26 +10,14 @@ export default function DeleteReviewModal({ id }: { id: string | undefined }) {
   const deleteReviewModal = async () => {
     if (id) {
       await deleteReview(id);
-
-      queryClient.setQueryData(
-        ["reviews"],
-        (oldData: InfiniteData<ReviewPage>) => {
-          if (!oldData) return oldData;
-          return {
-            ...oldData,
-            pages: oldData.pages.map((page) => ({
-              ...page,
-              reviewsData: page.reviewsData.filter(
-                (reviewData) => reviewData.id !== id,
-              ),
-            })),
-          };
-        },
-      );
     }
 
     queryClient.invalidateQueries({ queryKey: ["reviews"] });
     queryClient.invalidateQueries({ queryKey: ["myReviews"] });
+    queryClient.invalidateQueries({ queryKey: ["reviewsForSameMovie"] });
+    queryClient.invalidateQueries({
+      queryKey: ["reviewById"],
+    });
 
     dispatch(closeModal());
   };

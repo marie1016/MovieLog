@@ -19,7 +19,7 @@ export default function useSearchHandlers(decodedQuery: string) {
     debouncedValue: string,
   ) => {
     if (e.key === "Enter") {
-      router.push(`${path}?query=${debouncedValue}`);
+      router.push(`/${path}?query=${debouncedValue}`);
       setShowSearchResults(true);
       setShowSearchSuggestions(false);
     }
