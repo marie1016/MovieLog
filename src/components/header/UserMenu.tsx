@@ -2,19 +2,21 @@ import { signOut } from "firebase/auth";
 import auth from "@/lib/firebase/firebase";
 import Link from "next/link";
 import { User } from "@/lib/store/user";
+import { useQueryClient } from "@tanstack/react-query";
 import Dropdown from "../ui/dropdown/Dropdown";
 import DropdownItem from "../ui/dropdown/DropdownItem";
 import DropdownList from "../ui/dropdown/DropdownList";
 import DropdownToggle from "../ui/dropdown/DropdownToggle";
 
 export default function UserMenu({ user }: { user: User }) {
+  const queryClient = useQueryClient();
   const handleLogout = async () => {
     try {
       await signOut(auth);
       await fetch("/api/logout", {
         method: "POST",
       });
-
+      queryClient.clear();
       window.location.reload();
     } catch (error) {
       console.error(error);

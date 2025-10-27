@@ -33,7 +33,12 @@ export default function Providers({
   return (
     <PersistQueryClientProvider
       client={queryClient}
-      persistOptions={{ persister }}
+      persistOptions={{
+        persister,
+        dehydrateOptions: {
+          shouldDehydrateQuery: (query) => query.options.meta?.persist === true,
+        },
+      }}
     >
       <ReactQueryDevtools initialIsOpen />
       <Provider store={store}>
