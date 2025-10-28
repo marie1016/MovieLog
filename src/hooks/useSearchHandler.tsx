@@ -3,10 +3,10 @@ import { useRouter } from "next/navigation";
 import { ChangeEvent, KeyboardEvent, useState } from "react";
 import { useDispatch } from "react-redux";
 
-export default function useSearchHandlers(decodedQuery: string) {
+export default function useSearchHandlers(query: string) {
   const router = useRouter();
   const dispatch = useDispatch();
-  const [value, setValue] = useState(decodedQuery);
+  const [value, setValue] = useState(query);
   const [showSearchSuggestions, setShowSearchSuggestions] = useState(false);
   const [showSearchResults, setShowSearchResults] = useState(false);
 

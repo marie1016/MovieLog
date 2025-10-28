@@ -10,7 +10,7 @@ import {
 import { db } from "./firebase";
 
 export const getReviewsForSameMovie = async (
-  title: string,
+  title: string | null,
 ): Promise<Review[]> => {
   const q = query(
     collection(db, "reviews"),

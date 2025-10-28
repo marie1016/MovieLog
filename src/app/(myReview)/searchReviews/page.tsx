@@ -10,14 +10,13 @@ import { useSearchParams } from "next/navigation";
 export default function SearchReviewsPage() {
   const searchParams = useSearchParams();
   const query = searchParams.get("query");
-  const decodedQuery = query ? decodeURIComponent(query) : "";
 
-  const { searchResults } = useSearchReviews(decodedQuery, 500);
+  const { searchResults } = useSearchReviews(query!, 500);
 
   return (
     <div className="mx-auto max-w-4xl">
       <h1 className="mb-5 text-center text-2xl font-medium md:mb-7">
-        &apos;{decodedQuery}&apos;
+        &apos;{query}&apos;
       </h1>
       {!searchResults?.length ? (
         <div className="py-32 text-center text-lg">
