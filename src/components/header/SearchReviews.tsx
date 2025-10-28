@@ -15,7 +15,6 @@ export default function SearchReviews({
   const router = useRouter();
   const searchParams = useSearchParams();
   const query = searchParams.get("query");
-  const decodedQuery = query ? decodeURIComponent(query) : "";
 
   const {
     value,
@@ -23,7 +22,7 @@ export default function SearchReviews({
     handleInputChange,
     handleKeyDown,
     handleClick,
-  } = useSearchHandlers(decodedQuery);
+  } = useSearchHandlers(query!);
 
   const { searchResults, debouncedValue } = useSearchMovies(value, 500);
 
