@@ -11,6 +11,7 @@ export default async function getRecommendedMovies(recentMovieIds: number[]) {
               accept: "application/json",
               Authorization: `Bearer ${process.env.TMDB_ACCESSTOKEN}`,
             },
+            next: { revalidate: 60 * 10 },
           },
         );
 

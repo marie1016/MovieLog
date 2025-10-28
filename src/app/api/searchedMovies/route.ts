@@ -13,6 +13,7 @@ export async function GET(request: Request) {
           accept: "application/json",
           Authorization: `Bearer ${process.env.TMDB_ACCESSTOKEN}`,
         },
+        next: { revalidate: 60 * 60 * 24 },
       },
     );
 
