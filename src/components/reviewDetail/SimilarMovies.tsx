@@ -11,13 +11,13 @@ export default async function SimilarMovies({
   let similarMovies = data;
 
   if (genreId) {
-    similarMovies = data.filter((movie) =>
-      movie.genre_ids.includes(Number(genreId)),
+    similarMovies = data?.filter((movie) =>
+      movie?.genre_ids.includes(Number(genreId)),
     );
   }
 
   const similarMovieList = similarMovies
-    .slice()
+    ?.slice()
     .sort(() => Math.random() - 0.5)
     .slice(0, 7);
 

@@ -15,12 +15,12 @@ export default async function MovieList({
   let movies = data;
 
   if (genreId) {
-    movies = movies.filter((movie: Movie) =>
+    movies = movies?.filter((movie: Movie) =>
       movie.genre_ids.includes(Number(genreId)),
     );
   }
 
-  const movieList = movies.slice(0, 10);
+  const movieList = movies?.slice(0, 10);
 
   return <MovieCarousel movieList={movieList} />;
 }

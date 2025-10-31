@@ -16,9 +16,7 @@ export default async function getMovies(sortBy: string) {
         },
       ).then(async (res) => {
         if (!res.ok) {
-          throw new Error(
-            `영화 목록을 불러오는 데 실패했습니다, ${res.status}`,
-          );
+          console.log(res.status);
         }
         return res.json() as Promise<MovieResponse>;
       });
@@ -30,6 +28,6 @@ export default async function getMovies(sortBy: string) {
     return movies;
   } catch (error) {
     console.error("에러 발생:", error);
-    throw error;
+    return undefined;
   }
 }

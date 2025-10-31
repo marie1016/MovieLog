@@ -11,7 +11,7 @@ import { db } from "./firebase";
 
 export const getReviewsForSameMovie = async (
   title: string | null,
-): Promise<Review[]> => {
+): Promise<Review[] | undefined> => {
   try {
     const q = query(
       collection(db, "reviews"),
@@ -32,6 +32,7 @@ export const getReviewsForSameMovie = async (
 
     return reviewsData;
   } catch (error) {
-    throw new Error("검색한 리뷰 데이터를 불러오는 중 오류가 발생했습니다.");
+    console.log(error);
+    return undefined;
   }
 };

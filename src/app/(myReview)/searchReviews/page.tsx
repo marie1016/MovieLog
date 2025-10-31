@@ -14,7 +14,7 @@ export default function SearchReviewsPage() {
   const { searchResults, error } = useSearchReviews(query!, 500);
 
   if (error) {
-    throw error;
+    throw new Error("검색한 리뷰 데이터를 불러오는 중 오류가 발생했습니다.");
   }
 
   return (

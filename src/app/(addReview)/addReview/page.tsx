@@ -15,6 +15,7 @@ export default async function AddReviewPage() {
     .map((reviewData) => reviewData.movieId);
 
   const recommendedMovies = await getRecommendedMovies(recentMovieIds);
+
   return (
     <main>
       <h1 className="mb-6 text-2xl font-medium">영화 검색</h1>

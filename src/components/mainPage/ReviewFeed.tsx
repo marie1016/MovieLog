@@ -44,7 +44,7 @@ export default function ReviewFeed() {
   }, [fetchNextPage, hasNextPage, isFetchingNextPage]);
 
   if (error) {
-    return <div>Error: {error.message}</div>;
+    throw error;
   }
 
   return (

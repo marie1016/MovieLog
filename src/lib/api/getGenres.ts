@@ -25,7 +25,7 @@ export default async function getGenres() {
     );
 
     if (!res.ok) {
-      throw new Error(`장르 목록을 불러오는 데 실패했습니다, ${res.status}`);
+      console.log(res.status);
     }
 
     const data = (await res.json()) as GenreResponse;
@@ -36,6 +36,6 @@ export default async function getGenres() {
     return filteredGenres;
   } catch (error) {
     console.error("에러 발생:", error);
-    throw error;
+    return undefined;
   }
 }

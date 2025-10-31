@@ -2,8 +2,8 @@ import { Movie } from "@/types/movie";
 import Link from "next/link";
 import MovieCard from "../ui/movie/MovieCard";
 
-export default function MovieGrid({ movies }: { movies: Movie[] }) {
-  if (!movies.length)
+export default function MovieGrid({ movies }: { movies: Movie[] | undefined }) {
+  if (movies?.length === 0)
     return (
       <div className="my-6 max-w-[490px] rounded-xl bg-white py-16 text-center sm:max-w-7xl">
         <div className="mb-6">
@@ -18,9 +18,9 @@ export default function MovieGrid({ movies }: { movies: Movie[] }) {
         </div>
       </div>
     );
-  return (
+  return movies ? (
     <ul className="my-6 flex max-w-[490px] flex-wrap justify-center rounded-xl bg-white p-6 sm:max-w-7xl sm:justify-start">
-      {movies.map((movie: Movie) => (
+      {movies?.map((movie: Movie) => (
         <li
           key={movie.id}
           className="flex justify-center py-3 sm:basis-1/2 lg:basis-1/3"
@@ -35,5 +35,9 @@ export default function MovieGrid({ movies }: { movies: Movie[] }) {
         </li>
       ))}
     </ul>
+  ) : (
+    <div className="rounded-xl bg-white py-8 text-center text-lg">
+      영화 목록을 불러오는 중 오류가 발생했습니다.
+    </div>
   );
 }
