@@ -12,9 +12,9 @@ export default async function ReviewsForSameMovie({
 }) {
   const reviewsData = await getReviewsForSameMovie(title);
 
-  const filteredReviewsData = reviewsData.filter((review) => review.id !== id);
+  const filteredReviewsData = reviewsData?.filter((review) => review.id !== id);
 
-  if (!filteredReviewsData.length)
+  if (filteredReviewsData?.length === 0)
     return (
       <div className="rounded-xl bg-white py-8 text-center text-lg">
         이 영화에 대한
@@ -23,8 +23,8 @@ export default async function ReviewsForSameMovie({
       </div>
     );
 
-  return (
-    <ul className="grid grid-cols-1 gap-12 md:grid-cols-2 md:gap-14">
+  return filteredReviewsData ? (
+    <ul className="grid grid-cols-1 gap-12 rounded-xl bg-white md:grid-cols-2 md:gap-14">
       {filteredReviewsData.map((review) => (
         <li key={review.id}>
           <div className="mb-3 flex justify-between">
@@ -52,5 +52,9 @@ export default async function ReviewsForSameMovie({
         </li>
       ))}
     </ul>
+  ) : (
+    <div className="rounded-xl bg-white py-8 text-center text-lg">
+      다른 기록을 불러오는 중 오류가 발생했습니다.
+    </div>
   );
 }

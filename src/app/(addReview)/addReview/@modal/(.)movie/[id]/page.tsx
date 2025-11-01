@@ -12,7 +12,7 @@ export default async function ModalPage({
   const movieDetails = await getMovieDetails(id);
 
   // eslint-disable-next-line @typescript-eslint/naming-convention
-  const { poster_path, title, genres, runtime } = movieDetails;
+  const { poster_path, title, genres, runtime } = movieDetails!;
 
   return (
     <>

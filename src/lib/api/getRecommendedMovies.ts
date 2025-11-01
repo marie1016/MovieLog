@@ -16,7 +16,9 @@ export default async function getRecommendedMovies(recentMovieIds: number[]) {
         );
 
         if (!res.ok) {
-          throw new Error(`추천영화를 불러오는 데 실패했습니다, ${res.status}`);
+          throw new Error(
+            `추천영화를 불러오는 중 오류가 발생했습니다, ${res.status}`,
+          );
         }
 
         const data = (await res.json()) as { results: Movie[] };
@@ -28,9 +30,10 @@ export default async function getRecommendedMovies(recentMovieIds: number[]) {
     const recommendedMovies = Array.from(
       new Map(responses.flat().map((movie) => [movie.id, movie])).values(),
     );
+
     return recommendedMovies;
   } catch (error) {
     console.error("에러 발생:", error);
-    throw error;
+    return undefined;
   }
 }

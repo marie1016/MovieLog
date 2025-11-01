@@ -10,7 +10,7 @@ import SearchInput from "../ui/SearchInput";
 export default function SearchMovies({
   recommendedMovies,
 }: {
-  recommendedMovies: Movie[];
+  recommendedMovies: Movie[] | undefined;
 }) {
   const router = useRouter();
   const searchParams = useSearchParams();

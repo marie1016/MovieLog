@@ -4,6 +4,14 @@ import Link from "next/link";
 export default async function RankingBox() {
   const sortedTitleMap = await getRecentTopReviewedMovies();
 
+  if (!sortedTitleMap)
+    return (
+      <div className="text-center text-lg">
+        리뷰 랭킹을 불러오는 중<br />
+        오류가 발생했습니다.
+      </div>
+    );
+
   return (
     <div className="relative h-11 w-60 max-w-80 overflow-hidden rounded-xl border border-gray bg-white px-5 lg:h-auto lg:w-auto lg:px-8 lg:py-6">
       <ul className="flex animate-slide-up flex-col items-start font-medium text-gray600 lg:animate-none">

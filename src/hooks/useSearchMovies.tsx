@@ -8,9 +8,11 @@ export default function useSearchMovies(value: string, delay: number) {
 
   useEffect(() => {
     const fetchResults = async () => {
-      const res = await fetch(`/api/searchedMovies?query=${debouncedValue}`);
-      const data = (await res.json()) as Movie[];
-      setSearchResults(data);
+      if (debouncedValue) {
+        const res = await fetch(`/api/searchedMovies?query=${debouncedValue}`);
+        const data = (await res.json()) as Movie[];
+        setSearchResults(data);
+      }
     };
 
     fetchResults();

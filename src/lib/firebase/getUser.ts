@@ -9,6 +9,11 @@ export async function getUser() {
   try {
     const decoded = await adminAuth.verifySessionCookie(sessionCookie);
     const user = await adminAuth.getUser(decoded.uid);
+
+    if (!user) {
+      throw new Error(`유저정보를 불러오는 중 오류가 발생했습니다`);
+    }
+
     return {
       uid: user.uid,
       email: user.email ?? null,

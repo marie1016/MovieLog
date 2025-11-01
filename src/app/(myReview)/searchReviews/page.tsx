@@ -11,7 +11,11 @@ export default function SearchReviewsPage() {
   const searchParams = useSearchParams();
   const query = searchParams.get("query");
 
-  const { searchResults } = useSearchReviews(query!, 500);
+  const { searchResults, error } = useSearchReviews(query!, 500);
+
+  if (error) {
+    throw new Error("검색한 리뷰 데이터를 불러오는 중 오류가 발생했습니다.");
+  }
 
   return (
     <div className="mx-auto max-w-4xl">
@@ -25,7 +29,7 @@ export default function SearchReviewsPage() {
         </div>
       ) : (
         <div className="grid grid-cols-1 justify-between gap-12 lg:grid-cols-[380px_380px] lg:gap-14">
-          {searchResults.map((review: Review) => (
+          {searchResults?.map((review: Review) => (
             <div key={review.id}>
               <ReviewHeader {...review} />
               <ReviewInfo {...review} />
