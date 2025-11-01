@@ -16,7 +16,9 @@ export default async function getRecommendedMovies(recentMovieIds: number[]) {
         );
 
         if (!res.ok) {
-          console.log(res.status);
+          throw new Error(
+            `추천영화를 불러오는 중 오류가 발생했습니다, ${res.status}`,
+          );
         }
 
         const data = (await res.json()) as { results: Movie[] };

@@ -9,7 +9,7 @@ export default function MovieCarousel({
   if (!movieList?.length)
     return (
       <div className="rounded-xl bg-white py-8 text-center text-lg">
-        비슷한 영화 목록을 불러오는 중 오류가 발생했습니다.
+        영화 목록을 불러오는 중 오류가 발생했습니다.
       </div>
     );
 

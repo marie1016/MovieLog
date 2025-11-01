@@ -17,6 +17,7 @@ export default function MovieSearchSuggestions({
 }: SearchSuggestionsProps) {
   const width = size === "lg" ? "sm:w-[460px]" : "";
   const isBorder = border && "border border-gray";
+
   return (
     <ul
       className={clsx(

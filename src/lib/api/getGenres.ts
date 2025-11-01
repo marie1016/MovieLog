@@ -25,7 +25,7 @@ export default async function getGenres() {
     );
 
     if (!res.ok) {
-      console.log(res.status);
+      throw new Error(`장르를 불러오는 중 오류가 발생했습니다, ${res.status}`);
     }
 
     const data = (await res.json()) as GenreResponse;

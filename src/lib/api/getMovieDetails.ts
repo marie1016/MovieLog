@@ -21,6 +21,6 @@ export default async function getMovieDetails(id: number) {
     return data;
   } catch (error) {
     console.error("에러 발생:", error);
-    throw error;
+    return undefined;
   }
 }
