@@ -115,3 +115,23 @@ abbr {
 .react-calendar__navigation__arrow {
   @apply text-blue;
 }
+
+@layer components {
+  .skeleton {
+    @apply relative overflow-hidden rounded bg-gray300 dark:bg-gray700;
+  }
+}
+
+.skeleton::after {
+  content: "";
+  position: absolute;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
+  @apply animate-shimmer;
+}

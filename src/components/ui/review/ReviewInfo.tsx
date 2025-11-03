@@ -33,13 +33,13 @@ export default function ReviewInfo({
   size = "sm",
 }: ReviewContentProps) {
   const { user } = useSelector((state: RootState) => state.user);
-  const dimension = size === "lg" ? "sm:h-[256px]" : "h-[155px]";
+  const dimension = size === "lg" && "sm:h-[256px]";
   const gap = size === "lg" ? "gap-1" : "gap-0";
   const text = size === "lg" && "text-lg";
 
   return (
     <div className="flex w-full justify-between gap-2">
-      <div className="flex h-auto w-full items-start gap-4">
+      <div className="flex w-full items-start gap-4">
         <PosterImage posterPath={posterPath} size={size} title={title} />
         {/* Info */}
         <div
@@ -48,7 +48,7 @@ export default function ReviewInfo({
             "flex h-[155px] w-full flex-col items-start justify-between",
           )}
         >
-          <div className={clsx(gap, text, "flex flex-col text-left")}>
+          <div className={clsx(gap, text, "flex w-full flex-col text-left")}>
             <MovieInfo title={title} genres={genres} runtime={runtime} />
           </div>
           <VoteAverage
