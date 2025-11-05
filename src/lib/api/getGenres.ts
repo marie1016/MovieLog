@@ -20,7 +20,7 @@ export default async function getGenres() {
           accept: "application/json",
           Authorization: `Bearer ${process.env.TMDB_ACCESSTOKEN}`,
         },
-        cache: "force-cache",
+        // cache: "force-cache",
       },
     );
 

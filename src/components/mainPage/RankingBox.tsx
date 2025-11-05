@@ -2,6 +2,9 @@ import { getRecentTopReviewedMovies } from "@/lib/firebase/getRecentTopReviewedM
 import Link from "next/link";
 
 export default async function RankingBox() {
+  await new Promise((resolve) => {
+    setTimeout(resolve, 5000);
+  });
   const sortedTitleMap = await getRecentTopReviewedMovies();
 
   if (!sortedTitleMap)

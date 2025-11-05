@@ -5,18 +5,21 @@ import { useDebounce } from "./useDebounce";
 export default function useSearchMovies(value: string, delay: number) {
   const [searchResults, setSearchResults] = useState<Movie[]>([]);
   const debouncedValue = useDebounce(value, delay);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const fetchResults = async () => {
       if (debouncedValue) {
+        setIsLoading(true);
         const res = await fetch(`/api/searchedMovies?query=${debouncedValue}`);
         const data = (await res.json()) as Movie[];
         setSearchResults(data);
+        setIsLoading(false);
       }
     };
 
     fetchResults();
   }, [debouncedValue]);
 
-  return { searchResults, debouncedValue };
+  return { searchResults, debouncedValue, isLoading };
 }

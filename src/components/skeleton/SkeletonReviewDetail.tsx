@@ -25,7 +25,6 @@ export default function SkeletonReviewHeader({
 
 export function SkeletonReviewInfo({ size = "sm" }: { size?: "sm" | "lg" }) {
   const dimension = size === "lg" && "sm:h-[256px]";
-  const gap = size === "lg" ? "gap-1" : "gap-0";
   return (
     <>
       <div className="flex w-full justify-between gap-2">
@@ -38,7 +37,7 @@ export function SkeletonReviewInfo({ size = "sm" }: { size?: "sm" | "lg" }) {
               "flex h-[155px] w-full flex-col items-start justify-between",
             )}
           >
-            <div className={clsx(gap, "flex w-full flex-col text-left")}>
+            <div className="flex w-full flex-col gap-1 text-left">
               <div className="skeleton h-5 w-2/3" />
               <div className="skeleton h-5 w-2/3" />
               <div className="skeleton h-5 w-2/5" />
@@ -47,8 +46,8 @@ export function SkeletonReviewInfo({ size = "sm" }: { size?: "sm" | "lg" }) {
           </div>
         </div>
       </div>
-      <div className="mt-4 flex flex-col gap-2">
-        <div className="skeleton h-5 w-2/5" />
+      <div className="mt-4 flex min-h-20 flex-col gap-2">
+        <div className="skeleton h-5 w-1/5" />
         <div className="skeleton h-5 w-full" />
         <div className="skeleton h-5 w-full" />
         <div className="skeleton h-5 w-2/3" />

@@ -6,6 +6,7 @@ import useSearchHandlers from "@/hooks/useSearchHandler";
 import useSearchMovies from "@/hooks/useSearchMovies";
 import MovieGrid from "./MovieGrid";
 import SearchInput from "../ui/SearchInput";
+import SkeletonMovieGrid from "../skeleton/SkeletonMovieGrid";
 
 export default function SearchMovies({
   recommendedMovies,
@@ -25,7 +26,10 @@ export default function SearchMovies({
     handleClick,
   } = useSearchHandlers(query!);
 
-  const { searchResults, debouncedValue } = useSearchMovies(value, 500);
+  const { searchResults, debouncedValue, isLoading } = useSearchMovies(
+    value,
+    500,
+  );
 
   const handleMovieClick = (title: string) => {
     handleClick(title);
@@ -39,7 +43,7 @@ export default function SearchMovies({
         searchResults={searchResults}
         showSearchSuggestions={showSearchSuggestions}
         onChange={handleInputChange}
-        onKeyDown={(e) => handleKeyDown(e, "", debouncedValue)}
+        onKeyDown={(e) => handleKeyDown(e, "addReview", debouncedValue)}
         onClick={handleMovieClick}
         width="w-72 sm:w-[460px]"
         placeholder="영화검색"
@@ -55,7 +59,12 @@ export default function SearchMovies({
       )}
 
       {/* 검색 결과 */}
-      {showSearchResults && <MovieGrid movies={searchResults} />}
+      {showSearchResults &&
+        (isLoading ? (
+          <SkeletonMovieGrid />
+        ) : (
+          <MovieGrid movies={searchResults} />
+        ))}
     </>
   );
 }
