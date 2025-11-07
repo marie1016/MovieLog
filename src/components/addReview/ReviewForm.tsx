@@ -1,6 +1,6 @@
 "use client";
 
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import Image from "next/image";
 import { useQueryClient } from "@tanstack/react-query";
 import { addReview } from "@/actions/addReview";
@@ -44,6 +44,12 @@ export default function ReviewForm({
 
   const [isEditing, setIsEditing] = useState(!!review);
 
+  const defaultValues = () => ({
+    voteAverage: voteAverage || "",
+    date: date || "",
+    review: review || "",
+  });
+
   const {
     register,
     reset,
@@ -51,12 +57,12 @@ export default function ReviewForm({
     formState: { isValid },
   } = useForm({
     mode: "onChange",
-    defaultValues: {
-      voteAverage: voteAverage || "",
-      date: date || "",
-      review: review || "",
-    },
+    defaultValues: defaultValues(),
   });
+
+  useEffect(() => {
+    reset(defaultValues());
+  }, [id]);
 
   const onSubmit = async (formData: FormData) => {
     try {
