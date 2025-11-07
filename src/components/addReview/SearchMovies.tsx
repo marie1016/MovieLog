@@ -17,14 +17,8 @@ export default function SearchMovies({
   const searchParams = useSearchParams();
   const query = searchParams.get("query");
 
-  const {
-    value,
-    showSearchResults,
-    showSearchSuggestions,
-    handleInputChange,
-    handleKeyDown,
-    handleClick,
-  } = useSearchHandlers(query!);
+  const { value, showSearchResults, handleKeyDown, handleClick } =
+    useSearchHandlers(query!);
 
   const { searchResults, debouncedValue, isLoading } = useSearchMovies(
     value,
@@ -39,10 +33,6 @@ export default function SearchMovies({
   return (
     <>
       <SearchInput
-        value={value}
-        searchResults={searchResults}
-        showSearchSuggestions={showSearchSuggestions}
-        onChange={handleInputChange}
         onKeyDown={(e) => handleKeyDown(e, "addReview", debouncedValue)}
         onClick={handleMovieClick}
         width="w-72 sm:w-[460px]"

@@ -1,6 +1,6 @@
 import { getReviewsForSameMovie } from "@/lib/firebase/getReviewsForSameMovie";
 import { Review } from "@/types/addReview";
-import { useSuspenseQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { useDebounce } from "./useDebounce";
 
 export default function useSearchReviews(value: string, delay: number) {
@@ -10,10 +10,11 @@ export default function useSearchReviews(value: string, delay: number) {
     data: searchResults,
     isError,
     error,
-  } = useSuspenseQuery<Review[] | undefined>({
+    isFetching,
+  } = useQuery<Review[] | undefined>({
     queryKey: ["reviewsForSameMovie", debouncedValue],
     queryFn: () => getReviewsForSameMovie(debouncedValue),
   });
 
-  return { searchResults, isError, error };
+  return { searchResults, isError, error, isFetching };
 }

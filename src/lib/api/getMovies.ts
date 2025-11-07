@@ -12,7 +12,7 @@ export default async function getMovies(sortBy: string) {
             accept: "application/json",
             Authorization: `Bearer ${process.env.TMDB_ACCESSTOKEN}`,
           },
-          // next: { revalidate: 60 * 60 * 24 },
+          next: { revalidate: 60 * 60 * 24 },
         },
       ).then(async (res) => {
         if (!res.ok) {

@@ -14,7 +14,7 @@ export function SkeletonMovieCarousel() {
   return (
     <section className="relative h-96 w-full rounded-xl bg-white">
       <ul className="carousel flex h-full snap-x snap-mandatory space-x-5 overflow-x-auto scroll-smooth px-10">
-        {Array.from({ length: 4 }, (_, i) => (
+        {Array.from({ length: 5 }, (_, i) => (
           <li className="flex snap-center items-center" key={i}>
             <SkeletonMovieCard />
           </li>

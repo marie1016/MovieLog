@@ -1,6 +1,7 @@
 "use client";
 
 import { Review } from "@/types/addReview";
+import Image from "next/image";
 import Calendar, { TileArgs } from "react-calendar";
 import { useState } from "react";
 import clsx from "clsx";
@@ -18,7 +19,7 @@ export default function MyCalendar({
   const [startDate, setStartDate] = useState<Date | null>(new Date());
   const isRestoring = useIsRestoring();
 
-  const { data } = useQuery<Review[]>({
+  const { data, isFetching } = useQuery<Review[]>({
     queryKey: ["myReviews"],
     queryFn: async () => getMyReviews(displayName),
     initialData: initialMyReviews,
@@ -29,8 +30,17 @@ export default function MyCalendar({
   const renderTileContent = (props: TileArgs) => (
     <TileContent date={props.date} reviewsData={data} />
   );
+  if (isFetching || isRestoring)
+    return (
+      <Image
+        src="/images/dots-rotate.svg"
+        width={60}
+        height={60}
+        alt="로딩스피너"
+        className="mx-auto mt-36"
+      />
+    );
 
-  if (isRestoring) return <p>loading</p>;
   return (
     <>
       <div className="text-right">
