@@ -1,5 +1,7 @@
 import RankingBox from "@/components/mainPage/RankingBox";
 import ReviewFeed from "@/components/mainPage/ReviewFeed";
+import SkeletonRankingBox from "@/components/skeleton/SkeletonRankingBox";
+import { Suspense } from "react";
 
 export default function ReviewsPage() {
   return (
@@ -10,7 +12,9 @@ export default function ReviewsPage() {
       </section>
       <section className="lg:w-1/4">
         <h1 className="mb-5 text-2xl font-medium md:mb-7">리뷰 랭킹</h1>
-        <RankingBox />
+        <Suspense fallback={<SkeletonRankingBox />}>
+          <RankingBox />
+        </Suspense>
       </section>
     </div>
   );

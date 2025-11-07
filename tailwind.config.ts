@@ -6,6 +6,7 @@ const config: Config = {
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/styles/**/*.{css,scss}",
   ],
   theme: {
     extend: {
@@ -18,19 +19,22 @@ const config: Config = {
           gray500: "#909090",
         },
         gray100: "rgba(243, 244, 246)",
+        gray200: "rgba(229, 231, 235)",
+        gray300: "rgba(209, 213, 219)",
         gray600: "#818181",
+        gray700: "rgba(55, 65, 81)",
         gray: "#ABABAB",
         blue: "#5088FF",
         danger: "#FF4646",
-        screens: {
-          sm: "640px",
-          md: "768px",
-          lg: "1024px",
-          xl: "1280px",
-        },
-        borderRadius: {
-          sm: "8px",
-        },
+      },
+      screens: {
+        sm: "640px",
+        md: "768px",
+        lg: "1024px",
+        xl: "1280px",
+      },
+      borderRadius: {
+        sm: "8px",
       },
       fontFamily: {
         jetBrainsMono: ["var(--font-jetBrainsMono)"],
@@ -43,9 +47,18 @@ const config: Config = {
           "75%": { transform: "translateY(-75%)" },
           "100%": { transform: "translateY(-100%)" },
         },
+        shimmer: {
+          "0%": {
+            transform: "translateX(-100%)",
+          },
+          "100%": {
+            transform: "translateX(100%)",
+          },
+        },
       },
       animation: {
         "slide-up": "slideUp 10s steps(5) infinite",
+        shimmer: "shimmer 1.2s linear infinite",
       },
     },
     plugins: [lineClamp],

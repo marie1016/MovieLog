@@ -16,15 +16,9 @@ export default function SearchReviews({
   const searchParams = useSearchParams();
   const query = searchParams.get("query");
 
-  const {
-    value,
-    showSearchSuggestions,
-    handleInputChange,
-    handleKeyDown,
-    handleClick,
-  } = useSearchHandlers(query!);
+  const { value, handleKeyDown, handleClick } = useSearchHandlers(query!);
 
-  const { searchResults, debouncedValue } = useSearchMovies(value, 500);
+  const { debouncedValue } = useSearchMovies(value, 500);
 
   const handleReviewClick = (title: string) => {
     handleClick(title);
@@ -33,10 +27,6 @@ export default function SearchReviews({
 
   return (
     <SearchInput
-      value={value}
-      searchResults={searchResults}
-      showSearchSuggestions={showSearchSuggestions}
-      onChange={handleInputChange}
       onKeyDown={(e) => handleKeyDown(e, "searchReviews", debouncedValue)}
       onClick={handleReviewClick}
       width={width}

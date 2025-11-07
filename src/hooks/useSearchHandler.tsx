@@ -39,6 +39,7 @@ export default function useSearchHandlers(query: string) {
     value,
     showSearchResults,
     showSearchSuggestions,
+    setShowSearchSuggestions,
     handleInputChange,
     handleKeyDown,
     handleClick,

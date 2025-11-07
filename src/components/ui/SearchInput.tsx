@@ -1,6 +1,8 @@
 import Image from "next/image";
-import { Movie } from "@/types/movie";
-import { ChangeEvent, KeyboardEvent } from "react";
+import { useSearchParams } from "next/navigation";
+import useSearchMovies from "@/hooks/useSearchMovies";
+import useSearchHandlers from "@/hooks/useSearchHandler";
+import { KeyboardEvent, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { closeModal } from "@/lib/store/modal";
 import { RootState } from "@/lib/store";
@@ -8,10 +10,6 @@ import MovieSearchSuggestions from "../addReview/MovieSearchSuggestions";
 import Input from "./input";
 
 interface SearchInputProps {
-  value: string;
-  searchResults: Movie[];
-  showSearchSuggestions: boolean;
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   onKeyDown: (e: KeyboardEvent<HTMLInputElement>) => void;
   onClick: (title: string) => void;
   width: string;
@@ -21,10 +19,6 @@ interface SearchInputProps {
 }
 
 export default function SearchInput({
-  value,
-  searchResults,
-  showSearchSuggestions,
-  onChange,
   onKeyDown,
   onClick,
   width,
@@ -34,6 +28,31 @@ export default function SearchInput({
 }: SearchInputProps) {
   const { isOpen } = useSelector((state: RootState) => state.modal);
   const dispatch = useDispatch();
+  const searchParams = useSearchParams();
+  const query = searchParams.get("query");
+  const ref = useRef<HTMLDivElement>(null);
+
+  const {
+    value,
+    showSearchSuggestions,
+    setShowSearchSuggestions,
+    handleInputChange,
+  } = useSearchHandlers(query!);
+
+  const { searchResults } = useSearchMovies(value, 500);
+
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (ref.current && !ref.current.contains(e.target as Node)) {
+        setShowSearchSuggestions(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  });
 
   return (
     <div className="relative">
@@ -52,7 +71,7 @@ export default function SearchInput({
           iconClassName="absolute left-4 top-1/2 -translate-y-1/2"
           placeholder={placeholder}
           className={`${width} pl-16 focus:z-0`}
-          onChange={onChange}
+          onChange={handleInputChange}
           onKeyDown={onKeyDown}
         />
         {isOpen && (
@@ -73,12 +92,14 @@ export default function SearchInput({
 
       {/* 추천 검색어 */}
       {searchResults.length > 0 && showSearchSuggestions && (
-        <MovieSearchSuggestions
-          border={border}
-          searchResults={searchResults}
-          onClick={onClick}
-          size={size}
-        />
+        <div ref={ref}>
+          <MovieSearchSuggestions
+            border={border}
+            searchResults={searchResults}
+            onClick={onClick}
+            size={size}
+          />
+        </div>
       )}
     </div>
   );

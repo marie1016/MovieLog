@@ -6,12 +6,15 @@ import ReviewInfo from "@/components/ui/review/ReviewInfo";
 import useSearchReviews from "@/hooks/useSearchReviews";
 import { Review } from "@/types/addReview";
 import { useSearchParams } from "next/navigation";
+import SkeletonReviewHeader, {
+  SkeletonReviewInfo,
+} from "@/components/skeleton/SkeletonReviewDetail";
 
 export default function SearchReviewsPage() {
   const searchParams = useSearchParams();
   const query = searchParams.get("query");
 
-  const { searchResults, error } = useSearchReviews(query!, 500);
+  const { searchResults, error, isFetching } = useSearchReviews(query!, 500);
 
   if (error) {
     throw new Error("검색한 리뷰 데이터를 불러오는 중 오류가 발생했습니다.");
@@ -22,20 +25,27 @@ export default function SearchReviewsPage() {
       <h1 className="mb-5 text-center text-2xl font-medium md:mb-7">
         &apos;{query}&apos;
       </h1>
-      {!searchResults?.length ? (
+      {searchResults?.length === 0 ? (
         <div className="py-32 text-center text-lg">
           <p>아직 등록된 리뷰가 없습니다.</p>
           <p className="text-gray600">이 영화의 첫 번째 리뷰를 남겨보세요.</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 justify-between gap-12 lg:grid-cols-[380px_380px] lg:gap-14">
-          {searchResults?.map((review: Review) => (
-            <div key={review.id}>
-              <ReviewHeader {...review} />
-              <ReviewInfo {...review} />
-              <ReviewText {...review} />
-            </div>
-          ))}
+          {searchResults?.map((review: Review) =>
+            isFetching ? (
+              <div key={review.id}>
+                <SkeletonReviewHeader />
+                <SkeletonReviewInfo />
+              </div>
+            ) : (
+              <div key={review.id}>
+                <ReviewHeader {...review} />
+                <ReviewInfo {...review} />
+                <ReviewText {...review} />
+              </div>
+            ),
+          )}
         </div>
       )}
     </div>

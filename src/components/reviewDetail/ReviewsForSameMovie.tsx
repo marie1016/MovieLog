@@ -24,7 +24,7 @@ export default async function ReviewsForSameMovie({
     );
 
   return filteredReviewsData ? (
-    <ul className="grid grid-cols-1 gap-12 rounded-xl bg-white md:grid-cols-2 md:gap-14">
+    <ul className="grid grid-cols-1 gap-12 md:grid-cols-2 md:gap-14">
       {filteredReviewsData.map((review) => (
         <li key={review.id}>
           <div className="mb-3 flex justify-between">
