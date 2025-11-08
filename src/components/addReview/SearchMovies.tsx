@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { Movie } from "@/types/movie";
 import useSearchHandlers from "@/hooks/useSearchHandler";
 import useSearchMovies from "@/hooks/useSearchMovies";
@@ -13,28 +13,33 @@ export default function SearchMovies({
 }: {
   recommendedMovies: Movie[] | undefined;
 }) {
-  const router = useRouter();
   const searchParams = useSearchParams();
   const query = searchParams.get("query");
 
-  const { value, showSearchResults, handleKeyDown, handleClick } =
-    useSearchHandlers(query!);
-
-  const { searchResults, debouncedValue, isLoading } = useSearchMovies(
+  const {
     value,
-    500,
-  );
+    searchResults,
+    showSearchResults,
+    handleKeyDown,
+    handleInputChange,
+    handleClick,
+    isLoading,
+    showSearchSuggestions,
+    setShowSearchSuggestions,
+  } = useSearchHandlers(query!);
 
-  const handleMovieClick = (title: string) => {
-    handleClick(title);
-    router.push(`?query=${title}`);
-  };
+  const { searchSuggestions } = useSearchMovies(value, 200);
 
   return (
     <>
       <SearchInput
-        onKeyDown={(e) => handleKeyDown(e, "addReview", debouncedValue)}
-        onClick={handleMovieClick}
+        value={value}
+        onChange={handleInputChange}
+        onKeyDown={(e) => handleKeyDown(e, "addReview", value)}
+        onClick={(title: string) => handleClick("addReview", title)}
+        showSearchSuggestions={showSearchSuggestions}
+        setShowSearchSuggestions={setShowSearchSuggestions}
+        searchResults={searchSuggestions}
         width="w-72 sm:w-[460px]"
         placeholder="영화검색"
         size="lg"
