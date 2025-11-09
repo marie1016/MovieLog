@@ -3,6 +3,8 @@ import { useRouter } from "next/navigation";
 import { Movie } from "@/types/movie";
 import { ChangeEvent, KeyboardEvent, useState } from "react";
 import { useDispatch } from "react-redux";
+import { getSearchedMovies } from "@/lib/api/getSearchedMovies";
+import useSearchMovies from "./useSearchMovies";
 
 export default function useSearchHandlers(query: string) {
   const router = useRouter();
@@ -13,12 +15,20 @@ export default function useSearchHandlers(query: string) {
   const [searchResults, setSearchResults] = useState<Movie[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
+  const { setError } = useSearchMovies(value, 200);
+
   const fetchResults = async (title: string) => {
-    setIsLoading(true);
-    const res = await fetch(`/api/searchedMovies?query=${title}`);
-    const data = (await res.json()) as Movie[];
-    setSearchResults(data);
-    setIsLoading(false);
+    try {
+      setIsLoading(true);
+      const data = await getSearchedMovies(title);
+      setSearchResults(data);
+    } catch (err) {
+      if (err instanceof Error) {
+        setError(err.message);
+      }
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {

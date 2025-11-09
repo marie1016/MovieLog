@@ -28,7 +28,7 @@ export default function SearchMovies({
     setShowSearchSuggestions,
   } = useSearchHandlers(query!);
 
-  const { searchSuggestions } = useSearchMovies(value, 200);
+  const { searchSuggestions, error } = useSearchMovies(value, 200);
 
   return (
     <>
@@ -49,7 +49,7 @@ export default function SearchMovies({
       {!showSearchResults && (
         <>
           <h1 className="mb-6 mt-10 text-2xl font-medium">추천 영화</h1>
-          <MovieGrid movies={recommendedMovies} />
+          <MovieGrid recommendedMovies={recommendedMovies} />
         </>
       )}
 
@@ -58,7 +58,7 @@ export default function SearchMovies({
         (isLoading ? (
           <SkeletonMovieGrid />
         ) : (
-          <MovieGrid movies={searchResults} />
+          <MovieGrid searchResults={searchResults} error={error} />
         ))}
     </>
   );

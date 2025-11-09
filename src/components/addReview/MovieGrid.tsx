@@ -2,8 +2,27 @@ import { Movie } from "@/types/movie";
 import Link from "next/link";
 import MovieCard from "../ui/movie/MovieCard";
 
-export default function MovieGrid({ movies }: { movies: Movie[] | undefined }) {
-  if (movies?.length === 0)
+interface MovieGridProps {
+  recommendedMovies?: Movie[] | undefined;
+  searchResults?: Movie[] | undefined;
+  error?: string | null;
+}
+
+export default function MovieGrid({
+  recommendedMovies,
+  searchResults,
+  error,
+}: MovieGridProps) {
+  const movies = recommendedMovies || searchResults;
+
+  if (error)
+    return (
+      <div className="my-6 rounded-xl bg-white py-8 text-center text-lg">
+        {error}
+      </div>
+    );
+
+  if (recommendedMovies?.length === 0)
     return (
       <div className="my-6 max-w-[490px] rounded-xl bg-white py-16 text-center sm:max-w-7xl">
         <div className="mb-6">
@@ -18,6 +37,15 @@ export default function MovieGrid({ movies }: { movies: Movie[] | undefined }) {
         </div>
       </div>
     );
+
+  if (searchResults?.length === 0)
+    return (
+      <div className="my-6 max-w-[490px] rounded-xl bg-white py-16 text-center sm:max-w-7xl">
+        <p className="text-lg">검색 결과가 없습니다.</p>
+        <p className="text-lg text-gray600">영화 제목을 다시 확인해주세요.</p>
+      </div>
+    );
+
   return movies ? (
     <ul className="my-6 flex max-w-[490px] flex-wrap justify-center rounded-xl bg-white p-6 sm:max-w-7xl sm:justify-start">
       {movies?.map((movie: Movie) => (
@@ -36,7 +64,7 @@ export default function MovieGrid({ movies }: { movies: Movie[] | undefined }) {
       ))}
     </ul>
   ) : (
-    <div className="rounded-xl bg-white py-8 text-center text-lg">
+    <div className="my-6 rounded-xl bg-white py-8 text-center text-lg">
       영화 목록을 불러오는 중 오류가 발생했습니다.
     </div>
   );
