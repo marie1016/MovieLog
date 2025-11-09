@@ -1,8 +1,13 @@
 import Image from "next/image";
-import { useSearchParams } from "next/navigation";
-import useSearchMovies from "@/hooks/useSearchMovies";
-import useSearchHandlers from "@/hooks/useSearchHandler";
-import { KeyboardEvent, useEffect, useRef } from "react";
+import { Movie } from "@/types/movie";
+import {
+  ChangeEvent,
+  Dispatch,
+  KeyboardEvent,
+  SetStateAction,
+  useEffect,
+  useRef,
+} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { closeModal } from "@/lib/store/modal";
 import { RootState } from "@/lib/store";
@@ -10,8 +15,13 @@ import MovieSearchSuggestions from "../addReview/MovieSearchSuggestions";
 import Input from "./input";
 
 interface SearchInputProps {
+  value: string;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   onKeyDown: (e: KeyboardEvent<HTMLInputElement>) => void;
   onClick: (title: string) => void;
+  showSearchSuggestions: boolean;
+  setShowSearchSuggestions: Dispatch<SetStateAction<boolean>>;
+  searchResults: Movie[];
   width: string;
   placeholder: string;
   size?: "sm" | "lg";
@@ -19,8 +29,13 @@ interface SearchInputProps {
 }
 
 export default function SearchInput({
+  value,
+  onChange,
   onKeyDown,
   onClick,
+  showSearchSuggestions,
+  setShowSearchSuggestions,
+  searchResults,
   width,
   placeholder,
   size = "sm",
@@ -28,18 +43,7 @@ export default function SearchInput({
 }: SearchInputProps) {
   const { isOpen } = useSelector((state: RootState) => state.modal);
   const dispatch = useDispatch();
-  const searchParams = useSearchParams();
-  const query = searchParams.get("query");
   const ref = useRef<HTMLDivElement>(null);
-
-  const {
-    value,
-    showSearchSuggestions,
-    setShowSearchSuggestions,
-    handleInputChange,
-  } = useSearchHandlers(query!);
-
-  const { searchResults } = useSearchMovies(value, 500);
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
@@ -71,7 +75,7 @@ export default function SearchInput({
           iconClassName="absolute left-4 top-1/2 -translate-y-1/2"
           placeholder={placeholder}
           className={`${width} pl-16 focus:z-0`}
-          onChange={handleInputChange}
+          onChange={onChange}
           onKeyDown={onKeyDown}
         />
         {isOpen && (
