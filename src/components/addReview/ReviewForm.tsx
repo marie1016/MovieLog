@@ -2,7 +2,7 @@
 
 import React, { ChangeEvent, useEffect, useState } from "react";
 import Image from "next/image";
-import { useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { addReview } from "@/actions/addReview";
 import dayjs from "dayjs";
 import { useRouter } from "next/navigation";
@@ -41,8 +41,7 @@ export default function ReviewForm({
   const today = dayjs().format("YYYY.MM.DD");
   const router = useRouter();
   const queryClient = useQueryClient();
-
-  const [isEditing, setIsEditing] = useState(!!review);
+  const [editMode, setEditMode] = useState(!!review);
 
   const defaultValues = () => ({
     voteAverage: voteAverage || "",
@@ -64,10 +63,11 @@ export default function ReviewForm({
     reset(defaultValues());
   }, [id]);
 
-  const onSubmit = async (formData: FormData) => {
-    try {
+  const mutation = useMutation({
+    mutationFn: async (formData: FormData) => {
       await editReview(formData, id);
-
+    },
+    onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ["reviews"],
       });
@@ -77,22 +77,27 @@ export default function ReviewForm({
 
       closeEditModal?.();
       router.back();
-    } catch (error) {
+    },
+    onError: () => {
       alert(`리뷰 수정 중 에러가 발생했습니다.`);
-    }
+    },
+  });
+
+  const onSubmit = (formData: FormData) => {
+    mutation.mutate(formData);
   };
 
   const handleReset = () => {
     reset();
     closeEditModal?.();
     router.back();
-    setIsEditing(false);
+    setEditMode(false);
   };
 
   return (
     <form
       action={
-        isEditing
+        editMode
           ? onSubmit
           : (formData: FormData) =>
               addReview(formData, movieId, posterPath, title, genres, runtime)
@@ -146,10 +151,10 @@ export default function ReviewForm({
 
       <Button
         type="submit"
-        disabled={!isValid}
-        className={`mb-3 mt-4 w-full ${!isValid ? "bg-gray600" : "bg-blue"}`}
+        disabled={!isValid || mutation.isPending}
+        className={`mb-3 mt-4 w-full ${!isValid || mutation.isPending ? "bg-gray600" : "bg-blue"}`}
       >
-        {isEditing ? "수정하기" : "등록하기"}
+        {editMode ? "수정하기" : "등록하기"}
       </Button>
       <Button type="button" onClick={handleReset} className="w-full bg-danger">
         작성 취소하기
