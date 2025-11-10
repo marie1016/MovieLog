@@ -3,7 +3,7 @@ import clsx from "clsx";
 import Image from "next/image";
 
 interface SearchSuggestionsProps {
-  searchResults: Movie[];
+  searchSuggestions: Movie[];
   onClick: (title: string) => void;
   size: string | undefined;
   border: boolean | undefined;
@@ -11,7 +11,7 @@ interface SearchSuggestionsProps {
 
 export default function MovieSearchSuggestions({
   border,
-  searchResults,
+  searchSuggestions,
   onClick,
   size,
 }: SearchSuggestionsProps) {
@@ -26,9 +26,9 @@ export default function MovieSearchSuggestions({
         "absolute top-16 z-10 flex h-auto w-72 flex-col gap-3 rounded-lg bg-white px-7 py-4",
       )}
     >
-      {searchResults.map((searchResult: Movie) => (
+      {searchSuggestions.map((searchSuggestion: Movie) => (
         <li
-          key={searchResult.id}
+          key={searchSuggestion.id}
           className="flex items-center gap-3 hover:bg-gray100"
         >
           <Image
@@ -38,10 +38,10 @@ export default function MovieSearchSuggestions({
             height={30}
           />
           <button
-            onClick={() => onClick(searchResult.title)}
+            onClick={() => onClick(searchSuggestion.title)}
             className="truncate font-normal"
           >
-            {searchResult.title}
+            {searchSuggestion.title}
           </button>
         </li>
       ))}
