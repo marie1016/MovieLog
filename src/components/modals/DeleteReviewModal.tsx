@@ -4,14 +4,15 @@ import { closeModal } from "@/lib/store/modal";
 import { useDispatch } from "react-redux";
 import Button from "../ui/button";
 
-export default function DeleteReviewModal({ id }: { id: string | undefined }) {
+export default function DeleteReviewModal({ id }: { id?: string }) {
   const dispatch = useDispatch();
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
     mutationFn: async () => {
-      await deleteReview(id!);
+      await deleteReview(id);
     },
+
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["reviews"] });
       queryClient.invalidateQueries({ queryKey: ["myReviews"] });
