@@ -17,7 +17,6 @@ export default function SearchReviews({
 
   const {
     value,
-    searchResults,
     handleInputChange,
     handleKeyDown,
     handleClick,
@@ -25,7 +24,7 @@ export default function SearchReviews({
     setShowSearchSuggestions,
   } = useSearchHandlers(query!);
 
-  const { debouncedValue } = useSearchMovies(value, 200);
+  const { debouncedValue, searchSuggestions } = useSearchMovies(value, 200);
 
   return (
     <SearchInput
@@ -35,7 +34,7 @@ export default function SearchReviews({
       onClick={(title: string) => handleClick("searchReviews", title)}
       showSearchSuggestions={showSearchSuggestions}
       setShowSearchSuggestions={setShowSearchSuggestions}
-      searchResults={searchResults}
+      searchSuggestions={searchSuggestions}
       width={width}
       placeholder="리뷰검색"
       border={border}

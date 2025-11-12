@@ -20,7 +20,7 @@ export default function useSearchMovies(value: string, delay: number) {
       }
     };
     fetchResults();
-  }, [debouncedValue, value]);
+  }, [debouncedValue]);
 
   return {
     searchSuggestions,

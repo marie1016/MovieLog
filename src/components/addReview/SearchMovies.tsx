@@ -39,7 +39,7 @@ export default function SearchMovies({
         onClick={(title: string) => handleClick("addReview", title)}
         showSearchSuggestions={showSearchSuggestions}
         setShowSearchSuggestions={setShowSearchSuggestions}
-        searchResults={searchSuggestions}
+        searchSuggestions={searchSuggestions}
         width="w-72 sm:w-[460px]"
         placeholder="영화검색"
         size="lg"

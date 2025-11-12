@@ -21,7 +21,7 @@ interface SearchInputProps {
   onClick: (title: string) => void;
   showSearchSuggestions: boolean;
   setShowSearchSuggestions: Dispatch<SetStateAction<boolean>>;
-  searchResults: Movie[];
+  searchSuggestions: Movie[];
   width: string;
   placeholder: string;
   size?: "sm" | "lg";
@@ -35,7 +35,7 @@ export default function SearchInput({
   onClick,
   showSearchSuggestions,
   setShowSearchSuggestions,
-  searchResults,
+  searchSuggestions,
   width,
   placeholder,
   size = "sm",
@@ -95,11 +95,11 @@ export default function SearchInput({
       </div>
 
       {/* 추천 검색어 */}
-      {searchResults.length > 0 && showSearchSuggestions && (
+      {searchSuggestions.length > 0 && showSearchSuggestions && (
         <div ref={ref}>
           <MovieSearchSuggestions
             border={border}
-            searchResults={searchResults}
+            searchSuggestions={searchSuggestions}
             onClick={onClick}
             size={size}
           />

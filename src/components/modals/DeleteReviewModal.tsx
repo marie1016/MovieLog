@@ -1,25 +1,37 @@
-import { deleteReview } from "@/lib/firebase/deleteReview";
-import { useQueryClient } from "@tanstack/react-query";
+import { deleteReview } from "@/actions/deleteReview";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { closeModal } from "@/lib/store/modal";
 import { useDispatch } from "react-redux";
 import Button from "../ui/button";
 
-export default function DeleteReviewModal({ id }: { id: string | undefined }) {
+export default function DeleteReviewModal({ id }: { id?: string }) {
   const dispatch = useDispatch();
   const queryClient = useQueryClient();
-  const deleteReviewModal = async () => {
-    if (id) {
+
+  const mutation = useMutation({
+    mutationFn: async () => {
       await deleteReview(id);
-    }
+    },
 
-    queryClient.invalidateQueries({ queryKey: ["reviews"] });
-    queryClient.invalidateQueries({ queryKey: ["myReviews"] });
-    queryClient.invalidateQueries({ queryKey: ["reviewsForSameMovie"] });
-    queryClient.invalidateQueries({
-      queryKey: ["reviewById"],
-    });
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["reviews"] });
+      queryClient.invalidateQueries({ queryKey: ["myReviews"] });
+      queryClient.invalidateQueries({ queryKey: ["reviewsForSameMovie"] });
+      queryClient.invalidateQueries({
+        queryKey: ["reviewById"],
+      });
 
-    dispatch(closeModal());
+      dispatch(closeModal());
+    },
+    onError: (error) => {
+      console.log(error);
+      alert(`리뷰 삭제 중 에러가 발생했습니다.`);
+      dispatch(closeModal());
+    },
+  });
+
+  const onSubmit = () => {
+    mutation.mutate();
   };
 
   return (
@@ -37,7 +49,11 @@ export default function DeleteReviewModal({ id }: { id: string | undefined }) {
         >
           아니오
         </Button>
-        <Button className="h-10 w-28 bg-danger" onClick={deleteReviewModal}>
+        <Button
+          className="h-10 w-28 bg-danger"
+          disabled={mutation.isPending}
+          onClick={onSubmit}
+        >
           네
         </Button>
       </div>

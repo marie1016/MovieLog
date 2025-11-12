@@ -43,6 +43,7 @@ export default function useSearchHandlers(query: string) {
     inputValue: string,
   ) => {
     if (e.key === "Enter") {
+      fetchResults(inputValue);
       router.push(`/${path}?query=${inputValue}`);
       setShowSearchSuggestions(false);
       setShowSearchResults(true);
