@@ -15,7 +15,7 @@ import Button from "../ui/button";
 
 interface ReviewFormProps {
   movieId?: number;
-  id?: string;
+  id: string;
   posterPath: string;
   title: string;
   genres: Genre[];

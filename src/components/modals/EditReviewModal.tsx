@@ -5,11 +5,11 @@ import { Review } from "@/types/addReview";
 import { getReviewById } from "@/lib/firebase/getReviewById";
 import ReviewForm from "../addReview/ReviewForm";
 
-interface UpdateReviewModalProps {
+interface EditReviewModalProps {
   id: string | undefined;
 }
 
-export default function EditReviewModal({ id }: UpdateReviewModalProps) {
+export default function EditReviewModal({ id }: EditReviewModalProps) {
   const dispatch = useDispatch();
 
   const { data: review } = useQuery<Review | null>({

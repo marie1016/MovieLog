@@ -15,7 +15,7 @@ export async function addReview(
 ) {
   const user = await getUser();
   if (!user) {
-    throw new Error("You must be signed in to perform this action");
+    throw new Error("로그인이 필요합니다.");
   }
 
   const voteAverage = formData.get("voteAverage");

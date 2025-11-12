@@ -1,4 +1,4 @@
-import { deleteReview } from "@/lib/firebase/deleteReview";
+import { deleteReview } from "@/actions/deleteReview";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { closeModal } from "@/lib/store/modal";
 import { useDispatch } from "react-redux";

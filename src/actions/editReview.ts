@@ -3,14 +3,10 @@
 import { getUser } from "@/lib/firebase/getUser";
 import { getFirestore } from "firebase-admin/firestore";
 
-export async function editReview(formData: FormData, id?: string) {
-  if (!id) {
-    throw new Error("Review ID is required");
-  }
-
+export async function editReview(formData: FormData, id: string) {
   const user = await getUser();
   if (!user) {
-    throw new Error("You must be signed in to perform this action");
+    throw new Error("로그인이 필요합니다.");
   }
 
   const voteAverage = formData.get("voteAverage");
