@@ -63,7 +63,7 @@ export default function SearchInput({
       <div className="flex items-center gap-4">
         <Input
           type="text"
-          value={value}
+          value={value || undefined}
           icon={
             <Image
               src="/images/search-icon.svg"

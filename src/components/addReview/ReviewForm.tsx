@@ -64,9 +64,12 @@ export default function ReviewForm({
   }, [id]);
 
   const mutation = useMutation({
-    mutationFn: async (formData: FormData) => {
-      await editReview(formData, id);
-    },
+    mutationFn: editMode
+      ? async (formData: FormData) => {
+          await editReview(formData, id);
+        }
+      : (formData: FormData) =>
+          addReview(formData, movieId, posterPath, title, genres, runtime),
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ["reviews"],
@@ -75,11 +78,13 @@ export default function ReviewForm({
       queryClient.invalidateQueries({ queryKey: ["reviewsForSameMovie"] });
       queryClient.invalidateQueries({ queryKey: ["reviewById"] });
 
-      closeEditModal?.();
-      router.back();
+      if (editMode) {
+        closeEditModal?.();
+        router.back();
+      }
     },
     onError: () => {
-      alert(`리뷰 수정 중 에러가 발생했습니다.`);
+      alert(`리뷰 작성/수정 중 에러가 발생했습니다.`);
     },
   });
 
@@ -95,14 +100,7 @@ export default function ReviewForm({
   };
 
   return (
-    <form
-      action={
-        editMode
-          ? onSubmit
-          : (formData: FormData) =>
-              addReview(formData, movieId, posterPath, title, genres, runtime)
-      }
-    >
+    <form action={onSubmit}>
       <div className="relative mb-4 flex items-center gap-4">
         <div className="flex flex-col">
           <Input

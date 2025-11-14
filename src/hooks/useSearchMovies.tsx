@@ -11,8 +11,10 @@ export default function useSearchMovies(value: string, delay: number) {
   useEffect(() => {
     const fetchResults = async () => {
       try {
-        const data = await getSearchedMovies(debouncedValue);
-        setSearchSuggestions(data);
+        if (debouncedValue) {
+          const data = await getSearchedMovies(debouncedValue);
+          setSearchSuggestions(data);
+        }
       } catch (err) {
         if (err instanceof Error) {
           setError(err.message);
