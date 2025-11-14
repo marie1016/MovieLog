@@ -1,7 +1,11 @@
 import RankingBox from "@/components/mainPage/RankingBox";
-import ReviewFeed from "@/components/mainPage/ReviewFeed";
 import SkeletonRankingBox from "@/components/skeleton/SkeletonRankingBox";
+import dynamic from "next/dynamic";
 import { Suspense } from "react";
+
+const ReviewFeed = dynamic(() => import("@/components/mainPage/ReviewFeed"), {
+  ssr: false,
+});
 
 export default function ReviewsPage() {
   return (
