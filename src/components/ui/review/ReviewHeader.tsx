@@ -1,3 +1,5 @@
+"use client";
+
 import { getElapsedTime } from "@/lib/utils/getElapsedTime";
 import dayjs from "dayjs";
 
