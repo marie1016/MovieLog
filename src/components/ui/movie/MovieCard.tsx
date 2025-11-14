@@ -16,7 +16,7 @@ export default function MovieCard({ title, voteAverage, poster }: CardProps) {
   return (
     <div className="flex h-80 w-56 items-center justify-center rounded-xl border border-gray shadow-lg">
       <div className="flex h-[284px] w-36 flex-col justify-between">
-        <div className="relative aspect-[2/3] w-36">
+        <div className="relative aspect-[0.7] w-36">
           <Image
             src={posterPath}
             alt="영화 포스터"

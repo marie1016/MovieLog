@@ -29,7 +29,7 @@ export default function PosterImage({
     >
       <Link
         href={`/searchReviews?query=${title}`}
-        className={clsx("relative aspect-[2/3] overflow-hidden", dimensions[1])}
+        className={clsx("relative aspect-[0.7] overflow-hidden", dimensions[1])}
       >
         <Image
           src={fullPosterPath}
