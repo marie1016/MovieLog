@@ -1,9 +1,19 @@
 import { RootState } from "@/lib/store";
+import dynamic from "next/dynamic";
 import { useSelector } from "react-redux";
-import EditReviewModal from "./EditReviewModal";
-import DeleteReviewModal from "./DeleteReviewModal";
-import MyReviewModal from "./MyReviewModal";
-import SearchReviewsModal from "./SearchReviewsModal";
+
+const EditReviewModal = dynamic(() => import("./EditReviewModal"), {
+  ssr: false,
+});
+const DeleteReviewModal = dynamic(() => import("./DeleteReviewModal"), {
+  ssr: false,
+});
+const MyReviewModal = dynamic(() => import("./MyReviewModal"), {
+  ssr: false,
+});
+const SearchReviewsModal = dynamic(() => import("./SearchReviewsModal"), {
+  ssr: false,
+});
 
 export default function ModalContainer() {
   const { modalType, modalProps } = useSelector(
