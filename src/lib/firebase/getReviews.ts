@@ -6,19 +6,17 @@ import {
   query,
   limit,
   startAfter,
-  DocumentData,
-  QueryDocumentSnapshot,
   Timestamp,
 } from "firebase/firestore";
 import { db } from "./firebase";
 
 export interface ReviewPage {
   reviewsData: Review[];
-  nextCursor: QueryDocumentSnapshot<DocumentData> | null;
+  nextCursor: string | null;
 }
 
 export const getReviews = async (
-  pageParam?: QueryDocumentSnapshot<DocumentData> | null,
+  pageParam?: string | null,
 ): Promise<ReviewPage> => {
   try {
     const first = query(
@@ -39,7 +37,7 @@ export const getReviews = async (
     const lastVisible =
       documentSnapshots.docs.length < 8
         ? null
-        : documentSnapshots.docs[documentSnapshots.docs.length - 1];
+        : documentSnapshots.docs[documentSnapshots.docs.length - 1].id;
 
     const reviewsData = documentSnapshots.docs.map((doc) => {
       const data = doc.data();

@@ -4,14 +4,17 @@ import { useEffect, useRef } from "react";
 import type { InfiniteData, QueryKey } from "@tanstack/react-query";
 import { useSuspenseInfiniteQuery } from "@tanstack/react-query";
 import { getReviews, ReviewPage } from "@/lib/firebase/getReviews";
-import { DocumentData, QueryDocumentSnapshot } from "firebase/firestore";
 import ReviewText from "../ui/review/ReviewText";
 import ReviewInfo from "../ui/review/ReviewInfo";
 import ReviewHeader from "../ui/review/ReviewHeader";
 
-type PageParam = QueryDocumentSnapshot<DocumentData> | null;
+type PageParam = string | null;
 
-export default function ReviewFeed() {
+export default function ReviewFeed({
+  initialPage,
+}: {
+  initialPage: ReviewPage;
+}) {
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, error } =
     useSuspenseInfiniteQuery<
       ReviewPage,
@@ -22,7 +25,11 @@ export default function ReviewFeed() {
     >({
       queryKey: ["reviews"],
       queryFn: (ctx) => getReviews(ctx.pageParam),
-      initialPageParam: null,
+      initialPageParam: initialPage.nextCursor,
+      initialData: {
+        pages: [initialPage],
+        pageParams: [null],
+      },
       getNextPageParam: (lastPage) => lastPage.nextCursor,
       staleTime: 0,
     });
