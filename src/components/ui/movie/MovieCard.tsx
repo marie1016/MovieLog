@@ -23,7 +23,6 @@ export default function MovieCard({ title, voteAverage, poster }: CardProps) {
             sizes="144px"
             fill
             priority
-            loading="lazy"
           />
         </div>
         <h2 className="line-clamp-2 overflow-ellipsis break-keep text-center text-base">
