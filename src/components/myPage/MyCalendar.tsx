@@ -20,10 +20,6 @@ export default function MyCalendar({ displayName }: { displayName: string }) {
     meta: { persist: true },
   });
 
-  if (isError || !data) {
-    throw new Error("내 리뷰 데이터를 불러오는 중 오류가 발생했습니다.");
-  }
-
   if (isFetching || isRestoring)
     return (
       <Image
@@ -34,6 +30,10 @@ export default function MyCalendar({ displayName }: { displayName: string }) {
         className="mx-auto mt-36"
       />
     );
+
+  if (isError || !data) {
+    throw new Error("내 리뷰 데이터를 불러오는 중 오류가 발생했습니다.");
+  }
 
   const renderTileContent = (props: TileArgs) => (
     <TileContent date={props.date} reviewsData={data} />
