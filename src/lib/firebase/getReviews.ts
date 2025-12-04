@@ -12,11 +12,11 @@ import { db } from "./firebase";
 
 export interface ReviewPage {
   reviewsData: Review[];
-  nextCursor: string | null;
+  nextCursor: Date | null;
 }
 
 export const getReviews = async (
-  pageParam?: string | null,
+  pageParam?: Date | null,
 ): Promise<ReviewPage> => {
   try {
     const first = query(
@@ -37,7 +37,10 @@ export const getReviews = async (
     const lastVisible =
       documentSnapshots.docs.length < 8
         ? null
-        : documentSnapshots.docs[documentSnapshots.docs.length - 1].id;
+        : (
+            documentSnapshots.docs[documentSnapshots.docs.length - 1].data()
+              .createdAt as Timestamp
+          ).toDate();
 
     const reviewsData = documentSnapshots.docs.map((doc) => {
       const data = doc.data();
