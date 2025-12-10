@@ -13,7 +13,7 @@
 
 - ### **메인 페이지**
   상단부에는 장르별 필터 및 정렬 기능을 사용한 영화 목록 슬라이드,<br/>
-  하단부에는 사람들이 공유한 영화 리뷰 피드와 한 달 동안 가장 많이 리뷰된 영화 랭킹 리스트가 있습니다. 피드에서 내 리뷰는 수정, 삭제가 가능합니다.
+  하단부에는 사람들이 공유한 영화 리뷰 피드와 한 달 동안 가장 많이 리뷰된 영화 랭킹 리스트가 있습니다.<br/> 피드에서 내 리뷰는 수정, 삭제가 가능합니다.
   | 영화 목록 | 리뷰 피드와 랭킹 |
   | --- | --- |
   |<img width="400" height="200" alt="image" src="https://github.com/user-attachments/assets/12d1f04e-5d63-4cc8-b0b0-1fa94cc5e052" />|<img width="400" height="200" alt="image" src="https://github.com/user-attachments/assets/e2245976-6a0a-4337-8166-18594427f46a" />|
