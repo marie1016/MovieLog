@@ -53,7 +53,7 @@
 
 - **스타일링**: Tailwind CSS
 
-- **데이터베이스**: Firebase
+- **백엔드**: Firebase
   
 - **상태 관리**: Redux, TanStack Query
   
