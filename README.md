@@ -32,7 +32,7 @@
   
 - ### **검색한 영화 리뷰 목록 페이지**
   
-  검색한 영화에 대한 사람들의 모든 리뷰를 볼 수 있습니다. 
+  검색한 영화에 대한 사람들의 모든 리뷰를 확인할 수 있습니다. 
   |<img width="400" height="200" alt="image" src="https://github.com/user-attachments/assets/534d10ba-d736-4908-9643-a90f06614145" />|
   | --- |
   
