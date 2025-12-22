@@ -47,7 +47,7 @@ export default function LoginPage() {
       });
 
       if (response.status === 200) {
-        window.location.href = "/";
+        router.refresh();
       }
     } catch (error: unknown) {
       if (error instanceof FirebaseError) {
