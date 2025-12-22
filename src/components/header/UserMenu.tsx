@@ -1,6 +1,7 @@
 import { signOut } from "firebase/auth";
 import auth from "@/lib/firebase/firebase";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { User } from "@/lib/store/user";
 import { useQueryClient } from "@tanstack/react-query";
 import Dropdown from "../ui/dropdown/Dropdown";
@@ -9,6 +10,7 @@ import DropdownList from "../ui/dropdown/DropdownList";
 import DropdownToggle from "../ui/dropdown/DropdownToggle";
 
 export default function UserMenu({ user }: { user: User }) {
+  const router = useRouter();
   const queryClient = useQueryClient();
   const handleLogout = async () => {
     try {
@@ -17,7 +19,7 @@ export default function UserMenu({ user }: { user: User }) {
         method: "POST",
       });
       queryClient.clear();
-      window.location.reload();
+      router.refresh();
     } catch (error) {
       console.error(error);
     }

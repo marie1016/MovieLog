@@ -7,6 +7,7 @@ import {
   updateProfile,
 } from "firebase/auth";
 import auth from "@/lib/firebase/firebase";
+import { useRouter } from "next/navigation";
 import { SignupSchemaType, signupSchema } from "@/lib/constants/signupSchema";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -14,6 +15,8 @@ import Input from "@/components/ui/input";
 import { saveUser } from "@/lib/firebase/saveUser";
 
 export default function SignupPage() {
+  const router = useRouter();
+
   const {
     register,
     handleSubmit,
@@ -57,7 +60,7 @@ export default function SignupPage() {
       });
 
       if (response.status === 200) {
-        window.location.href = "/";
+        router.refresh();
       }
     } catch (error) {
       console.error(error);
