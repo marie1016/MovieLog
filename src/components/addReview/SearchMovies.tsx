@@ -1,34 +1,27 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
 import { Movie } from "@/types/movie";
 import useSearchHandlers from "@/hooks/useSearchHandler";
-import useSearchMovies from "@/hooks/useSearchMovies";
+import useSearchSuggestions from "@/hooks/useSearchSuggestions";
 import MovieGrid from "./MovieGrid";
 import SearchInput from "../ui/SearchInput";
-import SkeletonMovieGrid from "../skeleton/SkeletonMovieGrid";
 
 export default function SearchMovies({
   recommendedMovies,
 }: {
   recommendedMovies: Movie[] | undefined;
 }) {
-  const searchParams = useSearchParams();
-  const query = searchParams.get("query");
-
   const {
     value,
-    searchResults,
     showSearchResults,
     handleKeyDown,
     handleInputChange,
     handleClick,
-    isLoading,
     showSearchSuggestions,
     setShowSearchSuggestions,
-  } = useSearchHandlers(query!);
+  } = useSearchHandlers();
 
-  const { searchSuggestions, error } = useSearchMovies(value, 200);
+  const { searchResults } = useSearchSuggestions(value, 500);
 
   return (
     <>
@@ -39,7 +32,7 @@ export default function SearchMovies({
         onClick={(title: string) => handleClick("addReview", title)}
         showSearchSuggestions={showSearchSuggestions}
         setShowSearchSuggestions={setShowSearchSuggestions}
-        searchSuggestions={searchSuggestions}
+        searchSuggestions={searchResults}
         width="w-72 sm:w-[460px]"
         placeholder="영화검색"
         size="lg"
@@ -54,12 +47,7 @@ export default function SearchMovies({
       )}
 
       {/* 검색 결과 */}
-      {showSearchResults &&
-        (isLoading ? (
-          <SkeletonMovieGrid />
-        ) : (
-          <MovieGrid searchResults={searchResults} error={error} />
-        ))}
+      {showSearchResults && <MovieGrid value={value} />}
     </>
   );
 }

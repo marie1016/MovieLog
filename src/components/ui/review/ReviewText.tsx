@@ -21,7 +21,7 @@ export default function ReviewText({
   review,
   variant = "feed",
 }: ReviewTextProps) {
-  const genreId = genres[0]?.id;
+  const genreId = genres?.[0].id;
 
   const isDetail = variant === "detail";
 

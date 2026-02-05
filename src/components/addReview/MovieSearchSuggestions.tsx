@@ -3,7 +3,7 @@ import clsx from "clsx";
 import Image from "next/image";
 
 interface SearchSuggestionsProps {
-  searchSuggestions: Movie[];
+  searchSuggestions: Movie[] | undefined;
   onClick: (title: string) => void;
   size: string | undefined;
   border: boolean | undefined;
@@ -26,7 +26,7 @@ export default function MovieSearchSuggestions({
         "absolute top-16 z-10 flex h-auto w-72 flex-col gap-3 rounded-lg bg-white px-7 py-4",
       )}
     >
-      {searchSuggestions.map((searchSuggestion: Movie) => (
+      {searchSuggestions?.map((searchSuggestion: Movie) => (
         <li
           key={searchSuggestion.id}
           className="flex items-center gap-3 hover:bg-gray100"

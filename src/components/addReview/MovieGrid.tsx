@@ -1,24 +1,27 @@
 import { Movie } from "@/types/movie";
+import useSearchMovies from "@/hooks/useSearchMovies";
 import Link from "next/link";
 import MovieCard from "../ui/movie/MovieCard";
+import SkeletonMovieGrid from "../skeleton/SkeletonMovieGrid";
 
 interface MovieGridProps {
   recommendedMovies?: Movie[] | undefined;
-  searchResults?: Movie[] | undefined;
-  error?: string | null;
+  value?: string;
 }
 
 export default function MovieGrid({
   recommendedMovies,
-  searchResults,
-  error,
+  value,
 }: MovieGridProps) {
+  const { searchResults, isError, isLoading } = useSearchMovies(value);
   const movies = recommendedMovies || searchResults;
 
-  if (error)
+  if (isLoading) return <SkeletonMovieGrid />;
+
+  if (isError)
     return (
       <div className="my-6 rounded-xl bg-white py-8 text-center text-lg">
-        {error}
+        영화 목록을 불러오는 중 오류가 발생했습니다.
       </div>
     );
 
@@ -46,7 +49,7 @@ export default function MovieGrid({
       </div>
     );
 
-  return movies ? (
+  return (
     <ul className="my-6 flex max-w-[490px] flex-wrap justify-center rounded-xl bg-white p-6 sm:max-w-7xl sm:justify-start">
       {movies?.map((movie: Movie) => (
         <li
@@ -63,9 +66,5 @@ export default function MovieGrid({
         </li>
       ))}
     </ul>
-  ) : (
-    <div className="my-6 rounded-xl bg-white py-8 text-center text-lg">
-      영화 목록을 불러오는 중 오류가 발생했습니다.
-    </div>
   );
 }

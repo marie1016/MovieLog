@@ -14,7 +14,7 @@ export default function SearchReviewsPage() {
   const searchParams = useSearchParams();
   const query = searchParams.get("query");
 
-  const { searchResults, error, isFetching } = useSearchReviews(query!, 500);
+  const { searchResults, error, isFetching } = useSearchReviews(query!);
 
   if (error) {
     throw new Error("검색한 리뷰 데이터를 불러오는 중 오류가 발생했습니다.");
