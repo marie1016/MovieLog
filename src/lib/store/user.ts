@@ -8,13 +8,11 @@ export interface User {
 interface UserState {
   isLoggedIn: boolean;
   user: User | null;
-  isLoading: boolean;
 }
 
 const initialUserState: UserState = {
   isLoggedIn: false,
   user: null,
-  isLoading: true,
 };
 
 export const userSlice = createSlice({
@@ -24,12 +22,10 @@ export const userSlice = createSlice({
     login: (state, action: PayloadAction<User>) => {
       state.isLoggedIn = true;
       state.user = action.payload;
-      state.isLoading = false;
     },
     logout: (state) => {
-      state.isLoggedIn = false;
+      state.isLoggedIn = true;
       state.user = null;
-      state.isLoading = false;
     },
   },
 });

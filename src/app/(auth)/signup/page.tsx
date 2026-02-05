@@ -60,7 +60,7 @@ export default function SignupPage() {
       });
 
       if (response.status === 200) {
-        router.refresh();
+        router.push("/");
       }
     } catch (error) {
       console.error(error);
