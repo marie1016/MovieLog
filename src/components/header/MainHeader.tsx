@@ -8,7 +8,7 @@ import ResponsiveUser from "./ResponsiveUser";
 import AuthHeader from "./AuthHeader";
 
 export default function MainHeader() {
-  const { isLoading } = useSelector((state: RootState) => state.user);
+  const { isLoggedIn } = useSelector((state: RootState) => state.user);
   const isOpen = useSelector((state: RootState) => state.modal.isOpen);
 
   useEffect(() => {
@@ -21,7 +21,7 @@ export default function MainHeader() {
 
   return (
     <AuthHeader>
-      {isLoading ? null : (
+      {!isLoggedIn ? null : (
         <nav className="flex items-center gap-2 text-base font-semibold sm:gap-7">
           <ResponsiveSearch />
           <div className="relative flex gap-7 text-blue">
