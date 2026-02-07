@@ -2,7 +2,7 @@ import { getSearchResults } from "@/lib/api/getSearchResults";
 import { useQuery } from "@tanstack/react-query";
 import { Movie } from "@/types/movie";
 
-export default function useSearchMovies(value: string | undefined) {
+export const useSearchMovies = (value: string | undefined) => {
   const {
     data: searchResults,
     isError,
@@ -11,7 +11,7 @@ export default function useSearchMovies(value: string | undefined) {
   } = useQuery<Movie[] | undefined>({
     queryKey: ["searchMovies", value],
     queryFn: () => getSearchResults(value!),
-    enabled: !!value,
+    enabled: value?.trim() !== "",
   });
 
   return {
@@ -20,4 +20,4 @@ export default function useSearchMovies(value: string | undefined) {
     isError,
     isLoading,
   };
-}
+};

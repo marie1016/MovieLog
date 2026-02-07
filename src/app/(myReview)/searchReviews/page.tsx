@@ -3,7 +3,7 @@
 import ReviewText from "@/components/ui/review/ReviewText";
 import ReviewHeader from "@/components/ui/review/ReviewHeader";
 import ReviewInfo from "@/components/ui/review/ReviewInfo";
-import useSearchReviews from "@/hooks/useSearchReviews";
+import { useSearchReviews } from "@/hooks/useSearchReviews";
 import { Review } from "@/types/addReview";
 import { useSearchParams } from "next/navigation";
 import SkeletonReviewHeader, {

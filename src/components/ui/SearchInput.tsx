@@ -1,69 +1,34 @@
 import Image from "next/image";
-import { Movie } from "@/types/movie";
-import {
-  ChangeEvent,
-  Dispatch,
-  KeyboardEvent,
-  SetStateAction,
-  useEffect,
-  useRef,
-} from "react";
+import { ChangeEvent, KeyboardEvent } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { closeModal } from "@/lib/store/modal";
 import { RootState } from "@/lib/store";
-import MovieSearchSuggestions from "../addReview/MovieSearchSuggestions";
 import Input from "./input";
 
 interface SearchInputProps {
   value: string;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   onKeyDown: (e: KeyboardEvent<HTMLInputElement>) => void;
-  onClick: (title: string) => void;
-  showSearchSuggestions: boolean;
-  setShowSearchSuggestions: Dispatch<SetStateAction<boolean>>;
-  searchSuggestions: Movie[] | undefined;
   width: string;
   placeholder: string;
-  size?: "sm" | "lg";
-  border?: boolean;
 }
 
 export default function SearchInput({
   value,
   onChange,
   onKeyDown,
-  onClick,
-  showSearchSuggestions,
-  setShowSearchSuggestions,
-  searchSuggestions,
   width,
   placeholder,
-  size = "sm",
-  border = true,
 }: SearchInputProps) {
   const { isOpen } = useSelector((state: RootState) => state.modal);
   const dispatch = useDispatch();
-  const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      if (ref.current && !ref.current.contains(e.target as Node)) {
-        setShowSearchSuggestions(false);
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  });
 
   return (
     <div className="relative">
       <div className="flex items-center gap-4">
         <Input
           type="text"
-          value={value || ""}
+          value={value}
           icon={
             <Image
               src="/images/search-icon.svg"
@@ -93,18 +58,6 @@ export default function SearchInput({
           </button>
         )}
       </div>
-
-      {/* 추천 검색어 */}
-      {!!searchSuggestions?.length && showSearchSuggestions && (
-        <div ref={ref}>
-          <MovieSearchSuggestions
-            border={border}
-            searchSuggestions={searchSuggestions}
-            onClick={onClick}
-            size={size}
-          />
-        </div>
-      )}
     </div>
   );
 }

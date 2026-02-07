@@ -1,14 +1,17 @@
-import { closeModal } from "@/lib/store/modal";
-import { useRouter } from "next/navigation";
-import { ChangeEvent, KeyboardEvent, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useRouter, useSearchParams } from "next/navigation";
+import { ChangeEvent, KeyboardEvent, useEffect, useState } from "react";
 
-export default function useSearchHandlers() {
+export const useMovieSearchHandler = () => {
   const router = useRouter();
-  const dispatch = useDispatch();
+  const searchParams = useSearchParams();
+  const query = searchParams.get("query");
   const [value, setValue] = useState("");
   const [showSearchSuggestions, setShowSearchSuggestions] = useState(false);
   const [showSearchResults, setShowSearchResults] = useState(false);
+
+  useEffect(() => {
+    if (query) setValue(query);
+  }, [query]);
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setShowSearchResults(false);
@@ -18,22 +21,20 @@ export default function useSearchHandlers() {
 
   const handleKeyDown = (
     e: KeyboardEvent<HTMLInputElement>,
-    path: string,
     inputValue: string,
   ) => {
-    if (e.key === "Enter") {
-      router.push(`/${path}?query=${inputValue}`);
+    if (e.key === "Enter" && inputValue?.trim() !== "") {
+      router.push(`/addReview?query=${inputValue}`);
       setShowSearchSuggestions(false);
       setShowSearchResults(true);
     }
   };
 
-  const handleClick = (path: string, title: string) => {
+  const handleClick = (title: string) => {
     setValue(title);
-    router.push(`/${path}?query=${title}`);
+    router.push(`/addReview?query=${title}`);
     setShowSearchSuggestions(false);
     setShowSearchResults(true);
-    dispatch(closeModal());
   };
 
   return {
@@ -45,4 +46,4 @@ export default function useSearchHandlers() {
     handleKeyDown,
     handleClick,
   };
-}
+};

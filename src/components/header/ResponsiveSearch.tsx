@@ -1,4 +1,4 @@
-import useMediaQuery from "@/hooks/useMediaQuery";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
 import { openModal } from "@/lib/store/modal";
 import Image from "next/image";
 import { useDispatch } from "react-redux";

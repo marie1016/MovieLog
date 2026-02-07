@@ -1,5 +1,5 @@
 import { Movie } from "@/types/movie";
-import useSearchMovies from "@/hooks/useSearchMovies";
+import { useSearchMovies } from "@/hooks/useSearchMovies";
 import Link from "next/link";
 import MovieCard from "../ui/movie/MovieCard";
 import SkeletonMovieGrid from "../skeleton/SkeletonMovieGrid";

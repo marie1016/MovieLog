@@ -3,7 +3,7 @@ import { getSearchResults } from "@/lib/api/getSearchResults";
 import { useQuery } from "@tanstack/react-query";
 import { useDebounce } from "./useDebounce";
 
-export default function useSearchSuggestions(value: string, delay: number) {
+export const useSearchSuggestions = (value: string, delay: number) => {
   const debouncedValue = useDebounce(value, delay);
 
   const {
@@ -23,4 +23,4 @@ export default function useSearchSuggestions(value: string, delay: number) {
     isError,
     isLoading,
   };
-}
+};
