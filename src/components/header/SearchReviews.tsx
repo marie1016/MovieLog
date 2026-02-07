@@ -1,8 +1,7 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
+import useSearchSuggestions from "@/hooks/useSearchSuggestions";
 import useSearchHandlers from "@/hooks/useSearchHandler";
-import useSearchMovies from "@/hooks/useSearchMovies";
 import SearchInput from "../ui/SearchInput";
 
 export default function SearchReviews({
@@ -12,9 +11,6 @@ export default function SearchReviews({
   width: string;
   border?: boolean;
 }) {
-  const searchParams = useSearchParams();
-  const query = searchParams.get("query");
-
   const {
     value,
     handleInputChange,
@@ -22,19 +18,19 @@ export default function SearchReviews({
     handleClick,
     showSearchSuggestions,
     setShowSearchSuggestions,
-  } = useSearchHandlers(query!);
+  } = useSearchHandlers();
 
-  const { debouncedValue, searchSuggestions } = useSearchMovies(value, 200);
+  const { searchResults } = useSearchSuggestions(value, 500);
 
   return (
     <SearchInput
       value={value}
-      onKeyDown={(e) => handleKeyDown(e, "searchReviews", debouncedValue)}
+      onKeyDown={(e) => handleKeyDown(e, "searchReviews", value)}
       onChange={handleInputChange}
       onClick={(title: string) => handleClick("searchReviews", title)}
       showSearchSuggestions={showSearchSuggestions}
       setShowSearchSuggestions={setShowSearchSuggestions}
-      searchSuggestions={searchSuggestions}
+      searchSuggestions={searchResults}
       width={width}
       placeholder="리뷰검색"
       border={border}

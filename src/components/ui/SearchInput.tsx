@@ -21,7 +21,7 @@ interface SearchInputProps {
   onClick: (title: string) => void;
   showSearchSuggestions: boolean;
   setShowSearchSuggestions: Dispatch<SetStateAction<boolean>>;
-  searchSuggestions: Movie[];
+  searchSuggestions: Movie[] | undefined;
   width: string;
   placeholder: string;
   size?: "sm" | "lg";
@@ -63,7 +63,7 @@ export default function SearchInput({
       <div className="flex items-center gap-4">
         <Input
           type="text"
-          value={value || undefined}
+          value={value || ""}
           icon={
             <Image
               src="/images/search-icon.svg"
@@ -95,7 +95,7 @@ export default function SearchInput({
       </div>
 
       {/* 추천 검색어 */}
-      {searchSuggestions.length > 0 && showSearchSuggestions && (
+      {!!searchSuggestions?.length && showSearchSuggestions && (
         <div ref={ref}>
           <MovieSearchSuggestions
             border={border}

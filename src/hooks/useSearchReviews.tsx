@@ -1,19 +1,16 @@
 import { getReviewsForSameMovie } from "@/lib/firebase/getReviewsForSameMovie";
 import { Review } from "@/types/addReview";
 import { useQuery } from "@tanstack/react-query";
-import { useDebounce } from "./useDebounce";
 
-export default function useSearchReviews(value: string, delay: number) {
-  const debouncedValue = useDebounce(value, delay);
-
+export default function useSearchReviews(value: string) {
   const {
     data: searchResults,
     isError,
     error,
     isFetching,
   } = useQuery<Review[] | undefined>({
-    queryKey: ["reviewsForSameMovie", debouncedValue],
-    queryFn: () => getReviewsForSameMovie(debouncedValue),
+    queryKey: ["reviewsForSameMovie", value],
+    queryFn: () => getReviewsForSameMovie(value),
   });
 
   return { searchResults, isError, error, isFetching };
