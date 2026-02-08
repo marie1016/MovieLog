@@ -9,7 +9,7 @@ interface SearchSuggestionsProps {
   border: boolean | undefined;
 }
 
-export default function MovieSearchSuggestions({
+export default function SearchSuggestions({
   border,
   searchSuggestions,
   onClick,
@@ -23,7 +23,7 @@ export default function MovieSearchSuggestions({
       className={clsx(
         width,
         isBorder,
-        "absolute top-16 z-10 flex h-auto w-72 flex-col gap-3 rounded-lg bg-white px-7 py-4",
+        "flex h-auto w-72 flex-col gap-3 rounded-lg bg-white px-7 py-4",
       )}
     >
       {searchSuggestions?.map((searchSuggestion: Movie) => (

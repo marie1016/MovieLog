@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import useMediaQuery from "@/hooks/useMediaQuery";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
 import { useSelector } from "react-redux";
 import { RootState } from "@/lib/store";
 import UserMenu from "./UserMenu";

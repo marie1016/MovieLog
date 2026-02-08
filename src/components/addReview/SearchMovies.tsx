@@ -1,41 +1,44 @@
 "use client";
 
+import { useRef } from "react";
 import { Movie } from "@/types/movie";
-import useSearchHandlers from "@/hooks/useSearchHandler";
-import useSearchSuggestions from "@/hooks/useSearchSuggestions";
+
+import { useHandleClickOutside } from "@/hooks/useHandleClickOutside";
+import { useSearchSuggestions } from "@/hooks/useSearchSuggestions";
+import { useMovieSearchHandler } from "@/hooks/useMovieSearhHandler";
 import MovieGrid from "./MovieGrid";
 import SearchInput from "../ui/SearchInput";
+import SearchSuggestions from "../ui/SearchSuggestions";
 
 export default function SearchMovies({
   recommendedMovies,
 }: {
   recommendedMovies: Movie[] | undefined;
 }) {
+  const ref = useRef<HTMLDivElement>(null);
+
   const {
     value,
     showSearchResults,
-    handleKeyDown,
     handleInputChange,
+    handleKeyDown,
     handleClick,
     showSearchSuggestions,
     setShowSearchSuggestions,
-  } = useSearchHandlers();
+  } = useMovieSearchHandler();
 
   const { searchResults } = useSearchSuggestions(value, 500);
 
+  useHandleClickOutside(ref, () => setShowSearchSuggestions(false));
+
   return (
-    <>
+    <div className="relative">
       <SearchInput
         value={value}
         onChange={handleInputChange}
-        onKeyDown={(e) => handleKeyDown(e, "addReview", value)}
-        onClick={(title: string) => handleClick("addReview", title)}
-        showSearchSuggestions={showSearchSuggestions}
-        setShowSearchSuggestions={setShowSearchSuggestions}
-        searchSuggestions={searchResults}
+        onKeyDown={(e) => handleKeyDown(e)}
         width="w-72 sm:w-[460px]"
         placeholder="영화검색"
-        size="lg"
       />
 
       {/* 추천 영화 */}
@@ -46,8 +49,20 @@ export default function SearchMovies({
         </>
       )}
 
+      {/* 추천 검색어 */}
+      {searchResults?.length && showSearchSuggestions && (
+        <div ref={ref} className="absolute top-16 z-10">
+          <SearchSuggestions
+            border
+            searchSuggestions={searchResults}
+            onClick={(title: string) => handleClick(title)}
+            size="lg"
+          />
+        </div>
+      )}
+
       {/* 검색 결과 */}
       {showSearchResults && <MovieGrid value={value} />}
-    </>
+    </div>
   );
 }

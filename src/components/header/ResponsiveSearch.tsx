@@ -1,4 +1,4 @@
-import useMediaQuery from "@/hooks/useMediaQuery";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
 import { openModal } from "@/lib/store/modal";
 import Image from "next/image";
 import { useDispatch } from "react-redux";
@@ -23,5 +23,5 @@ export default function ResponsiveSearch() {
       </button>
     );
   }
-  return <SearchReviews width="w-72" />;
+  return <SearchReviews width="w-72" border />;
 }

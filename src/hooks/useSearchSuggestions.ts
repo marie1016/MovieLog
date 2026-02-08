@@ -3,24 +3,17 @@ import { getSearchResults } from "@/lib/api/getSearchResults";
 import { useQuery } from "@tanstack/react-query";
 import { useDebounce } from "./useDebounce";
 
-export default function useSearchSuggestions(value: string, delay: number) {
+export const useSearchSuggestions = (value: string, delay: number) => {
   const debouncedValue = useDebounce(value, delay);
 
-  const {
-    data: searchResults,
-    isError,
-    error,
-    isLoading,
-  } = useQuery<Movie[] | undefined>({
+  const { data: searchResults } = useQuery<Movie[] | undefined>({
     queryKey: ["searchSuggestions", debouncedValue],
     queryFn: () => getSearchResults(debouncedValue),
-    enabled: !!debouncedValue,
+    enabled: !!debouncedValue && debouncedValue.trim() !== "",
+    staleTime: 1000 * 60 * 60 * 24,
   });
 
   return {
     searchResults,
-    error,
-    isError,
-    isLoading,
   };
-}
+};

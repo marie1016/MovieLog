@@ -1,5 +1,5 @@
 import { Movie } from "@/types/movie";
-import useSearchMovies from "@/hooks/useSearchMovies";
+import { useSearchMovies } from "@/hooks/useSearchMovies";
 import Link from "next/link";
 import MovieCard from "../ui/movie/MovieCard";
 import SkeletonMovieGrid from "../skeleton/SkeletonMovieGrid";
@@ -13,10 +13,10 @@ export default function MovieGrid({
   recommendedMovies,
   value,
 }: MovieGridProps) {
-  const { searchResults, isError, isLoading } = useSearchMovies(value);
+  const { searchResults, isError, isFetching } = useSearchMovies(value!);
   const movies = recommendedMovies || searchResults;
 
-  if (isLoading) return <SkeletonMovieGrid />;
+  if (isFetching) return <SkeletonMovieGrid />;
 
   if (isError)
     return (
