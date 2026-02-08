@@ -8,12 +8,22 @@ import ReviewText from "./ReviewText";
 
 interface ReviewItemProps {
   review: Review;
-  isFetching: boolean;
+  isFetching?: boolean;
+  size?: "sm" | "lg";
 }
 
-export default function ReviewItem({ review, isFetching }: ReviewItemProps) {
+export default function ReviewItem({
+  review,
+  isFetching,
+  size = "sm",
+}: ReviewItemProps) {
   if (isFetching) {
-    return (
+    return size === "lg" ? (
+      <>
+        <SkeletonReviewHeader size="lg" />
+        <SkeletonReviewInfo size="lg" />
+      </>
+    ) : (
       <>
         <SkeletonReviewHeader />
         <SkeletonReviewInfo />
@@ -21,7 +31,13 @@ export default function ReviewItem({ review, isFetching }: ReviewItemProps) {
     );
   }
 
-  return (
+  return size === "lg" ? (
+    <>
+      <ReviewHeader {...review} size="lg" />
+      <ReviewInfo {...review} size="lg" />
+      <ReviewText {...review} size="lg" />
+    </>
+  ) : (
     <>
       <ReviewHeader {...review} />
       <ReviewInfo {...review} />

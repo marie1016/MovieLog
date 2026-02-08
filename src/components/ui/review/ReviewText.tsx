@@ -10,7 +10,7 @@ export interface ReviewTextProps {
   genres: Genre[];
   date?: string;
   review?: string;
-  variant?: "feed" | "detail";
+  size?: "sm" | "lg";
 }
 
 export default function ReviewText({
@@ -19,21 +19,19 @@ export default function ReviewText({
   genres,
   date,
   review,
-  variant = "feed",
+  size = "sm",
 }: ReviewTextProps) {
   const genreId = genres?.[0].id;
 
-  const isDetail = variant === "detail";
+  const isLarge = size === "lg";
 
   return (
     <div className="mt-4 text-left">
-      <span
-        className={clsx(isDetail ? "text-base" : "text-sm", "text-gray600")}
-      >
+      <span className={clsx(isLarge ? "text-base" : "text-sm", "text-gray600")}>
         {date}
       </span>
 
-      {isDetail ? (
+      {isLarge ? (
         <div className="mt-2 min-h-36 text-lg">{review}</div>
       ) : (
         <div className="line-clamp-5 min-h-20 cursor-pointer overflow-ellipsis hover:text-gray600">
