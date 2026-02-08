@@ -13,28 +13,27 @@ export const useMovieSearchHandler = () => {
     if (query) setValue(query);
   }, [query]);
 
+  const submitSearch = (searchValue: string) => {
+    router.push(`/addReview?query=${encodeURIComponent(searchValue)}`);
+    setShowSearchSuggestions(false);
+    setShowSearchResults(true);
+  };
+
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setShowSearchResults(false);
     setShowSearchSuggestions(true);
     setValue(e.target.value);
   };
 
-  const handleKeyDown = (
-    e: KeyboardEvent<HTMLInputElement>,
-    inputValue: string,
-  ) => {
-    if (e.key === "Enter" && inputValue?.trim() !== "") {
-      router.push(`/addReview?query=${inputValue}`);
-      setShowSearchSuggestions(false);
-      setShowSearchResults(true);
+  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter" && value?.trim() !== "") {
+      submitSearch(value);
     }
   };
 
   const handleClick = (title: string) => {
     setValue(title);
-    router.push(`/addReview?query=${title}`);
-    setShowSearchSuggestions(false);
-    setShowSearchResults(true);
+    submitSearch(title);
   };
 
   return {

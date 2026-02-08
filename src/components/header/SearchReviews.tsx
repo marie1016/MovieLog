@@ -7,7 +7,13 @@ import { useReviewSearchHandler } from "@/hooks/useReviewSearchHandler";
 import SearchInput from "../ui/SearchInput";
 import SearchSuggestions from "../ui/SearchSuggestions";
 
-export default function SearchReviews({ width }: { width: string }) {
+export default function SearchReviews({
+  width,
+  border,
+}: {
+  width: string;
+  border: boolean;
+}) {
   const ref = useRef<HTMLDivElement>(null);
 
   const {
@@ -27,17 +33,17 @@ export default function SearchReviews({ width }: { width: string }) {
     <div className="relative">
       <SearchInput
         value={value}
-        onKeyDown={(e) => handleKeyDown(e, value)}
+        onKeyDown={(e) => handleKeyDown(e)}
         onChange={handleInputChange}
         width={width}
         placeholder="리뷰검색"
       />
 
       {/* 추천 검색어 */}
-      {!!searchResults?.length && showSearchSuggestions && (
+      {searchResults?.length && showSearchSuggestions && (
         <div ref={ref} className="absolute top-16 z-10">
           <SearchSuggestions
-            border={false}
+            border={border}
             searchSuggestions={searchResults}
             onClick={(title: string) => handleClick(title)}
             size="sm"

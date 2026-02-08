@@ -36,7 +36,7 @@ export default function SearchMovies({
       <SearchInput
         value={value}
         onChange={handleInputChange}
-        onKeyDown={(e) => handleKeyDown(e, value)}
+        onKeyDown={(e) => handleKeyDown(e)}
         width="w-72 sm:w-[460px]"
         placeholder="영화검색"
       />
@@ -50,7 +50,7 @@ export default function SearchMovies({
       )}
 
       {/* 추천 검색어 */}
-      {!!searchResults?.length && showSearchSuggestions && (
+      {searchResults?.length && showSearchSuggestions && (
         <div ref={ref} className="absolute top-16 z-10">
           <SearchSuggestions
             border

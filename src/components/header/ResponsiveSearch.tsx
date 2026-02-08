@@ -23,5 +23,5 @@ export default function ResponsiveSearch() {
       </button>
     );
   }
-  return <SearchReviews width="w-72" />;
+  return <SearchReviews width="w-72" border />;
 }

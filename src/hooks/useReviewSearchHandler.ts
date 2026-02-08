@@ -1,20 +1,26 @@
 import { closeModal } from "@/lib/store/modal";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { ChangeEvent, KeyboardEvent, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 
 export const useReviewSearchHandler = () => {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const query = searchParams.get("query");
   const dispatch = useDispatch();
+  const params = useParams();
+  const titleParams = params?.title as string;
   const [value, setValue] = useState("");
   const [showSearchSuggestions, setShowSearchSuggestions] = useState(false);
   const [showSearchResults, setShowSearchResults] = useState(false);
 
   useEffect(() => {
-    if (query) setValue(query);
-  }, [query]);
+    if (titleParams) setValue(decodeURIComponent(titleParams));
+  }, [titleParams]);
+
+  const submitSearch = (searchValue: string) => {
+    router.push(`/searchReviews/${encodeURIComponent(searchValue)}`);
+    setShowSearchSuggestions(false);
+    setShowSearchResults(true);
+  };
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setShowSearchResults(false);
@@ -22,22 +28,15 @@ export const useReviewSearchHandler = () => {
     setValue(e.target.value);
   };
 
-  const handleKeyDown = (
-    e: KeyboardEvent<HTMLInputElement>,
-    inputValue: string,
-  ) => {
-    if (e.key === "Enter" && inputValue?.trim() !== "") {
-      router.push(`/searchReviews?query=${inputValue}`);
-      setShowSearchSuggestions(false);
-      setShowSearchResults(true);
+  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter" && value?.trim() !== "") {
+      submitSearch(value);
     }
   };
 
   const handleClick = (title: string) => {
     setValue(title);
-    router.push(`/searchReviews?query=${title}`);
-    setShowSearchSuggestions(false);
-    setShowSearchResults(true);
+    submitSearch(title);
     dispatch(closeModal());
   };
 

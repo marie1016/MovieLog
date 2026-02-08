@@ -13,10 +13,10 @@ export default function MovieGrid({
   recommendedMovies,
   value,
 }: MovieGridProps) {
-  const { searchResults, isError, isLoading } = useSearchMovies(value);
+  const { searchResults, isError, isFetching } = useSearchMovies(value!);
   const movies = recommendedMovies || searchResults;
 
-  if (isLoading) return <SkeletonMovieGrid />;
+  if (isFetching) return <SkeletonMovieGrid />;
 
   if (isError)
     return (
