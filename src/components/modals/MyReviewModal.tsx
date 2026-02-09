@@ -6,9 +6,7 @@ import { Review } from "@/types/addReview";
 import { useQueryClient } from "@tanstack/react-query";
 import { useDispatch } from "react-redux";
 import { closeModal } from "@/lib/store/modal";
-import ReviewHeader from "../ui/review/ReviewHeader";
-import ReviewInfo from "../ui/review/ReviewInfo";
-import ReviewText from "../ui/review/ReviewText";
+import ReviewItem from "../ui/review/ReviewItem";
 
 export default function MyReviewModal({
   dateStr,
@@ -17,14 +15,12 @@ export default function MyReviewModal({
 }) {
   const dispatch = useDispatch();
   const dialogRef = useRef<HTMLDialogElement>(null);
+  const formattedDate = dayjs(dateStr).format("YYYY년 MM월 DD일");
 
   const queryClient = useQueryClient();
   const myReviews: Review[] | undefined = queryClient.getQueryData([
     "myReviews",
   ]);
-
-  const formattedDate = dayjs(dateStr).format("YYYY년 MM월 DD일");
-
   const myReviewsForDate = myReviews?.filter((myReview) => {
     const selectedDateStr = myReview.createdAt.toISOString().split("T")[0];
     return selectedDateStr === dateStr;
@@ -51,9 +47,7 @@ export default function MyReviewModal({
         <ul className="mt-10 flex flex-col gap-8">
           {myReviewsForDate?.map((review) => (
             <li key={review.id}>
-              <ReviewHeader {...review} />
-              <ReviewInfo {...review} />
-              <ReviewText {...review} />
+              <ReviewItem review={review} />
             </li>
           ))}
         </ul>

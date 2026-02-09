@@ -1,12 +1,14 @@
-import ReviewDetail from "@/components/reviewDetail/ReviewDetail";
+import ReviewDetailSection from "@/components/reviewDetail/ReviewDetailSection";
 import ReviewsForSameMovie from "@/components/reviewDetail/ReviewsForSameMovie";
 import SimilarMovies from "@/components/reviewDetail/SimilarMovies";
 import { SkeletonMovieCarousel } from "@/components/skeleton/SkeletonMovieCarousel";
+import SkeletonReviewHeader, {
+  SkeletonReviewInfo,
+} from "@/components/skeleton/SkeletonReviewDetail";
 import { SkeletonReviewsForSameMovie } from "@/components/skeleton/SkeletonReviewsForSameMovie";
-import { getReviewById } from "@/lib/firebase/getReviewById";
 import { Suspense } from "react";
 
-export default async function ReviewDetailPage({
+export default function ReviewDetailPage({
   params,
   searchParams,
 }: {
@@ -16,11 +18,18 @@ export default async function ReviewDetailPage({
   const { id } = params;
   const { genreId, title } = searchParams;
 
-  const reviewById = await getReviewById(id);
-
   return (
     <div className="mx-auto max-w-4xl">
-      <ReviewDetail id={id} reviewById={reviewById} />
+      <Suspense
+        fallback={
+          <>
+            <SkeletonReviewHeader size="lg" />
+            <SkeletonReviewInfo size="lg" />
+          </>
+        }
+      >
+        <ReviewDetailSection id={id} />
+      </Suspense>
       <h1 className="mb-6 mt-14 text-2xl font-medium">비슷한 영화</h1>
       <Suspense fallback={<SkeletonMovieCarousel />}>
         <SimilarMovies genreId={genreId} />

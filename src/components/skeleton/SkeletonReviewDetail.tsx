@@ -1,13 +1,13 @@
 import { SkeletonPosterImage } from "./SkeletonPosterImage";
 
 export default function SkeletonReviewHeader({
-  variant = "feed",
+  size = "sm",
 }: {
-  variant?: "feed" | "detail";
+  size?: "sm" | "lg";
 }) {
-  const isDetail = variant === "detail";
+  const isLarge = size === "lg";
 
-  return isDetail ? (
+  return isLarge ? (
     <>
       <div className="skeleton mx-auto mb-6 h-5 w-1/5" />
       <div className="mb-3 flex justify-end">

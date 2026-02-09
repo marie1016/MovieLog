@@ -6,19 +6,19 @@ import dayjs from "dayjs";
 interface ReviewHeaderProps {
   userName?: string | undefined;
   createdAt?: Date | undefined;
-  variant?: "feed" | "detail";
+  size?: "sm" | "lg";
 }
 
 export default function ReviewHeader({
   userName,
   createdAt,
-  variant = "feed",
+  size = "sm",
 }: ReviewHeaderProps) {
-  const isDetail = variant === "detail";
+  const isLarge = size === "lg";
   const today = dayjs().format("YYYY.MM.DD");
   const reviewDate = createdAt ? getElapsedTime(createdAt) : today;
 
-  return isDetail ? (
+  return isLarge ? (
     <>
       <div className="mb-6 text-center text-2xl font-medium">{userName}</div>
       <div className="mb-3 flex justify-end">
