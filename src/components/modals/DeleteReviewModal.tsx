@@ -1,7 +1,7 @@
 import { useDeleteReview } from "@/hooks/mutations/useDeleteReview";
-import Button from "../ui/button";
 import { useDispatch } from "react-redux";
 import { closeModal } from "@/lib/store/modal";
+import Button from "../ui/button";
 
 export default function DeleteReviewModal({ id }: { id?: string }) {
   const dispatch = useDispatch();
