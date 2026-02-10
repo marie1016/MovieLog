@@ -1,8 +1,6 @@
 import { useDispatch } from "react-redux";
 import { closeModal } from "@/lib/store/modal";
-import { useQuery } from "@tanstack/react-query";
-import { Review } from "@/types/addReview";
-import { getReviewById } from "@/lib/firebase/getReviewById";
+import { useReviewById } from "@/hooks/queries/useReviewById";
 import ReviewForm from "../addReview/ReviewForm";
 
 interface EditReviewModalProps {
@@ -12,10 +10,7 @@ interface EditReviewModalProps {
 export default function EditReviewModal({ id }: EditReviewModalProps) {
   const dispatch = useDispatch();
 
-  const { data: review } = useQuery<Review | null>({
-    queryKey: ["reviewById"],
-    queryFn: async () => getReviewById(id!),
-  });
+  const { review } = useReviewById(id!);
 
   if (!review) return null;
 

@@ -1,7 +1,7 @@
 "use client";
 
 import { Review } from "@/types/addReview";
-import { useSearchReviews } from "@/hooks/useSearchReviews";
+import { useSearchReviews } from "@/hooks/queries/useSearchReviews";
 import ReviewItem from "../ui/review/ReviewItem";
 
 interface ReviewListProps {
@@ -10,7 +10,11 @@ interface ReviewListProps {
 }
 
 export default function ReviewList({ reviews, title }: ReviewListProps) {
-  const { searchResults, error, isFetching } = useSearchReviews(reviews, title);
+  const {
+    data: searchResults,
+    error,
+    isFetching,
+  } = useSearchReviews(reviews, title);
 
   if (error) {
     throw new Error("검색한 리뷰 데이터를 불러오는 중 오류가 발생했습니다.");

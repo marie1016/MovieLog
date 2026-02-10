@@ -10,9 +10,10 @@ export default async function ModalPage({
 }) {
   const { id } = params;
   const movieDetails = await getMovieDetails(id);
+  if (!movieDetails) return null;
 
   // eslint-disable-next-line @typescript-eslint/naming-convention
-  const { poster_path, title, genres, runtime } = movieDetails!;
+  const { poster_path, title, genres, runtime } = movieDetails;
 
   return (
     <>

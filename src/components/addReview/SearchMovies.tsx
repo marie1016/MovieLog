@@ -1,21 +1,23 @@
 "use client";
 
 import { useRef } from "react";
-import { Movie } from "@/types/movie";
 
+import { RootState } from "@/lib/store";
+import { useSelector } from "react-redux";
 import { useHandleClickOutside } from "@/hooks/useHandleClickOutside";
-import { useSearchSuggestions } from "@/hooks/useSearchSuggestions";
-import { useMovieSearchHandler } from "@/hooks/useMovieSearhHandler";
+import { useSearchSuggestions } from "@/hooks/queries/useSearchSuggestions";
+import { useMovieSearchHandler } from "@/hooks/useMovieSearchHandler";
+import { useMyReviews } from "@/hooks/queries/useMyReviews";
+import { useRecommendedMovies } from "@/hooks/queries/useRecommendedMovies";
 import MovieGrid from "./MovieGrid";
 import SearchInput from "../ui/SearchInput";
 import SearchSuggestions from "../ui/SearchSuggestions";
+import SkeletonMovieGrid from "../skeleton/SkeletonMovieGrid";
 
-export default function SearchMovies({
-  recommendedMovies,
-}: {
-  recommendedMovies: Movie[] | undefined;
-}) {
+export default function SearchMovies() {
   const ref = useRef<HTMLDivElement>(null);
+  const { user } = useSelector((state: RootState) => state.user);
+  const displayName = user?.displayName || "";
 
   const {
     value,
@@ -27,7 +29,11 @@ export default function SearchMovies({
     setShowSearchSuggestions,
   } = useMovieSearchHandler();
 
-  const { searchResults } = useSearchSuggestions(value, 500);
+  const { data: searchResults } = useSearchSuggestions(value, 500);
+
+  const { reviewsData } = useMyReviews(displayName);
+  const { data: recommendedMovies, isFetching } =
+    useRecommendedMovies(reviewsData);
 
   useHandleClickOutside(ref, () => setShowSearchSuggestions(false));
 
@@ -45,7 +51,11 @@ export default function SearchMovies({
       {!showSearchResults && (
         <>
           <h1 className="mb-6 mt-10 text-2xl font-medium">추천 영화</h1>
-          <MovieGrid recommendedMovies={recommendedMovies} />
+          {isFetching ? (
+            <SkeletonMovieGrid />
+          ) : (
+            <MovieGrid recommendedMovies={recommendedMovies} />
+          )}
         </>
       )}
 

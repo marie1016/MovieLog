@@ -2,7 +2,9 @@ import { Review } from "@/types/addReview";
 import { doc, getDoc, Timestamp } from "firebase/firestore";
 import { db } from "./firebase";
 
-export const getReviewById = async (id: string): Promise<Review | null> => {
+export const getReviewById = async (
+  id: string,
+): Promise<Review | undefined> => {
   try {
     const docRef = doc(db, "reviews", id);
     const docSnap = await getDoc(docRef);

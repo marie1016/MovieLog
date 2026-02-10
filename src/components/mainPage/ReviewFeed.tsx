@@ -1,18 +1,16 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import type { InfiniteData, QueryKey } from "@tanstack/react-query";
-import { useInfiniteQuery } from "@tanstack/react-query";
-import { getReviews, ReviewPage } from "@/lib/firebase/getReviews";
+import { useInfiniteReviewFeed } from "@/hooks/queries/useInfiniteReviewFeed";
+import { ReviewPage } from "@/lib/firebase/getReviews";
 import ReviewItem from "../ui/review/ReviewItem";
-
-type PageParam = Date | null;
 
 export default function ReviewFeed({
   initialPage,
 }: {
   initialPage: ReviewPage;
 }) {
+  const ref = useRef<HTMLDivElement | null>(null);
   const {
     data,
     fetchNextPage,
@@ -20,25 +18,7 @@ export default function ReviewFeed({
     isFetchingNextPage,
     error,
     isFetching,
-  } = useInfiniteQuery<
-    ReviewPage,
-    Error,
-    InfiniteData<ReviewPage>,
-    QueryKey,
-    PageParam
-  >({
-    queryKey: ["reviews"],
-    queryFn: ({ pageParam }) => getReviews(pageParam),
-    initialPageParam: null,
-    initialData: {
-      pages: [initialPage],
-      pageParams: [null],
-    },
-    getNextPageParam: (lastPage) => lastPage.nextCursor,
-    staleTime: 0,
-  });
-
-  const ref = useRef<HTMLDivElement | null>(null);
+  } = useInfiniteReviewFeed(initialPage);
 
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {

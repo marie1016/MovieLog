@@ -1,18 +1,13 @@
 "use server";
 
 import { getUser } from "@/lib/firebase/getUser";
-import { Genre } from "@/types/movie";
 import { getFirestore } from "firebase-admin/firestore";
-import { redirect } from "next/navigation";
 
-export async function addReview(
-  formData: FormData,
-  movieId: number | undefined,
-  posterPath: string,
-  title: string,
-  genres: Genre[],
-  runtime: number,
-) {
+export async function updateReview(formData: FormData, id: string) {
+  if (!id) {
+    throw new Error("수정할 리뷰 ID가 없습니다.");
+  }
+
   const user = await getUser();
   if (!user) {
     throw new Error("로그인이 필요합니다.");
@@ -23,17 +18,11 @@ export async function addReview(
   const review = formData.get("review");
 
   const db = getFirestore();
-  await db.collection("reviews").add({
+  const ref = db.collection("reviews").doc(id);
+
+  await ref.update({
     voteAverage,
     date,
     review,
-    movieId,
-    posterPath,
-    title,
-    genres,
-    runtime,
-    createdAt: new Date(),
-    userName: user.displayName,
   });
-  redirect("/");
 }
