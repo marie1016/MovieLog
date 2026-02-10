@@ -21,8 +21,9 @@ export default function MyReviewModal({
   const myReviews: Review[] | undefined = queryClient.getQueryData([
     "myReviews",
   ]);
+
   const myReviewsForDate = myReviews?.filter((myReview) => {
-    const selectedDateStr = myReview.createdAt.toISOString().split("T")[0];
+    const selectedDateStr = myReview.createdAt.split("T")[0];
     return selectedDateStr === dateStr;
   });
 
@@ -39,7 +40,7 @@ export default function MyReviewModal({
         onClick={clickBackdrop}
       />
       <dialog
-        className="fixed inset-0 z-20 mt-20 h-full w-screen overflow-y-auto rounded-xl bg-white p-7 sm:mb-20 sm:max-h-[calc(100vh-10rem)] sm:w-[480px] sm:px-14 sm:py-10"
+        className="fixed inset-0 z-20 mt-20 h-auto w-screen overflow-y-auto rounded-xl bg-white p-7 sm:mb-20 sm:max-h-[calc(100vh-10rem)] sm:w-[480px] sm:px-14 sm:py-10"
         ref={dialogRef}
         open
       >

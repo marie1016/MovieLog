@@ -11,7 +11,7 @@ export interface Review {
   voteAverage: string;
   date: string;
   review: string;
-  createdAt: Date;
+  createdAt: string;
   userName: string;
   movieId: number;
   posterPath: string;
