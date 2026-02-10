@@ -6,9 +6,18 @@ export default async function RankingBox() {
 
   if (!sortedTitleMap)
     return (
-      <div className="text-center text-lg">
+      <div className="h-auto w-60 rounded-xl border border-gray px-5 text-center lg:w-auto lg:py-6">
         리뷰 랭킹을 불러오는 중<br />
         오류가 발생했습니다.
+      </div>
+    );
+
+  if (!sortedTitleMap.length)
+    return (
+      <div className="h-auto w-60 rounded-xl border border-gray px-5 text-center lg:w-auto lg:py-6">
+        한 달 동안
+        <br />
+        등록된 리뷰가 없어요.
       </div>
     );
 

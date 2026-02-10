@@ -5,18 +5,10 @@ import { useQuery } from "@tanstack/react-query";
 export const useSearchReviews = (
   reviews: Review[] | undefined,
   value: string,
-) => {
-  const {
-    data: searchResults,
-    isError,
-    error,
-    isFetching,
-  } = useQuery<Review[] | undefined>({
+) =>
+  useQuery<Review[] | undefined>({
     queryKey: ["reviewsForSameMovie", value],
     queryFn: () => getReviewsForSameMovie(value),
     initialData: reviews,
     enabled: !!value && value.trim() !== "",
   });
-
-  return { searchResults, isError, error, isFetching };
-};

@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import { useHandleClickOutside } from "@/hooks/useHandleClickOutside";
-import { useSearchSuggestions } from "@/hooks/useSearchSuggestions";
+import { useSearchSuggestions } from "@/hooks/queries/useSearchSuggestions";
 import { useReviewSearchHandler } from "@/hooks/useReviewSearchHandler";
 import SearchInput from "../ui/SearchInput";
 import SearchSuggestions from "../ui/SearchSuggestions";
@@ -25,7 +25,7 @@ export default function SearchReviews({
     setShowSearchSuggestions,
   } = useReviewSearchHandler();
 
-  const { searchResults } = useSearchSuggestions(value, 500);
+  const { data: searchResults } = useSearchSuggestions(value, 500);
 
   useHandleClickOutside(ref, () => setShowSearchSuggestions(false));
 

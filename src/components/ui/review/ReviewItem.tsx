@@ -7,7 +7,7 @@ import ReviewInfo from "./ReviewInfo";
 import ReviewText from "./ReviewText";
 
 interface ReviewItemProps {
-  review: Review;
+  review: Review | undefined;
   isFetching?: boolean;
   size?: "sm" | "lg";
 }
@@ -30,6 +30,8 @@ export default function ReviewItem({
       </>
     );
   }
+
+  if (!review) return null;
 
   return size === "lg" ? (
     <>

@@ -1,24 +1,18 @@
 "use client";
 
-import { Review } from "@/types/addReview";
 import Image from "next/image";
 import Calendar, { TileArgs } from "react-calendar";
 import { useState } from "react";
 import clsx from "clsx";
-import { useIsRestoring, useQuery } from "@tanstack/react-query";
-import { getMyReviews } from "@/lib/firebase/getMyReviews";
+import { useIsRestoring } from "@tanstack/react-query";
+import { useMyReviews } from "@/hooks/queries/useMyReviews";
 import TileContent from "./TileContent";
 
 export default function MyCalendar({ displayName }: { displayName: string }) {
   const [startDate, setStartDate] = useState<Date | null>(new Date());
   const isRestoring = useIsRestoring();
 
-  const { data, isFetching, isError } = useQuery<Review[]>({
-    queryKey: ["myReviews"],
-    queryFn: async () => getMyReviews(displayName),
-    staleTime: 60 * 60 * 1000,
-    meta: { persist: true },
-  });
+  const { reviewsData, isFetching, isError } = useMyReviews(displayName);
 
   if (isFetching || isRestoring)
     return (
@@ -31,12 +25,12 @@ export default function MyCalendar({ displayName }: { displayName: string }) {
       />
     );
 
-  if (isError || !data) {
+  if (isError || !reviewsData) {
     throw new Error("내 리뷰 데이터를 불러오는 중 오류가 발생했습니다.");
   }
 
   const renderTileContent = (props: TileArgs) => (
-    <TileContent date={props.date} reviewsData={data} />
+    <TileContent date={props.date} reviewsData={reviewsData} />
   );
 
   return (

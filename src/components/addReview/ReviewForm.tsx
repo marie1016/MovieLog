@@ -2,12 +2,11 @@
 
 import React, { ChangeEvent, useEffect, useState } from "react";
 import Image from "next/image";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { addReview } from "@/actions/addReview";
+import { useUpdateReview } from "@/hooks/mutations/useUpdateReview";
+import { useCreateReview } from "@/hooks/mutations/useCreateReview";
 import dayjs from "dayjs";
 import { useRouter } from "next/navigation";
 import { handleVoteAverageChange } from "@/lib/utils/handleVoteAverageChange";
-import { editReview } from "@/actions/editReview";
 import { useForm } from "react-hook-form";
 import { Genre } from "@/types/movie";
 import Input from "../ui/input";
@@ -40,7 +39,6 @@ export default function ReviewForm({
 }: ReviewFormProps) {
   const today = dayjs().format("YYYY.MM.DD");
   const router = useRouter();
-  const queryClient = useQueryClient();
   const [editMode, setEditMode] = useState(!!review);
 
   const defaultValues = () => ({
@@ -63,30 +61,22 @@ export default function ReviewForm({
     reset(defaultValues());
   }, [id]);
 
-  const mutation = useMutation({
-    mutationFn: editMode
-      ? async (formData: FormData) => {
-          await editReview(formData, id);
-        }
-      : (formData: FormData) =>
-          addReview(formData, movieId, posterPath, title, genres, runtime),
+  const updateReview = useUpdateReview(id!, {
     onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ["reviews"],
-      });
-      queryClient.invalidateQueries({ queryKey: ["myReviews"] });
-      queryClient.invalidateQueries({ queryKey: ["reviewsForSameMovie"] });
-      queryClient.invalidateQueries({ queryKey: ["reviewById"] });
-
-      if (editMode) {
-        closeEditModal?.();
-        router.back();
-      }
-    },
-    onError: () => {
-      alert(`리뷰 작성/수정 중 에러가 발생했습니다.`);
+      closeEditModal?.();
+      router.back();
     },
   });
+
+  const createReview = useCreateReview(
+    movieId!,
+    posterPath,
+    title,
+    genres,
+    runtime,
+  );
+
+  const { mutation } = editMode ? updateReview : createReview;
 
   const onSubmit = (formData: FormData) => {
     mutation.mutate(formData);
