@@ -5,7 +5,7 @@ import dayjs from "dayjs";
 
 interface ReviewHeaderProps {
   userName?: string | undefined;
-  createdAt?: Date | undefined;
+  createdAt?: string | undefined;
   size?: "sm" | "lg";
 }
 
