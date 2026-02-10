@@ -14,7 +14,7 @@ export default function DropdownList({
   return (
     open && (
       <ul
-        className={`${className} flex h-20 w-32 flex-col items-center justify-evenly rounded-lg border border-gray600 bg-background-gray400 text-gray600`}
+        className={`${className} flex w-32 flex-col items-center justify-evenly rounded-lg border border-gray600 bg-background-gray400 text-gray600`}
       >
         {children}
       </ul>

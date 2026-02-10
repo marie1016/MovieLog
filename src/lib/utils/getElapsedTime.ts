@@ -5,7 +5,7 @@ import "dayjs/locale/ko";
 dayjs.extend(relativeTime);
 dayjs.locale("ko");
 
-export function getElapsedTime(date: Date) {
+export function getElapsedTime(date: string) {
   const now = dayjs();
   const reviewDate = dayjs(date);
 

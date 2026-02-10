@@ -28,7 +28,7 @@ export default function PosterImage({
       )}
     >
       <Link
-        href={`/searchReviews?query=${title}`}
+        href={`/searchReviews/${title}`}
         className={clsx("relative aspect-[0.7] overflow-hidden", dimensions[1])}
       >
         <Image

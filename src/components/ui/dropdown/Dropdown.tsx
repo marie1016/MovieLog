@@ -1,9 +1,9 @@
 "use client";
 
+import { useHandleClickOutside } from "@/hooks/useHandleClickOutside";
 import React, {
   createContext,
   useContext,
-  useEffect,
   useMemo,
   useRef,
   useState,
@@ -29,21 +29,7 @@ export default function Dropdown({ children }: { children: React.ReactNode }) {
   const [open, toggle] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(e.target as Node)
-      ) {
-        toggle(false);
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  });
+  useHandleClickOutside(dropdownRef, () => toggle(false));
 
   const providerValue = useMemo(() => ({ open, toggle }), [open, toggle]);
 

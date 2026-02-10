@@ -31,9 +31,13 @@ export default function UserMenu({ user }: { user: User }) {
       <DropdownToggle className="cursor-pointer text-blue">
         {displayName}
       </DropdownToggle>
-      <DropdownList className="absolute right-0 top-8">
+      <DropdownList className="absolute right-2 top-10 z-10">
         <DropdownItem>
           <Link href="/myPage">내 기록</Link>
+        </DropdownItem>
+        <hr className="w-32 border-t border-gray600" />
+        <DropdownItem>
+          <Link href="/addReview">리뷰 작성</Link>
         </DropdownItem>
         <hr className="w-32 border-t border-gray600" />
         <DropdownItem onClick={handleLogout}>로그아웃</DropdownItem>

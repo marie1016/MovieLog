@@ -26,7 +26,7 @@ export const getMyReviews = async (
     return {
       ...data,
       id: doc.id,
-      createdAt: (data.createdAt as Timestamp).toDate(),
+      createdAt: (data.createdAt as Timestamp).toDate().toISOString(),
     };
   }) as Review[];
 

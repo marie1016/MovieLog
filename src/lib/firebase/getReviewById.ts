@@ -13,7 +13,7 @@ export const getReviewById = async (
     return {
       ...data,
       id: docSnap.id,
-      createdAt: (data?.createdAt as Timestamp).toDate(),
+      createdAt: (data?.createdAt as Timestamp).toDate().toISOString(),
     } as Review;
   } catch (error) {
     throw new Error("리뷰 상세를 불러오는 중 오류가 발생했습니다.");
