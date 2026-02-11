@@ -25,11 +25,10 @@ export default function UserMenu({ user }: { user: User }) {
     }
   };
 
-  const { displayName } = user;
   return (
     <Dropdown>
       <DropdownToggle className="cursor-pointer text-blue">
-        {displayName}
+        {user.displayName}
       </DropdownToggle>
       <DropdownList className="absolute right-2 top-10 z-10">
         <DropdownItem>
