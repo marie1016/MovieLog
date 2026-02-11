@@ -4,17 +4,15 @@ import Image from "next/image";
 import Calendar, { TileArgs } from "react-calendar";
 import { useState } from "react";
 import clsx from "clsx";
-import { useIsRestoring } from "@tanstack/react-query";
 import { useMyReviews } from "@/hooks/queries/useMyReviews";
 import TileContent from "./TileContent";
 
 export default function MyCalendar({ displayName }: { displayName: string }) {
   const [startDate, setStartDate] = useState<Date | null>(new Date());
-  const isRestoring = useIsRestoring();
 
-  const { reviewsData, isFetching, isError } = useMyReviews(displayName);
+  const { reviewsData = [], isFetching, isError } = useMyReviews(displayName);
 
-  if (isFetching || isRestoring)
+  if (isFetching)
     return (
       <Image
         src="/images/dots-rotate.svg"
@@ -25,7 +23,7 @@ export default function MyCalendar({ displayName }: { displayName: string }) {
       />
     );
 
-  if (isError || !reviewsData) {
+  if (isError) {
     throw new Error("내 리뷰 데이터를 불러오는 중 오류가 발생했습니다.");
   }
 

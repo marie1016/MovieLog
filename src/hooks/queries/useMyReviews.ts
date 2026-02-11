@@ -10,8 +10,7 @@ export const useMyReviews = (displayName: string) => {
     queryKey: ["myReviews"],
     queryFn: () => getMyReviews(displayName),
     enabled: !!displayName,
-    staleTime: 60 * 60 * 1000,
-    meta: { persist: true },
+    staleTime: 1000 * 60 * 5,
   });
 
   return {

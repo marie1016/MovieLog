@@ -41,8 +41,8 @@ export default function RecommendedMovieResult() {
         추천 영화를 불러오는 중 오류가 발생했습니다.
       </div>
     );
-
-  if (!reviewsData?.length) return <RecommendedMovieEmpty />;
+  if (!reviewsData) return null;
+  if (!reviewsData.length) return <RecommendedMovieEmpty />;
 
   return <RecommendedMovieContent reviewsData={reviewsData} />;
 }

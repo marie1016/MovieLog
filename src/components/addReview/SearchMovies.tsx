@@ -7,8 +7,8 @@ import { useSearchSuggestions } from "@/hooks/queries/useSearchSuggestions";
 import { useMovieSearchHandler } from "@/hooks/useMovieSearchHandler";
 import SearchInput from "../ui/SearchInput";
 import SearchSuggestions from "../ui/SearchSuggestions";
-import RecommendedMovieResult from "./RecommendedMovieResult";
 import SearchMovieResult from "./SearchMovieResult";
+import RecommendedMovieResult from "./RecommendedMovieResult";
 
 export default function SearchMovies() {
   const ref = useRef<HTMLDivElement>(null);
