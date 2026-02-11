@@ -2,22 +2,16 @@
 
 import { useRef } from "react";
 
-import { RootState } from "@/lib/store";
-import { useSelector } from "react-redux";
 import { useHandleClickOutside } from "@/hooks/useHandleClickOutside";
 import { useSearchSuggestions } from "@/hooks/queries/useSearchSuggestions";
 import { useMovieSearchHandler } from "@/hooks/useMovieSearchHandler";
-import { useMyReviews } from "@/hooks/queries/useMyReviews";
-import { useRecommendedMovies } from "@/hooks/queries/useRecommendedMovies";
-import MovieGrid from "./MovieGrid";
 import SearchInput from "../ui/SearchInput";
 import SearchSuggestions from "../ui/SearchSuggestions";
-import SkeletonMovieGrid from "../skeleton/SkeletonMovieGrid";
+import SearchMovieResult from "./SearchMovieResult";
+import RecommendedMovieResult from "./RecommendedMovieResult";
 
 export default function SearchMovies() {
   const ref = useRef<HTMLDivElement>(null);
-  const { user } = useSelector((state: RootState) => state.user);
-  const displayName = user?.displayName || "";
 
   const {
     value,
@@ -30,10 +24,6 @@ export default function SearchMovies() {
   } = useMovieSearchHandler();
 
   const { data: searchResults } = useSearchSuggestions(value, 500);
-
-  const { reviewsData } = useMyReviews(displayName);
-  const { data: recommendedMovies, isFetching } =
-    useRecommendedMovies(reviewsData);
 
   useHandleClickOutside(ref, () => setShowSearchSuggestions(false));
 
@@ -51,11 +41,7 @@ export default function SearchMovies() {
       {!showSearchResults && (
         <>
           <h1 className="mb-6 mt-10 text-2xl font-medium">추천 영화</h1>
-          {isFetching ? (
-            <SkeletonMovieGrid />
-          ) : (
-            <MovieGrid recommendedMovies={recommendedMovies} />
-          )}
+          <RecommendedMovieResult />
         </>
       )}
 
@@ -72,7 +58,7 @@ export default function SearchMovies() {
       )}
 
       {/* 검색 결과 */}
-      {showSearchResults && <MovieGrid value={value} />}
+      {showSearchResults && <SearchMovieResult value={value} />}
     </div>
   );
 }

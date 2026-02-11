@@ -10,8 +10,7 @@ export const useReviewById = (id: string, reviewById?: Review | undefined) => {
   } = useQuery<Review | undefined>({
     queryKey: ["reviewById"],
     queryFn: async () => getReviewById(id),
-    initialData: reviewById,
-    staleTime: 1000 * 60 * 5,
+    initialData: reviewById,  
   });
 
   return {
