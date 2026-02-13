@@ -111,7 +111,7 @@ export default function SignupPage() {
         />
         <Button
           type="submit"
-          className="my-6 rounded-lg bg-blue text-white"
+          className={`my-6 rounded-lg bg-blue text-white ${isSubmitting ? "bg-gray600" : "bg-blue"}`}
           disabled={isSubmitting}
         >
           회원가입

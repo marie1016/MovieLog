@@ -81,7 +81,11 @@ export default function LoginPage() {
         {errors.root?.message && (
           <p className="mt-3 text-[14px] text-danger">{errors.root.message}</p>
         )}
-        <Button type="submit" className="mt-9 bg-blue" disabled={isSubmitting}>
+        <Button
+          type="submit"
+          className={`mt-9 bg-blue ${isSubmitting ? "bg-gray600" : "bg-blue"}`}
+          disabled={isSubmitting}
+        >
           로그인
         </Button>
         <Button
