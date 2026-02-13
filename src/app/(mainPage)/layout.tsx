@@ -23,6 +23,7 @@ export default function MainPageLayout({
       <Link
         href="/addReview"
         className="fixed bottom-4 right-4 sm:bottom-8 sm:right-8 lg:bottom-12 lg:right-12"
+        prefetch={false}
       >
         <Image
           src="/images/plus-circle-gray.svg"

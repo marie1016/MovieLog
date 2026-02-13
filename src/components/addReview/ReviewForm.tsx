@@ -43,7 +43,7 @@ export default function ReviewForm({
 
   const defaultValues = () => ({
     voteAverage: voteAverage || "",
-    date: date || "",
+    date: date || today,
     review: review || "",
   });
 
