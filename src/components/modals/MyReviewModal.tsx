@@ -1,7 +1,7 @@
 "use client";
 
-import { useRef } from "react";
 import dayjs from "dayjs";
+import Image from "next/image";
 import { Review } from "@/types/addReview";
 import { useQueryClient } from "@tanstack/react-query";
 import { useDispatch } from "react-redux";
@@ -14,7 +14,6 @@ export default function MyReviewModal({
   dateStr: string | undefined;
 }) {
   const dispatch = useDispatch();
-  const dialogRef = useRef<HTMLDialogElement>(null);
   const formattedDate = dayjs(dateStr).format("YYYY년 MM월 DD일");
 
   const queryClient = useQueryClient();
@@ -27,23 +26,22 @@ export default function MyReviewModal({
     return selectedDateStr === dateStr;
   });
 
-  const clickBackdrop = (e: React.MouseEvent) => {
-    if (e.target !== dialogRef.current) {
-      dispatch(closeModal());
-    }
-  };
-
   return (
-    <>
-      <div
-        className="fixed inset-0 z-10 h-screen w-screen bg-black/0"
-        onClick={clickBackdrop}
-      />
-      <dialog
-        className="fixed inset-0 z-20 mt-20 h-auto w-screen overflow-y-auto rounded-xl bg-white p-7 sm:mb-20 sm:max-h-[calc(100vh-10rem)] sm:w-[480px] sm:px-14 sm:py-10"
-        ref={dialogRef}
-        open
-      >
+    <div className="fixed inset-0 z-10 flex items-end justify-center bg-black/60 sm:items-center">
+      <div className="z-20 max-h-[90vh] w-full animate-bottom-up overflow-y-auto rounded-t-2xl bg-white p-7 sm:max-w-lg sm:animate-none sm:rounded-xl sm:p-10">
+        <div
+          className="mb-8 flex cursor-pointer justify-end"
+          onClick={() => {
+            dispatch(closeModal());
+          }}
+        >
+          <Image
+            src="/images/close-button.svg"
+            alt="닫기 버튼"
+            width={24}
+            height={24}
+          />
+        </div>
         <h2 className="text-center text-xl font-medium">{formattedDate}</h2>
         <ul className="mt-10 flex flex-col gap-8">
           {myReviewsForDate?.map((review) => (
@@ -52,7 +50,7 @@ export default function MyReviewModal({
             </li>
           ))}
         </ul>
-      </dialog>
-    </>
+      </div>
+    </div>
   );
 }

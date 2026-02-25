@@ -38,10 +38,7 @@ export default function ModalContainer() {
       modalContent = null;
   }
 
-  if (modalContent)
-    return (
-      <div className="fixed inset-0 z-10 h-screen w-screen bg-black/60">
-        {modalContent}
-      </div>
-    );
+  if (!modalContent) return null;
+
+  return <div>{modalContent}</div>;
 }

@@ -55,10 +55,15 @@ const config: Config = {
             transform: "translateX(100%)",
           },
         },
+        bottomUp: {
+          "0%": { transform: "translateY(100%)" },
+          "100%": { transform: "translateY(0%)" },
+        },
       },
       animation: {
         "slide-up": "slideUp 10s steps(5) infinite",
         shimmer: "shimmer 1.2s linear infinite",
+        "bottom-up": "bottomUp 0.3s ease-out",
       },
     },
     plugins: [lineClamp],

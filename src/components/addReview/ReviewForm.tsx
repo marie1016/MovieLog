@@ -2,6 +2,8 @@
 
 import React, { ChangeEvent, useEffect, useState } from "react";
 import Image from "next/image";
+import { useDispatch } from "react-redux";
+import { closeModal } from "@/lib/store/modal";
 import { useUpdateReview } from "@/hooks/mutations/useUpdateReview";
 import { useCreateReview } from "@/hooks/mutations/useCreateReview";
 import dayjs from "dayjs";
@@ -22,7 +24,6 @@ interface ReviewFormProps {
   voteAverage?: string;
   date?: string;
   review?: string;
-  closeEditModal?: () => void;
 }
 
 export default function ReviewForm({
@@ -35,10 +36,10 @@ export default function ReviewForm({
   voteAverage,
   date,
   review,
-  closeEditModal,
 }: ReviewFormProps) {
   const today = dayjs().format("YYYY.MM.DD");
   const router = useRouter();
+  const dispatch = useDispatch();
   const [editMode, setEditMode] = useState(!!review);
 
   const defaultValues = () => ({
@@ -63,7 +64,7 @@ export default function ReviewForm({
 
   const updateReview = useUpdateReview(id!, {
     onSuccess: () => {
-      closeEditModal?.();
+      dispatch(closeModal());
       router.back();
     },
   });
@@ -84,7 +85,7 @@ export default function ReviewForm({
 
   const handleReset = () => {
     reset();
-    closeEditModal?.();
+    dispatch(closeModal());
     router.back();
     setEditMode(false);
   };
