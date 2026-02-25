@@ -6,6 +6,14 @@
   box-sizing: border-box;
 }
 
+html {
+  scrollbar-gutter: stable;
+}
+
+html:has([data-modal-root]) {
+  overflow: hidden;
+}
+
 body {
   margin: 0;
   background-color: #ececec;

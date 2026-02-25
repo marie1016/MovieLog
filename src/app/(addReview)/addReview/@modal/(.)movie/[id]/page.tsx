@@ -16,12 +16,11 @@ export default async function ModalPage({
   const { poster_path, title, genres, runtime } = movieDetails;
 
   return (
-    <>
-      <div className="fixed inset-0 z-10 h-screen w-screen bg-black/60" />
-      <dialog
-        className="fixed inset-0 z-20 mt-20 h-auto w-full overflow-y-scroll rounded-xl p-7 sm:mb-14 sm:w-[480px] sm:p-14"
-        open
-      >
+    <div
+      data-modal-root
+      className="fixed inset-0 z-10 flex items-end justify-center bg-black/60 sm:items-center"
+    >
+      <div className="z-20 max-h-[90vh] w-full animate-bottom-up overflow-y-auto rounded-t-2xl bg-white p-7 sm:max-w-lg sm:animate-none sm:rounded-xl sm:p-10">
         <h2 className="text-center text-2xl font-medium">영화 리뷰 등록</h2>
         <div className="mt-10 flex flex-col gap-3">
           <ReviewHeader />
@@ -40,7 +39,7 @@ export default async function ModalPage({
             runtime={runtime}
           />
         </div>
-      </dialog>
-    </>
+      </div>
+    </div>
   );
 }

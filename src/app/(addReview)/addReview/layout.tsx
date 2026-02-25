@@ -10,10 +10,8 @@ export default function AddReviewLayout({
   return (
     <>
       <MainHeader />
-      <div className="mx-auto my-16 px-5 md:px-16 lg:max-w-7xl">
-        {modal}
-        {children}
-      </div>
+      <div className="mx-auto my-16 px-5 md:px-16 lg:max-w-7xl">{children}</div>
+      {modal}
     </>
   );
 }
